@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<partners>
+<partner>
+	<name><![CDATA[powatag]]></name>
+	<module>powatag</module>
+	<checkconfiguration>
+		<key>POWATAG_CONFIGURATION_OK</key>
+	</checkconfiguration>
+	<logo><![CDATA[https://api.prestashop.com/partner/premium/images/powatag.png]]></logo>
+	<labels>
+		<label iso="en"><![CDATA[Enable your mobile users to purchase in just one touch]]></label>
+		<label iso="fr"><![CDATA[Permettez aux aux utilisateurs mobiles d'acheter en un clic seulement]]></label>
+		<label iso="es"><![CDATA[Haz que tus usuarios de móviles compren en un solo toque]]></label>
+	</labels>
+	<optionals>
+	</optionals>
+	<descriptions>
+	</descriptions>
+</partner><partner>
+	<name><![CDATA[Ogone]]></name>
+	<module>ogone</module>
+	<checkconfiguration>
+		<key>OGONE_CONFIGURATION_OK</key>
+	</checkconfiguration>
+	<logo><![CDATA[https://api.prestashop.com/partner/premium/images/ogone.png]]></logo>
+	<labels>
+		<label iso="en"><![CDATA[Speed up your international sales by offering local payment methods]]></label>
+		<label iso="fr"><![CDATA[Accélérez vos ventes à l’international en offrant les moyens de paiement locaux]]></label>
+		<label iso="es"><![CDATA[Acelera el incremento de tus ventas ofreciendo medios de pago locales]]></label>
+		<label iso="de"><![CDATA[Steigern Sie Ihre internationalen Verkäufe durch lokale Zahlmethoden]]></label>
+		<label iso="nl"><![CDATA[Verhoog uw internationale verkoop door lokale betaalmethoden]]></label>
+	</labels>
+	<optionals>
+	</optionals>
+	<descriptions>
+	</descriptions>
+</partner>
+
+</partners>
