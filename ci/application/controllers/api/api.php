@@ -40,6 +40,11 @@ class Api extends REST_Controller
 
     }
 
+      public function boot3_get($id = null)
+    {
+
+    }
+
 
 }
 
