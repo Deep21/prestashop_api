@@ -35,25 +35,9 @@ class Api extends REST_Controller
 
     }
 
-     public function boot1_get($id = null)
-    {
-
-    }
 
 
-      public function boot3_get($id = null){
 
-      }
-
-      public function boot2_get($id = null){
-      	
-      }
-
-    {
-
-    }
 
 
 }
-
-?>
