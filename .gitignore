@@ -1,3 +1,4 @@
 *.md
 cache/
 .idea/
+ci/application/logs/

@@ -82,7 +82,7 @@ class Oauth
                     $cart->date_add = date('Y-m-d H:i:s');
                     $cart->date_upd = date('Y-m-d H:i:s');
                     $id_cart = $cart->addCart($cart);
-                //Si un id_cart existe on le renvoie
+                //Si un id_cart existe on initialise la variable $id_cart
                 } else
                     $id_cart = (int)$cart_array['id_cart'];
 
