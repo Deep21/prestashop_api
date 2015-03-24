@@ -558,6 +558,8 @@ class Product_Model extends CI_Model
                 $pa_eco_tax = (float)$p->pa_eco_tax;
                 $attr_price_with_tax = null;
 
+                dump($p->id_product_attribute);
+                exit;
                 if ($tax_rule_group != null && $pa_eco_tax > 0) {
                     $d = $cl->getTaxRate($tax_rule_group);
                     $eco_tax_TTCc = ps_round($pa_eco_tax + ($pa_eco_tax * ($d['rate'] * 0.01)), 2);
@@ -583,6 +585,7 @@ class Product_Model extends CI_Model
                 $final_price = array_sum(array((float)$base_price_with_tax, (float)$attr_price_with_tax));
 
 
+                dump(ps_round($base_price_with_tax, 2), $attr_price_with_tax);
                 $r[] = array(
                     'price_ttc_base' => (float)$final_price,
                     'final_price_ttc' => '',
