@@ -35,13 +35,6 @@ class Api extends REST_Controller
 
     }
 
-    public function nopull(){
-    	
-    }
-
-    public function nopull_1(){
-    	
-    }
 
 }
 
