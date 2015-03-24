@@ -55,6 +55,8 @@ class Checkout extends REST_Controller implements ConfigurationListner
         $delivery_address = $this->Address_Model->getAddressById($cart->id_address_delivery);
         $invoice_address  = $this->Address_Model->getAddressById($cart->id_address_invoice);
 
+        dump($delivery_address);
+        exit;
         $nbProduct = $this->Cart_Model->getNbProducts($id_cart);
         $shipping_cost = $this->_getShippingConfig();
         $carriers = $this->Carrier_Model->getCarriers();
