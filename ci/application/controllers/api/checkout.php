@@ -33,26 +33,34 @@ class Checkout extends REST_Controller implements ConfigurationListner
 
     public function getCheckout_get()
     {
-        $id_cart = $this->cookie->customer->id_cart;
-        $id_carriers = array();
-        $product_with_reduction = array();
+        /*Chargement des model */
         $this->load->model('Carrier_Model');
         $this->load->model('Product_Model');
         $this->load->model('Tax_Model');
         $this->load->model('Cart_Model');
         $this->load->model('Specific_Price_Model');
+        $this->load->model('Address_Model');
+        /*Chargement des model */
+
+        $id_cart = $this->cookie->customer->id_cart;
+        $id_customer = $this->cookie->customer->id_customer;
+        $id_carriers = array();
+        $product_with_reduction = array();
         $cart_products = $this->Cart_Model->getProductByCartId($this->cookie->customer->id_cart);
         $price = $this->Product_Model->getProductPriceBis($cart_products, true, $this);
-        dump($price);
-        exit;
+        $cart = $this->Cart_Model->getAddressByIdCart($id_cart);
+        $cart->id_address_delivery;
+        $cart->id_address_invoice;
 
+        $delivery_address = $this->Address_Model->getAddressById($cart->id_address_delivery);
+        $invoice_address  = $this->Address_Model->getAddressById($cart->id_address_invoice);
 
         $nbProduct = $this->Cart_Model->getNbProducts($id_cart);
         $shipping_cost = $this->_getShippingConfig();
         $carriers = $this->Carrier_Model->getCarriers();
 
-
-        foreach ($carriers as $carrier) $id_carriers[] = $carrier->id_carrier;
+        foreach ($carriers as $carrier)
+            $id_carriers[] = $carrier->id_carrier;
 
         $tax_group = $this->Carrier_Model->getCarrierTaxGroup($id_carriers);
         $taxs = array();

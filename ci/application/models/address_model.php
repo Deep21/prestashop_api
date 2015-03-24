@@ -33,6 +33,7 @@ class Address_Model extends CI_Model
 
     }
 
+
     public function getAddressByCustomerId($id_customer)
     {
         return $this->db->select('a.id_address, a.alias, a.company, a.lastname, a.firstname, a.address1, a.address2, a.postcode, a.city, a.phone, a.phone_mobile')
@@ -72,4 +73,3 @@ class Address_Model extends CI_Model
 
 }
 
-?>

@@ -47,7 +47,6 @@ class Oauth
         $response = $this->server->handleTokenRequest(OAuth2\Request::createFromGlobals());
         $access_token = $response->getParameter('access_token');
         $customer = $tokenModel->getUserIdByToken($access_token);
-
         $this->_setCookie($customer);
         $response->send();
     }
@@ -60,6 +59,7 @@ class Oauth
         $this->ci_instance->load->library('encrypt');
         $this->ci_instance->load->helper('cookie');
         $this->ci_instance->encrypt->set_cipher(MCRYPT_BLOWFISH);
+
         try {
             //si un client existe on rentre dans la condition
             if (!empty($customer)) {

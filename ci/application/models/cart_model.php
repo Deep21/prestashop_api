@@ -260,6 +260,15 @@ class Cart_Model extends CI_Model
         $this->with_tax_price = $price;
     }
 
+    public function getAddressByIdCart($id_cart){
+
+        return $this->db->get_where(self::$table, array(
+            'id_cart' => $id_cart,
+            )
+        )->first_row('Cart_Model');
+
+    }
+
 
 }
 
