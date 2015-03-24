@@ -35,7 +35,13 @@ class Api extends REST_Controller
 
     }
 
+
     public function pushsanspull(){
+    	
+    }
+
+
+    public function nopull(){
     	
     }
 
