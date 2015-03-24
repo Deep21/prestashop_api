@@ -1,7 +1,4 @@
-[2015-03-18 00-42-45] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
-[2015-03-18 00-55-15] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
-[2015-03-18 00-55-26] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
-[2015-03-18 00-55-34] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
-[2015-03-18 01-08-07] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
-[2015-03-18 14-29-54] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
-[2015-03-18 14-29-58] Unexpected error  @  http://localhost/prestashop/ci/index.php/api/cart/checkout/get 
+[2015-03-24 01-59-48] Exception: Aucun client existe in C:\re\wamp\www\prestashop_test\ci\application\libraries\Oauth.php:94  @  http://localhost/prestashop_test/ci/index.php/api/token/access-token  @@  exception-2015-03-24-01-59-48-c47320b7a79c133e845cd155612006f8.html
+[2015-03-24 02-00-45] Aucun client existe  @  http://localhost/prestashop_test/ci/index.php/api/token/access-token 
+[2015-03-24 02-04-19] Identification échoué / Client non trouvé  @  http://localhost/prestashop_test/ci/index.php/api/token/access-token 
+[2015-03-24 02-07-55] Identification échoué / Client non trouvé  @  http://localhost/prestashop_test/ci/index.php/api/token/access-token 

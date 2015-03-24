@@ -558,20 +558,19 @@ class Product_Model extends CI_Model
                 $pa_eco_tax = (float)$p->pa_eco_tax;
                 $attr_price_with_tax = null;
 
-                if($tax_rule_group!=null && $pa_eco_tax > 0){
+                if ($tax_rule_group != null && $pa_eco_tax > 0) {
                     $d = $cl->getTaxRate($tax_rule_group);
-                    $eco_tax_TTCc =  ps_round($pa_eco_tax + ($pa_eco_tax * ($d['rate']*0.01)), 2);
+                    $eco_tax_TTCc = ps_round($pa_eco_tax + ($pa_eco_tax * ($d['rate'] * 0.01)), 2);
 
                 }
 
                 //Récupération du prix du produit ayant un id_product
                 $price_attr_ht = (float)$p->pa_price;
-                if($price_attr_ht > 0){
+                if ($price_attr_ht > 0) {
                     //Ajout de la tax sur le prix
                     $attr_price_with_tax = $price_attr_ht + ($price_attr_ht * $tax_rate);
 
                 }
-
 
 
                 if (!$tax) {
@@ -591,8 +590,7 @@ class Product_Model extends CI_Model
                     'de' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($final_price, $p->custom_price) : null,
                     'eco_tax' => $eco_tax_TTCc,
                 );
-            }
-            /*
+            } /*
              * Dans le cas ou le produit ne possède pas de id_product_attribute
              */
             else {
@@ -600,9 +598,9 @@ class Product_Model extends CI_Model
                 $product_base_ht = (float)$p->price;
                 $eco_tax_TTC = (float)$p->ecotax;
                 $eco_tax_TTCc = null;
-                if($tax_rule_group!=null){
+                if ($tax_rule_group != null) {
                     $d = $cl->getTaxRate($tax_rule_group);
-                    $eco_tax_TTCc =  ps_round($eco_tax_TTC + ($eco_tax_TTC * ($d['rate']*0.01)),2);
+                    $eco_tax_TTCc = ps_round($eco_tax_TTC + ($eco_tax_TTC * ($d['rate'] * 0.01)), 2);
 
                 }
                 $product_price_with_tax = $product_base_ht + ($product_base_ht * $tax_rate);
@@ -613,7 +611,7 @@ class Product_Model extends CI_Model
                     $r[] = array(
                         'price_ttc_base' => (float)$product_price_with_tax,
                         'final_price_ttc' => (float)$this->_returnDiscountedProductPrice($product_price_with_eco_tax, $p->custom_price),
-                        'specific_price' => (float) $p->custom_price->reduction,
+                        'specific_price' => (float)$p->custom_price->reduction,
                         'eco_tax_ttc' => (!empty($p->custom_price)) ? $eco_tax_TTCc : null
 
                     );

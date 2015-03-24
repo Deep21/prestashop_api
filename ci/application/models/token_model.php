@@ -21,8 +21,16 @@ class Token_model extends CI_Model
 
     public function getUserIdByToken($token)
     {
-        $query = $this->db->select('c.*')->from('oauth_access_tokens oat')->join('customer c', 'c.email = oat.user_id', 'left')->where('c.deleted', 0)->where('c.active', 1)->where('oat.access_token', $token)->get();
-        return $query->first_row();
+        return $this->db->select('c.*')
+            ->from('oauth_access_tokens oat')
+            ->join('customer c', 'c.email = oat.user_id', 'left')
+            ->where('c.deleted', 0)
+            ->where('c.active', 1)
+            ->where('oat.access_token', $token)
+            ->limit(1)
+            ->get()
+            ->first_row();
+
     }
 }
 
