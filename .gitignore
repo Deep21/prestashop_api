@@ -3,4 +3,4 @@ cache/
 .idea/
 ci/application/logs/
 ci/application/logs
-log/
+log/*.log
