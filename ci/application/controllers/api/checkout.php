@@ -63,7 +63,8 @@ class Checkout extends REST_Controller implements ConfigurationListner
         $nbProduct = $this->Cart_Model->getNbProducts($id_cart);
         $shipping_cost = $this->_getShippingConfig();
         $carriers = $this->Carrier_Model->getCarriers();
-
+        dump($carriers);
+        exit;
         foreach ($carriers as $carrier)
             $id_carriers[] = $carrier->id_carrier;
 
