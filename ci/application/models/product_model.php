@@ -5,6 +5,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Product_Model extends CI_Model
 {
+    private $eco_tax = 0;
+
+    private $ht_eco_tax = 0;
+
     public $custom_price = array();
 
     public $custom_prices = array();
@@ -529,12 +533,13 @@ class Product_Model extends CI_Model
         $attr_price_with_tax = null;
         $final_price = null;
         $tax_rate = 1;
-        $r = array();
+        $result = array();
         $product = $this->getSpecificProduct($product);
         $tax_rule_group = (int)$cl->getConfigurationValue('PS_ECOTAX_TAX_RULES_GROUP_ID')[0]->value;
 
         foreach ($product as $key => $p) {
 
+            $pa_eco_tax = (float)$p->pa_eco_tax;
             $id_tax_rules_group = $p->id_tax_rules_group;
             $base_product_price = $p->price;
 
@@ -554,76 +559,77 @@ class Product_Model extends CI_Model
              */
             if (!empty($p->id_product_attribute) && isset($p->id_product_attribute)) {
 
-                $eco_tax_TTCc = null;
-                $pa_eco_tax = (float)$p->pa_eco_tax;
+                $eco_tax = 0;
                 $attr_price_with_tax = null;
 
-                dump($p->id_product_attribute);
-                exit;
-                if ($tax_rule_group != null && $pa_eco_tax > 0) {
+                //Tax
+                if ($tax_rule_group != null && $p->ecotax > 0) {
                     $d = $cl->getTaxRate($tax_rule_group);
-                    $eco_tax_TTCc = ps_round($pa_eco_tax + ($pa_eco_tax * ($d['rate'] * 0.01)), 2);
-
+                    $this->eco_tax = ps_round($p->ecotax + ($p->ecotax * ($d['rate'] * 0.01)), 2);
+                    $this->ht_eco_tax = $p->ecotax * ($d['rate'] * 0.01);
                 }
 
                 //Récupération du prix du produit ayant un id_product
-                $price_attr_ht = (float)$p->pa_price;
-                if ($price_attr_ht > 0) {
+                if ($p->pa_price > 0) {
+
                     //Ajout de la tax sur le prix
-                    $attr_price_with_tax = $price_attr_ht + ($price_attr_ht * $tax_rate);
+                    $attr_price_with_tax = $p->pa_price + ($p->pa_price * $tax_rate);
 
                 }
 
 
                 if (!$tax) {
-                    $price_ht = array_sum(array($base_product_price, $attr_price_with_tax));
-                    $r[] = array('ht_price' => $price_ht, 'currency' => '');
+                    $price_ht = array_sum(array($p->price, $attr_price_with_tax));
+                    $result[] = array('ht_price' => $price_ht, 'currency' => '');
                 }
 
-                $base_price_with_tax = $base_product_price + ($base_product_price * $tax_rate);
+                $price_with_tax = $p->price + ($p->price * $tax_rate) + $this->getEcoTax();
+                //on additionne le prix de base, le prix de la déclinaison et l'ecotax
 
-                $final_price = array_sum(array((float)$base_price_with_tax, (float)$attr_price_with_tax));
+                $price = array_sum(array((float)$price_with_tax, (float)$attr_price_with_tax));
+                //on arrondie le prix
+                $price = ps_round($price, 2);
 
-
-                dump(ps_round($base_price_with_tax, 2), $attr_price_with_tax);
-                $r[] = array(
-                    'price_ttc_base' => (float)$final_price,
-                    'final_price_ttc' => '',
+                $result[] = array(
+                    'price_ttc_base' => (float)$price,
                     'specific_price' => $p->custom_price,
-                    'de' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($final_price, $p->custom_price) : null,
-                    'eco_tax' => $eco_tax_TTCc,
+                    'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price, $p->custom_price) : null,
+                    'total_ht' => ps_round($p->price + $p->pa_price + $p->ecotax, 2),
+                    'total_tax' => ps_round(($p->price * $tax_rate) + ($p->pa_price * $tax_rate) + $this->getHtEcoTax(), 2),
                 );
-            } /*
-             * Dans le cas ou le produit ne possède pas de id_product_attribute
+
+
+            }
+            /*
+             * Dans le cas ou le produit ne possède pas de id_product_attribut
              */
             else {
-                //TODO ecotax group
+
                 $product_base_ht = (float)$p->price;
-                $eco_tax_TTC = (float)$p->ecotax;
-                $eco_tax_TTCc = null;
+                $eco_tax_TTC = null;
                 if ($tax_rule_group != null) {
                     $d = $cl->getTaxRate($tax_rule_group);
-                    $eco_tax_TTCc = ps_round($eco_tax_TTC + ($eco_tax_TTC * ($d['rate'] * 0.01)), 2);
+                    $eco_tax_TTC = ps_round($p->ecotax + ($p->ecotax * ($d['rate'] * 0.01)), 2);
 
                 }
                 $product_price_with_tax = $product_base_ht + ($product_base_ht * $tax_rate);
-                $product_price_with_eco_tax = $product_price_with_tax + $eco_tax_TTCc;
+                $product_price_with_eco_tax = $product_price_with_tax + $eco_tax_TTC;
 
                 if ($tax) {
 
-                    $r[] = array(
+                    $result[] = array(
                         'price_ttc_base' => (float)$product_price_with_tax,
                         'final_price_ttc' => (float)$this->_returnDiscountedProductPrice($product_price_with_eco_tax, $p->custom_price),
                         'specific_price' => (float)$p->custom_price->reduction,
-                        'eco_tax_ttc' => (!empty($p->custom_price)) ? $eco_tax_TTCc : null
+                        'eco_tax_ttc' => (!empty($p->custom_price)) ? $eco_tax_TTC : null
 
                     );
 
-                } else $r[] = (float)$product_base_ht;
+                } else $result[] = (float)$product_base_ht;
             }
         }
 
-        return $r;
+        return $result;
     }
 
     /**
@@ -719,6 +725,39 @@ class Product_Model extends CI_Model
             if (in_array($id_product_attribute, array($specific_p['id_product_attribute']))) $specific_price_associations = array('reduction' => $specific_p['reduction'], 'reduction_type' => $specific_p['reduction_type']);
         }
         return $specific_price_associations;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getEcoTax()
+    {
+        return $this->eco_tax;
+    }
+
+    /**
+     * @param int $eco_tax
+     */
+    public function setEcoTax($eco_tax)
+    {
+        $this->eco_tax = $eco_tax;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHtEcoTax()
+    {
+        return $this->ht_eco_tax;
+    }
+
+    /**
+     * @param int $ht_eco_tax
+     */
+    public function setHtEcoTax($ht_eco_tax)
+    {
+        $this->ht_eco_tax = $ht_eco_tax;
     }
 }
 
