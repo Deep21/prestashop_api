@@ -2,7 +2,7 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
-require 'ConfigurationListner.php';
+require 'configurationlistner.php';
 
 
 class Checkout extends REST_Controller implements ConfigurationListner
