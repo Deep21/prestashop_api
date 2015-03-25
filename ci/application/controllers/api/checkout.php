@@ -65,7 +65,7 @@ class Checkout extends REST_Controller implements ConfigurationListner
         $carriers = $this->Carrier_Model->getCarriers();
         dump($carriers);
         exit;
-        s
+
         foreach ($carriers as $carrier)
             $id_carriers[] = $carrier->id_carrier;
 
