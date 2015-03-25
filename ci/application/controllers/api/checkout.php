@@ -31,6 +31,8 @@ class Checkout extends REST_Controller implements ConfigurationListner
       $tax = (float)$tax_rate['rate'] * 0.01;
       var_dump($tax); */
 
+
+
     public function getCheckout_get()
     {
         /*Chargement des model */
@@ -55,8 +57,9 @@ class Checkout extends REST_Controller implements ConfigurationListner
         $delivery_address = $this->Address_Model->getAddressById($cart->id_address_delivery);
         $invoice_address  = $this->Address_Model->getAddressById($cart->id_address_invoice);
 
-        dump($price);
-        exit;
+        //on additionne le tableau contenant les prix ht, ttc et tax
+        $total_prices = summArrayValues($price);
+
         $nbProduct = $this->Cart_Model->getNbProducts($id_cart);
         $shipping_cost = $this->_getShippingConfig();
         $carriers = $this->Carrier_Model->getCarriers();
