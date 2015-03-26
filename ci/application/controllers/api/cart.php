@@ -4,18 +4,21 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 
 /**
- * Order
- * Definition de la classe Order
+ * Cart
+ * Definition de la classe Cart
  *
  * @package    CodeIgniter
  * @subpackage REST_Controller
- * @category   Order
+ * @category   Cart
  * @author     Deeptha WICKREMA
  * @version    1.2
  */
 class Cart extends REST_Controller
 {
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -26,16 +29,12 @@ class Cart extends REST_Controller
         $this->load->model('Cart_Model');
         $this->load->library('oauth');
 
-        //$this->load->library('server');
-        //$this->server->verifyResourceRequest();
-
 
     }
 
+
     /**
-     * Retrieve Order by order id
-     * @param $id_order the id of order
-     * @return
+     * @param null $id_customer
      */
     public function getLastNoneOrderedCart_get($id_customer = null)
     {
@@ -45,6 +44,10 @@ class Cart extends REST_Controller
         $this->response(array('id_cart' => (int)$cart->id_cart), 200);
     }
 
+    /**
+     * @param $id_customer
+     * @return mixed
+     */
     private function _getLastNoneOrderedCar($id_customer)
     {
         $this->load->model('Cart_Model');
@@ -52,6 +55,9 @@ class Cart extends REST_Controller
         if ($this->Cart_Model->getLastNoneOrderedCart($id_customer) != null) return $this->Cart_Model->getLastNoneOrderedCart($id_customer);
     }
 
+    /**
+     *
+     */
     public function addCartFirstTime_post()
     {
         $cart_new = array();
@@ -71,6 +77,9 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     *
+     */
     public function createCart_post()
     {
         $cart_new = array();
@@ -85,6 +94,10 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     *Fonction qui permet d'ajouter des produit dans le panier
+     * Récupère le BODY POST et traite les données
+     */
     public function insertProductToCartById_post()
     {
         $cart = $this->post();
@@ -178,6 +191,12 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     * @param $id_cart
+     * @param $id_product
+     * @param $id_product_attribute
+     * @param $id_address_delivery
+     */
     public function deleteCartProduct_delete($id_cart, $id_product, $id_product_attribute, $id_address_delivery)
     {
         $this->load->model('Cart_Model');
@@ -186,6 +205,11 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     * @param $id_cart
+     * @param $id_product
+     * @param $id_product_attribute
+     */
     public function updateProductCartclientQty_post($id_cart, $id_product, $id_product_attribute)
     {
 
@@ -204,16 +228,21 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     * @param null $id_customer
+     */
     public function getLastCartProductByCustomer_get($id_customer = null)
     {
         $cart = $this->_getLastNoneOrderedCar($id_customer);
         $this->getProductByCartId_get(current($cart)->id_cart);
     }
 
+    /**
+     * @param null $id_cart
+     */
     public function getProductByCartId_get($id_cart = null)
     {
-        $this->load->library('server');
-        $this->server->verifyResourceRequest();
+        $this->oauth->verifyResourceRequest();
         $this->load->model('Product_Model');
         $products = $this->Product_Model->getProductByCartId($id_cart);
         $cart_array = array();
