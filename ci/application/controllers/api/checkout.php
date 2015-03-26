@@ -58,23 +58,25 @@ class Checkout extends REST_Controller implements ConfigurationListner
         $invoice_address  = $this->Address_Model->getAddressById($cart->id_address_invoice);
 
         //on additionne le tableau contenant les prix ht, ttc et tax
-        $total_prices = summArrayValues($price);
 
+        $total_prices = summArrayValues($price);
         $nbProduct = $this->Cart_Model->getNbProducts($id_cart);
         $shipping_cost = $this->_getShippingConfig();
         $carriers = $this->Carrier_Model->getCarriers();
-        dump($carriers);
+        dump($total_prices);
         exit;
-
         foreach ($carriers as $carrier)
             $id_carriers[] = $carrier->id_carrier;
 
         $tax_group = $this->Carrier_Model->getCarrierTaxGroup($id_carriers);
+
         $taxs = array();
         $result = array();
+
         foreach ($tax_group as $tax) {
             $taxs[] = $this->Carrier_Model->getCarrierTax($tax->id_tax_rules_group);
         }
+
 
         foreach ($carriers as $key => $carrier) {
             $rate = (float)$taxs[$key]->rate;
@@ -97,7 +99,7 @@ class Checkout extends REST_Controller implements ConfigurationListner
             }
         }
 
-        //var_dump($carriers);
+      exit;
 
 
     }

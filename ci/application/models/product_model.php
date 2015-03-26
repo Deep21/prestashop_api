@@ -538,21 +538,12 @@ class Product_Model extends CI_Model
         $tax_rule_group = (int)$cl->getConfigurationValue('PS_ECOTAX_TAX_RULES_GROUP_ID')[0]->value;
 
         foreach ($product as $key => $p) {
-
-            $pa_eco_tax = (float)$p->pa_eco_tax;
             $id_tax_rules_group = $p->id_tax_rules_group;
-            $base_product_price = $p->price;
 
             if ($tax) {
                 $tax = $this->_getTaxRate($id_tax_rules_group);
                 $tax_rate = (float)$tax['rate'] * 0.01;
             }
-
-            //dump($product[4]->id_product, $product[4]->id_product_attribute, array_key_exists($product[4]->id_product_attribute, $sps) && array_key_exists($product[4]->id_product, $sps[0]) );
-            //dump(array_search(1,$sps[13]));
-            //exit;
-            //Cas qui touche un produit bien spécifique
-            //Je vérifie si dans le tableau $sp, contient un id_product_attribute et id_product
 
             /*
              * Je vérifie si le produit possède un attribut
@@ -571,17 +562,15 @@ class Product_Model extends CI_Model
 
                 //Récupération du prix du produit ayant un id_product
                 if ($p->pa_price > 0) {
-
                     //Ajout de la tax sur le prix
                     $attr_price_with_tax = $p->pa_price + ($p->pa_price * $tax_rate);
 
                 }
 
-
-                if (!$tax) {
+               /* if (!$tax) {
                     $price_ht = array_sum(array($p->price, $attr_price_with_tax));
                     $result[] = array('ht_price' => $price_ht, 'currency' => '');
-                }
+                }*/
 
                 $price_with_tax = $p->price + ($p->price * $tax_rate) + $this->getEcoTax();
                 //on additionne le prix de base, le prix de la déclinaison et l'ecotax
@@ -591,7 +580,7 @@ class Product_Model extends CI_Model
                 $price = ps_round($price, 2);
 
                 $result[] = array(
-                    'price_ttc_base' => (float)$price,
+                    'price_ttc_base' => ps_round((float)$price, 2),
                     'specific_price' => $p->custom_price,
                     'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price, $p->custom_price) : null,
                     'total_ht' => ps_round($p->price + $p->pa_price + $p->ecotax, 2),
@@ -605,27 +594,24 @@ class Product_Model extends CI_Model
              */
             else {
 
-                $product_base_ht = (float)$p->price;
-                $eco_tax_TTC = null;
                 if ($tax_rule_group != null) {
                     $d = $cl->getTaxRate($tax_rule_group);
-                    $eco_tax_TTC = ps_round($p->ecotax + ($p->ecotax * ($d['rate'] * 0.01)), 2);
-
+                    $this->eco_tax = ps_round($p->ecotax + ($p->ecotax * ($d['rate'] * 0.01)), 2);
+                    $this->ht_eco_tax = $p->ecotax * ($d['rate'] * 0.01);
                 }
-                $product_price_with_tax = $product_base_ht + ($product_base_ht * $tax_rate);
-                $product_price_with_eco_tax = $product_price_with_tax + $eco_tax_TTC;
+                $product_price_with_tax = $p->price + ($p->price * $tax_rate);
+                $product_price_with_eco_tax = $product_price_with_tax + $this->getEcoTax();
 
                 if ($tax) {
-
                     $result[] = array(
-                        'price_ttc_base' => (float)$product_price_with_tax,
-                        'final_price_ttc' => (float)$this->_returnDiscountedProductPrice($product_price_with_eco_tax, $p->custom_price),
-                        'specific_price' => (float)$p->custom_price->reduction,
-                        'eco_tax_ttc' => (!empty($p->custom_price)) ? $eco_tax_TTC : null
-
+                        'price_ttc_base' => ps_round((float)$product_price_with_eco_tax, 2),
+                        'specific_price' => $p->custom_price,
+                        'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price, $p->custom_price) : null,
+                        'total_ht' => ps_round($p->price + $p->ecotax, 2),
+                        'total_tax' => ps_round(($p->price * $tax_rate)  + $this->getHtEcoTax(), 2),
                     );
 
-                } else $result[] = (float)$product_base_ht;
+                }
             }
         }
 
@@ -649,42 +635,15 @@ class Product_Model extends CI_Model
 
         foreach ($sps as $sp) {
             $specific_prices[$sp->id_product_attribute][$sp->id_product] = $sp;
-
-            //$d[$sp->id_product_attribute][] = array('id_product_attribute'=>$sp->id_product_attribute, 'id_product' =>$sp->id_product,'object'=>$sp);
-            //$specific_prices[] = $sp->id_product;
-
-
         }
 
-        /*        dump($specific_prices);
-            dump($product);
-            dump( $specific_prices[$p->id_product_attribute][$p->id_product]);*/
 
         foreach ($product as $key => $p) {
             if (!empty($specific_prices) && isset($specific_prices) && array_key_exists($p->id_product_attribute, $specific_prices) && array_key_exists($p->id_product, $specific_prices[$p->id_product_attribute])) {
-
-                /*   echo 'SPECIFIC';
-                    dump($p->id_product,$p->id_product_attribute );
-                    dump($specific_prices[$p->id_product_attribute][$p->id_product] );*/
-
-                $p->custom_price = $specific_prices[$p->id_product_attribute][$p->id_product];
-
-                //$p->custom_price = $specific_prices[$p->id_product_attribute][$p->id_product];
-                //dump($p->id_product,$p->id_product_attribute);
-                //$this->specific_price = $sps[$product[3]->id_product_attribute][$product[3]->id_product];
-
-
+                 $p->custom_price = $specific_prices[$p->id_product_attribute][$p->id_product];
             }
 
             if (!empty($specific_prices) && isset($specific_prices[0]) && array_key_exists($p->id_product, $specific_prices[0]) && !array_key_exists($p->id_product_attribute, $specific_prices)) {
-
-                //$this->specific_price =  $sps[0][$p->id_product];
-                //$p->custom_price = $sps[$p->id_product];
-
-                /*  echo 'GENERIC';
-                     dump($p->id_product,$p->id_product_attribute );
-                     dump($specific_prices[0][$p->id_product] );*/
-
                 $p->custom_price = $specific_prices[0][$p->id_product];
             }
         }
@@ -699,7 +658,6 @@ class Product_Model extends CI_Model
      */
     public function _returnDiscountedProductPrice($price, $specific_price)
     {
-
 
         switch ($specific_price->reduction_type) {
             case 'percentage':
