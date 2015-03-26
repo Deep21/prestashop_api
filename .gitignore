@@ -4,3 +4,4 @@ cache/
 ci/application/logs/
 ci/application/logs
 log/*.log
+img/tmp/*
