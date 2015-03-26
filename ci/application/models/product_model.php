@@ -580,11 +580,11 @@ class Product_Model extends CI_Model
                 $price = ps_round($price, 2);
 
                 $result[] = array(
-                    'price_ttc_base' => ps_round((float)$price, 2),
+                    'price_ttc_base' => ps_round((float)$price * $p->cart_quantity, 2),
                     'specific_price' => $p->custom_price,
-                    'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price, $p->custom_price) : null,
-                    'total_ht' => ps_round($p->price + $p->pa_price + $p->ecotax, 2),
-                    'total_tax' => ps_round(($p->price * $tax_rate) + ($p->pa_price * $tax_rate) + $this->getHtEcoTax(), 2),
+                    'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price * $p->cart_quantity, $p->custom_price) : null,
+                    'total_ht' => ps_round(($p->price + $p->pa_price + $p->ecotax) * $p->cart_quantity, 2),
+                    'total_tax' => ps_round((($p->price * $tax_rate) + ($p->pa_price * $tax_rate) + $this->getHtEcoTax()) * $p->cart_quantity, 2),
                 );
 
 
@@ -604,11 +604,11 @@ class Product_Model extends CI_Model
 
                 if ($tax) {
                     $result[] = array(
-                        'price_ttc_base' => ps_round((float)$product_price_with_eco_tax, 2),
+                        'price_ttc_base' => ps_round(((float)$product_price_with_eco_tax)* $p->cart_quantity, 2),
                         'specific_price' => $p->custom_price,
-                        'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price, $p->custom_price) : null,
-                        'total_ht' => ps_round($p->price + $p->ecotax, 2),
-                        'total_tax' => ps_round(($p->price * $tax_rate)  + $this->getHtEcoTax(), 2),
+                        'price_discounted' => (!empty($p->custom_price)) ? $this->_returnDiscountedProductPrice($price * $p->cart_quantity, $p->custom_price) : null,
+                        'total_ht' => ps_round(($p->price + $p->ecotax) * $p->cart_quantity, 2),
+                        'total_tax' => ps_round((($p->price * $tax_rate)  + $this->getHtEcoTax()) * $p->cart_quantity, 2),
                     );
 
                 }
