@@ -265,7 +265,9 @@ class Order extends REST_Controller
     private function _getCartProductList($id_cart)
     {
         $this->load->model('Cart_Product_Model');
-        if (!empty((int)$id_cart)) if ($p = $this->Cart_Product_Model->getCartProductById($id_cart)) return $p;
+        if (!empty($id_cart))
+            if ($p = $this->Cart_Product_Model->getCartProductById($id_cart))
+                return $p;
 
         return null;
     }

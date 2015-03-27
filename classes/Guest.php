@@ -176,7 +176,7 @@ class GuestCore extends ObjectModel
 		// $this is still filled with values, so it's id is changed for the old guest
 		$this->id = (int)($id_guest);
 		$this->id_customer = (int)($id_customer);
-		
+
 		// $this is now the old guest but filled with the most up to date values
 		$this->update();
 	}

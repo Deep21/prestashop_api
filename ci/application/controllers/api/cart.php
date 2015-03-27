@@ -15,7 +15,7 @@ require APPPATH . '/libraries/REST_Controller.php';
  */
 class Cart extends REST_Controller
 {
-
+    private $cookie;
     /**
      *
      */
@@ -96,16 +96,16 @@ class Cart extends REST_Controller
 
     /**
      *Fonction qui permet d'ajouter des produit dans le panier
-     * Récupère le BODY POST et traite les données
+     *Récupère le BODY POST et traite les données
      */
     public function insertProductToCartById_post()
     {
         $cart = $this->post();
         $id_cart = null;
         if (!empty($cart)) {
-
             if (isset($this->cookie) && !empty($this->cookie)) {
                 $cart_array = $this->Cart_Model->getLastNoneOrderedCart((int)$this->cookie->customer->id_customer);
+
                 if (empty($cart_array)) {
                     $this->Cart_Model->id_cart = null;
                     $this->Cart_Model->id_shop_group = 1;
@@ -126,21 +126,27 @@ class Cart extends REST_Controller
                     $this->cookie->customer->id_cart = $id_cart;
                     $cookie_encoded = json_encode($this->cookie);
                     $encrypted_cookie = $this->encrypt->encode($cookie_encoded);
-                    $cookie = array('name' => 'prestashop_ci', 'value' => $encrypted_cookie, 'path' => '/prestashop/', 'expire' => 3200, '', true);
+                    $cookie = array(
+                        'name' => 'prestashop_ci',
+                        'value' => $encrypted_cookie,
+                        'path' => '/prestashop/',
+                        'expire' => 3200, '', true
+                    );
                     set_cookie($cookie);
                 }
             }
 
-
             $this->load->model('Cart_Model');
-            $id_product = (int)$cart['id_product'];
-            $id_product_attribute = (int)$cart['id_product_attribute'];
-            $clientQty = (int)$cart['quantity'];
+            $id_product = (int)$cart['cart_product']['id_product'];
+            $id_product_attribute = (int)$cart['cart_product']['id_product_attribute'];
+            $clientQty = (int)$cart['cart_product']['quantity'];
 
             //load quantity of the cart
             //It may be empty or full
+
             $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $id_cart);
 
+            exit;
             //Load the number of aviable stock product
             $stock = $this->Cart_Model->getStockById(1, $id_product_attribute, $id_product);
 
@@ -238,19 +244,34 @@ class Cart extends REST_Controller
     }
 
     /**
-     * @param null $id_cart
+     * Permet de récupérer les produits contenant dans le panier
+     * @param int $id_cart l'id du cart
      */
     public function getProductByCartId_get($id_cart = null)
     {
-        $this->oauth->verifyResourceRequest();
+
         $this->load->model('Product_Model');
         $products = $this->Product_Model->getProductByCartId($id_cart);
         $cart_array = array();
         $product_array = array();
         foreach ($products as $key => $product) {
-            $product_array[] = array('id_product' => (int)$product->id_product, 'id_cart' => (int)$product->id_cart, 'id_address_delivery' => (int)$product->id_address_delivery, 'quantity' => (int)$product->cart_quantity, 'id_shop' => (int)$product->id_shop, 'libelle_produit' => $product->name, 'id_product' => (int)$product->id_product, 'width' => (double)$product->width, 'height' => (double)$product->height, 'depth' => (double)$product->depth, 'id_supplier' => (int)$product->id_supplier, 'id_manufacturer' => (int)$product->id_manufacturer, 'is_virtual' => (int)$product->is_virtual, 'description_short' => $product->description_short, 'available_now' => $product->available_now, 'available_later' => $product->available_later);
+            $product_array[] = array(
+                'id_product' => (int)$product->id_product,
+                'id_cart' => (int)$product->id_cart,
+                'id_address_delivery' => (int)$product->id_address_delivery,
+                'quantity' => (int)$product->cart_quantity,
+                'id_shop' => (int)$product->id_shop,
+                'libelle_produit' => $product->name,
+                'id_product' => (int)$product->id_product,
+                'width' => (double)$product->width,
+                'height' => (double)$product->height,
+                'depth' => (double)$product->depth,
+                'id_supplier' => (int)$product->id_supplier,
+                'id_manufacturer' => (int)$product->id_manufacturer, 'is_virtual' => (int)$product->is_virtual, 'description_short' => $product->description_short, 'available_now' => $product->available_now, 'available_later' => $product->available_later);
         }
-        if ($products != null) $this->response($product_array, 200);
+        if ($products != null)
+            $this->response($product_array, 200);
+
     }
 }
 
