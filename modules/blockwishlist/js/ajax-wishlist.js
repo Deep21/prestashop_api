@@ -32,7 +32,7 @@ function WishlistCart(id, action, id_product, id_product_attribute, quantity)
 {
 	$.ajax({
 		type: 'GET',
-		url:	baseDir + 'modules/blockwishlist/cart.php',
+		url:	baseDir + 'modules/blockwishlist/cart_base.php',
 		async: true,
 		cache: false,
 		data: 'action=' + action + '&id_product=' + id_product + '&quantity=' + quantity + '&token=' + static_token + '&id_product_attribute=' + id_product_attribute,
@@ -74,7 +74,7 @@ function WishlistChangeDefault(id, id_wishlist)
 {
 	$.ajax({
 		type: 'GET',
-		url:	baseDir + 'modules/blockwishlist/cart.php',
+		url:	baseDir + 'modules/blockwishlist/cart_base.php',
 		async: true,
 		data: 'id_wishlist=' + id_wishlist + '&token=' + static_token,
 		cache: false,

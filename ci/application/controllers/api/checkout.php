@@ -10,7 +10,7 @@ class Checkout extends REST_Controller implements ConfigurationListner
 
     const PS_SHIPPING_HANDLING = 0;
     public $shipping_constants = array(
-        'ps_shipping_free_price', 'ps_shipping_free_weight', 'ps_carrier_default', 'ps_shipping_handling','ps_tax_display','ps_tax');
+        'ps_shipping_free_price', 'ps_shipping_free_weight', 'ps_carrier_default', 'ps_shipping_handling', 'ps_tax_display', 'ps_tax');
     private $cookie;
 
     /**
@@ -53,7 +53,7 @@ class Checkout extends REST_Controller implements ConfigurationListner
         $cart->id_address_invoice;
 
         $delivery_address = $this->Address_Model->getAddressById($cart->id_address_delivery);
-        $invoice_address  = $this->Address_Model->getAddressById($cart->id_address_invoice);
+        $invoice_address = $this->Address_Model->getAddressById($cart->id_address_invoice);
 
         dump($price);
         exit;

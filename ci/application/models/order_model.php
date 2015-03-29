@@ -11,6 +11,7 @@ class Order_model extends CI_Model
     const idlang = 1;
     const cover = 1;
     const order_by = 'DESC';
+
     private static $table = 'orders';
     /** @var integer Order id */
     public $id_order;
@@ -18,7 +19,9 @@ class Order_model extends CI_Model
     public $id_address_delivery;
     /** @var integer Invoice address id */
     public $id_address_invoice;
+
     public $id_shop_group;
+
     public $id_shop;
     /** @var integer Cart id */
     public $id_cart;

@@ -1,6 +1,7 @@
 *.md
-cache/
-.idea/
-ci/application/logs/
-ci/application/logs
+cache/*
+.idea/*
+ci/application/logs/*
 log/*.log
+img/tmp/*
+config/xml/*.xml

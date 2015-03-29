@@ -197,10 +197,13 @@ class Cart_Model extends CI_Model
         return $this->db->update('cart_product', $product);
     }
 
+    /**
+     * @param $id_customer
+     * @return mixed
+     */
     public function getLastNoneOrderedCart($id_customer)
     {
         $ids = array(0);
-
         $id_cart = $this->getIdCartFromOrders($id_customer);
         if ($this->is_array_empty($id_cart)) {
             foreach ($id_cart as $key => $row) {

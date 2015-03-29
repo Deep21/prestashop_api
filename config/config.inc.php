@@ -201,6 +201,7 @@ if (!defined('_PS_ADMIN_DIR_'))
 		if (Group::isFeatureActive())
 			$customer->id_default_group = Configuration::get('PS_UNIDENTIFIED_GROUP');
 	}
+
 	$customer->id_guest = $cookie->id_guest;
 	$context->customer = $customer;
 }
@@ -224,7 +225,7 @@ define('_PS_OS_ERROR_',       Configuration::get('PS_OS_ERROR'));
 define('_PS_OS_OUTOFSTOCK_',  Configuration::get('PS_OS_OUTOFSTOCK'));
 define('_PS_OS_BANKWIRE_',    Configuration::get('PS_OS_BANKWIRE'));
 define('_PS_OS_PAYPAL_',      Configuration::get('PS_OS_PAYPAL'));
-define('_PS_OS_WS_PAYMENT_', Configuration::get('PS_OS_WS_PAYMENT'));
+define('_PS_OS_WS_PAYMENT_',  Configuration::get('PS_OS_WS_PAYMENT'));
 
 /* Get smarty */
 require_once(dirname(__FILE__).'/smarty.config.inc.php');

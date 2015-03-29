@@ -1,35 +1,19 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
-
-require APPPATH . '/libraries/REST_Controller.php';
-
 /**
- * Cart
- * Definition de la classe Cart
- *
- * @package    CodeIgniter
- * @subpackage REST_Controller
- * @category   Cart
- * @author     Deeptha WICKREMA
- * @version    1.2
+ * Created by PhpStorm.
+ * User: Starlight
+ * Date: 28/03/2015
+ * Time: 23:12
  */
-class Cart extends REST_Controller
+
+require_once 'cart_base.php';
+
+class Cart extends CartBase
 {
-    private $cookie;
-    /**
-     *
-     */
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('encrypt');
-        $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
-        $this->load->helper('cookie');
-        $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
-        $this->load->model('Cart_Model');
-        $this->load->library('oauth');
-
-
     }
 
 
@@ -38,7 +22,7 @@ class Cart extends REST_Controller
      */
     public function getLastNoneOrderedCart_get($id_customer = null)
     {
-        $cart = $this->_getLastNoneOrderedCar($id_customer);
+        $cart = $this->_getLastNoneOrderedCart($id_customer);
         if ($cart == null) $this->response(array('id_cart' => null), 200);
 
         $this->response(array('id_cart' => (int)$cart->id_cart), 200);
@@ -48,7 +32,7 @@ class Cart extends REST_Controller
      * @param $id_customer
      * @return mixed
      */
-    private function _getLastNoneOrderedCar($id_customer)
+    private function _getLastNoneOrderedCart($id_customer)
     {
         $this->load->model('Cart_Model');
 
@@ -100,13 +84,32 @@ class Cart extends REST_Controller
      */
     public function insertProductToCartById_post()
     {
+
+        exit;
         $cart = $this->post();
         $id_cart = null;
+
         if (!empty($cart)) {
             if (isset($this->cookie) && !empty($this->cookie)) {
-                $cart_array = $this->Cart_Model->getLastNoneOrderedCart((int)$this->cookie->customer->id_customer);
-
-                if (empty($cart_array)) {
+                $id_cart = $this->Cart_Model->getLastNoneOrderedCart((int)$this->cookie->customer->id_customer);
+                if (empty($id_cart)) {
+                    $id_cart = $this->Cart_Model->addCart(array(
+                        'id_cart' => null,
+                        'id_shop_group' => '',
+                        'id_shop' => '',
+                        'id_address_delivery' => '',
+                        'id_address_invoice' => '',
+                        'id_currency' => '',
+                        'id_customer' => '',
+                        'id_guest' => '',
+                        'id_lang' => '',
+                        'gift_message' => '',
+                        'mobile_theme' => '',
+                        'secure_key' => '',
+                        'delivery_option' => '',
+                        'date_add' => '',
+                        'date_upd' => '',
+                    ));
                     $this->Cart_Model->id_cart = null;
                     $this->Cart_Model->id_shop_group = 1;
                     $this->Cart_Model->id_shop = 1;
@@ -273,6 +276,5 @@ class Cart extends REST_Controller
             $this->response($product_array, 200);
 
     }
-}
 
-?>
+}
