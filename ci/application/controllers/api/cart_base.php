@@ -16,10 +16,7 @@ require_once APPPATH . '/libraries/REST_Controller.php';
  */
 class CartBase extends REST_Controller
 {
-
-
-    private $id_cart;
-
+    protected  $cookie;
 
     /**
      * Default constructor
