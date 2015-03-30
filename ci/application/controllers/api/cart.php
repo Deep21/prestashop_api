@@ -87,55 +87,25 @@ class Cart extends CartBase
         exit;
         $cart = $this->post();
         $id_cart = null;
-
-        if (!empty($cart)) {
-            if (isset($this->cookie) && !empty($this->cookie)) {
-                $id_cart = $this->Cart_Model->getLastNoneOrderedCart((int)$this->cookie->customer->id_customer);
-                if (empty($id_cart)) {
-                    $id_cart = $this->Cart_Model->addCart(array(
+        if (!empty($cart)) {{
+                    $id_cart = $this->addCart(array(
                         'id_cart' => null,
-                        'id_shop_group' => '',
-                        'id_shop' => '',
-                        'id_address_delivery' => '',
-                        'id_address_invoice' => '',
-                        'id_currency' => '',
-                        'id_customer' => '',
-                        'id_guest' => '',
-                        'id_lang' => '',
+                        'id_shop_group' => 1,
+                        'id_shop' => 1,
+                        'id_address_delivery' => 0,
+                        'id_address_invoice' => 0,
+                        'id_currency' => 1,
+                        'id_customer' => 2,
+                        'id_guest' => 0,
+                        'id_lang' => 2,
                         'gift_message' => '',
-                        'mobile_theme' => '',
+                        'mobile_theme' => 0,
                         'secure_key' => '',
                         'delivery_option' => '',
-                        'date_add' => '',
-                        'date_upd' => '',
+                        'date_add' => date('Y-m-d H:i:s'),
+                        'date_upd' => date('Y-m-d H:i:s'),
                     ));
-                    $this->Cart_Model->id_cart = null;
-                    $this->Cart_Model->id_shop_group = 1;
-                    $this->Cart_Model->id_shop = 1;
-                    $this->Cart_Model->id_address_delivery = 0;
-                    $this->Cart_Model->id_address_invoice = 0;
-                    $this->Cart_Model->id_currency = 1;
-                    $this->Cart_Model->id_customer = (int)$this->cookie->customer->id_customer;
-                    $this->Cart_Model->id_guest = 0;
-                    $this->Cart_Model->id_lang = 1;
-                    $this->Cart_Model->gift_message = "";
-                    $this->Cart_Model->mobile_theme = 0;
-                    $this->Cart_Model->secure_key = $this->cookie->customer->secure_key;
-                    $this->Cart_Model->delivery_option = "";
-                    $this->Cart_Model->date_add = date('Y-m-d H:i:s');
-                    $this->Cart_Model->date_upd = date('Y-m-d H:i:s');
-                    $id_cart = $this->Cart_Model->addCart($this->Cart_Model);
-                    $this->cookie->customer->id_cart = $id_cart;
-                    $cookie_encoded = json_encode($this->cookie);
-                    $encrypted_cookie = $this->encrypt->encode($cookie_encoded);
-                    $cookie = array(
-                        'name' => 'prestashop_ci',
-                        'value' => $encrypted_cookie,
-                        'path' => '/prestashop/',
-                        'expire' => 3200, '', true
-                    );
-                    set_cookie($cookie);
-                }
+
             }
 
             $this->load->model('Cart_Model');
