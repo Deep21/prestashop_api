@@ -33,18 +33,17 @@ class CartBase extends REST_Controller
         parent::__construct();
         $this->load->model('Cart_Model');
         $this->cart_model = $this->Cart_Model;
-
         $this->load->library('encrypt');
         $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
         $this->load->helper('cookie');
-
+        $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
     }
 
     protected function addCart($auto_add)
     {
         $this->load->model('Guest_Model');
         if ($auto_add) {
-            if (isset($this->cookie) && $this->cookie == null) {
+            if ( $this->cookie == null) {
                 $id_guest = $this->Guest_Model->setNewGuest();
                 $cart = array(
                     'id_cart' => null,
@@ -64,11 +63,13 @@ class CartBase extends REST_Controller
                     'date_upd' => date('Y-m-d H:i:s'),
                 );
                 $id_cart = $this->cart_model->addCart($cart);
-                $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
 
+
+
+                exit;
                 $cookie_data = array(
                     'id_guest' => $id_guest,
-                    'is_logged' => $this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals()),
+                    'is_logged' => $this->oauth->getServer()->verifyResourceRequest(OAuth2\Request::createFromGlobals()),
                     "prestashop_config" => array(
                         'id_lang' => 1,
                         'id_currency' => 1,

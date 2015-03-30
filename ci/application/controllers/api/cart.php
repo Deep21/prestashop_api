@@ -84,6 +84,7 @@ class Cart extends CartBase
      */
     public function insertProductToCartById_post()
     {
+
         $this->addCart();
         exit;
         $cart = $this->post();
