@@ -24,6 +24,8 @@ class CartBase extends REST_Controller
      */
     public function __construct()
     {
+
+
         parent::__construct();
         $this->load->library('encrypt');
         $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
