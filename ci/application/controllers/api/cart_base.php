@@ -36,7 +36,7 @@ class CartBase extends REST_Controller
             $id_guest = $this->Guest_Model->setNewGuest();
             $cookie_data = array(
                 'id_guest' => $id_guest,
-                'is_logged' => false,
+                'is_logged' => true,
                 "prestashop_config" => array(
                     'id_lang' => 1,
                     'id_currency' => 1,
