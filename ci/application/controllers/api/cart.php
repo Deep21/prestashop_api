@@ -84,29 +84,11 @@ class Cart extends CartBase
      */
     public function insertProductToCartById_post()
     {
+        $this->addCart();
         exit;
         $cart = $this->post();
         $id_cart = null;
-        if (!empty($cart)) {{
-                    $id_cart = $this->addCart(array(
-                        'id_cart' => null,
-                        'id_shop_group' => 1,
-                        'id_shop' => 1,
-                        'id_address_delivery' => 0,
-                        'id_address_invoice' => 0,
-                        'id_currency' => 1,
-                        'id_customer' => 2,
-                        'id_guest' => 0,
-                        'id_lang' => 2,
-                        'gift_message' => '',
-                        'mobile_theme' => 0,
-                        'secure_key' => '',
-                        'delivery_option' => '',
-                        'date_add' => date('Y-m-d H:i:s'),
-                        'date_upd' => date('Y-m-d H:i:s'),
-                    ));
-
-            }
+        if (!empty($cart)) {
 
             $this->load->model('Cart_Model');
             $id_product = (int)$cart['cart_product']['id_product'];
@@ -167,6 +149,11 @@ class Cart extends CartBase
             $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'message' => 'Empty'), 404);
             exit;
         }
+    }
+
+    protected function addCart()
+    {
+        parent::addCart(true);
     }
 
     /**

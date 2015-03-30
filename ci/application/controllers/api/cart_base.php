@@ -17,8 +17,7 @@ require_once APPPATH . '/libraries/REST_Controller.php';
 class CartBase extends REST_Controller
 {
 
-    protected  $cookie;
-
+    protected $cookie;
 
 
     protected $cart_model;
@@ -41,40 +40,61 @@ class CartBase extends REST_Controller
 
     }
 
-    protected function addCart($cart)
+    protected function addCart($auto_add)
     {
         $this->load->model('Guest_Model');
-        $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
-        if (isset($this->cookie) && $this->cookie == null) {
-            $cart['id_guest'] = $this->Guest_Model->setNewGuest();
-            $id_cart  = $this->cart_model->addCart($cart);
-            $cookie_data = array(
-                'id_guest' => $cart['id_guest'],
-                'is_logged' => $this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals()),
-                "prestashop_config" => array(
-                    'id_lang' => 1,
+        if ($auto_add) {
+            if (isset($this->cookie) && $this->cookie == null) {
+                $id_guest = $this->Guest_Model->setNewGuest();
+                $cart = array(
+                    'id_cart' => null,
+                    'id_shop_group' => 1,
+                    'id_shop' => 1,
+                    'id_address_delivery' => 0,
+                    'id_address_invoice' => 0,
                     'id_currency' => 1,
-                    'id_shop' => 1,
-                    'id_shop' => 1,
-                ),
-                "customer" => array(
-                    'nom' => null,
-                    'prenom' => null,
-                    'id_customer' => null,
-                    "secure_key" => null,
-                    'id_cart' => $id_cart
-                )
-            );
+                    'id_customer' => 2,
+                    'id_guest' => $id_guest,
+                    'id_lang' => 2,
+                    'gift_message' => '',
+                    'mobile_theme' => 0,
+                    'secure_key' => '',
+                    'delivery_option' => '',
+                    'date_add' => date('Y-m-d H:i:s'),
+                    'date_upd' => date('Y-m-d H:i:s'),
+                );
+                $id_cart = $this->cart_model->addCart($cart);
+                $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
 
-            $encrypted_cookie = $this->encrypt->encode(json_encode($cookie_data));
-            $cookie = array(
-                'name' => 'prestashop_ci',
-                'value' => $encrypted_cookie,
-                'path' => '/prestashop_test/',
-                'expire' => 3200, '', true
-            );
-            set_cookie($cookie);
+                $cookie_data = array(
+                    'id_guest' => $id_guest,
+                    'is_logged' => $this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals()),
+                    "prestashop_config" => array(
+                        'id_lang' => 1,
+                        'id_currency' => 1,
+                        'id_shop' => 1,
+                        'id_shop' => 1,
+                    ),
+                    "customer" => array(
+                        'nom' => null,
+                        'prenom' => null,
+                        'id_customer' => null,
+                        "secure_key" => null,
+                        'id_cart' => $id_cart
+                    )
+                );
+
+                $encrypted_cookie = $this->encrypt->encode(json_encode($cookie_data));
+                $cookie = array(
+                    'name' => 'prestashop_ci',
+                    'value' => $encrypted_cookie,
+                    'path' => '/prestashop_test/',
+                    'expire' => 3200, '', true
+                );
+                set_cookie($cookie);
+            }
         }
+
     }
 
 
