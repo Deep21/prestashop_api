@@ -59,7 +59,7 @@ class CartBase extends REST_Controller
                     'prenom' => null,
                     'id_customer' => null,
                     "secure_key" => null,
-                    'id_cart' => $id_cart
+                    'id_cart' => $id_cart,
                 )
             );
 
