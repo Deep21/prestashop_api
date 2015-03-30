@@ -17,8 +17,8 @@ require_once APPPATH . '/libraries/REST_Controller.php';
 class CartBase extends REST_Controller
 {
 
-
-    private $id_cart;
+    protected $cookie;
+    protected $cart_model;
 
 
     /**
@@ -28,18 +28,26 @@ class CartBase extends REST_Controller
     public function __construct()
     {
 
-
         parent::__construct();
+        $this->load->model('Cart_Model');
+        $this->cart_model = $this->Cart_Model;
+
         $this->load->library('encrypt');
         $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
         $this->load->helper('cookie');
+
+    }
+
+    protected function addCart($cart)
+    {
+        $this->load->model('Guest_Model');
         $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
-        if ($this->cookie == null) {
-            $this->load->model('Guest_Model');
-            $id_guest = $this->Guest_Model->setNewGuest();
+        if (isset($this->cookie) && $this->cookie == null) {
+            $cart['id_guest'] = $this->Guest_Model->setNewGuest();
+            $id_cart  = $this->cart_model->addCart($cart);
             $cookie_data = array(
-                'id_guest' => $id_guest,
-                'is_logged' => true,
+                'id_guest' => $cart['id_guest'],
+                'is_logged' => $this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals()),
                 "prestashop_config" => array(
                     'id_lang' => 1,
                     'id_currency' => 1,
@@ -51,7 +59,7 @@ class CartBase extends REST_Controller
                     'prenom' => null,
                     'id_customer' => null,
                     "secure_key" => null,
-                    'id_cart' => null,
+                    'id_cart' => $id_cart,
                 )
             );
 
@@ -64,13 +72,6 @@ class CartBase extends REST_Controller
             );
             set_cookie($cookie);
         }
-
-
-    }
-
-    protected function addCart()
-    {
-
     }
 
 
