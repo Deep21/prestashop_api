@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PlanList;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PlanList;
 class PlanListTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PlanList
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"plans":' .PlanTest::getJson() . ',"total_items":"TestSample","total_pages":"TestSample","links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PlanList
      */
@@ -30,6 +20,14 @@ class PlanListTest extends \PHPUnit_Framework_TestCase
         return new PlanList(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PlanList
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"plans":' . PlanTest::getJson() . ',"total_items":"TestSample","total_pages":"TestSample","links":' . LinksTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

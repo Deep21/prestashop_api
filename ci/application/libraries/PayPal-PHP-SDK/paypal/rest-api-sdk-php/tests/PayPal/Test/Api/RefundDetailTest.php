@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\RefundDetail;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\RefundDetail;
 class RefundDetailTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object RefundDetail
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"type":"TestSample","date":"TestSample","note":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return RefundDetail
      */
@@ -30,6 +20,14 @@ class RefundDetailTest extends \PHPUnit_Framework_TestCase
         return new RefundDetail(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object RefundDetail
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"type":"TestSample","date":"TestSample","note":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

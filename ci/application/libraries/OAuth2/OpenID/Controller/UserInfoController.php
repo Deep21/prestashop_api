@@ -2,14 +2,14 @@
 
 namespace OAuth2\OpenID\Controller;
 
-use OAuth2\Scope;
-use OAuth2\TokenType\TokenTypeInterface;
-use OAuth2\Storage\AccessTokenInterface;
-use OAuth2\OpenID\Storage\UserClaimsInterface;
 use OAuth2\Controller\ResourceController;
-use OAuth2\ScopeInterface;
+use OAuth2\OpenID\Storage\UserClaimsInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
+use OAuth2\Scope;
+use OAuth2\ScopeInterface;
+use OAuth2\Storage\AccessTokenInterface;
+use OAuth2\TokenType\TokenTypeInterface;
 
 /**
  * @see OAuth2\Controller\UserInfoControllerInterface

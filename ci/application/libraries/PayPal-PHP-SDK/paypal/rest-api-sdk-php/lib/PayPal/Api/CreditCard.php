@@ -3,9 +3,9 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
 use PayPal\Rest\ApiContext;
 use PayPal\Transport\PayPalRestCall;
+use PayPal\Validation\ArgumentValidator;
 
 /**
  * Class CreditCard
@@ -35,7 +35,7 @@ class CreditCard extends PayPalResourceModel
      * ID of the credit card being saved for later use.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -58,7 +58,7 @@ class CreditCard extends PayPalResourceModel
      * Card number.
      *
      * @param string $number
-     * 
+     *
      * @return $this
      */
     public function setNumber($number)
@@ -81,7 +81,7 @@ class CreditCard extends PayPalResourceModel
      * Type of the Card (eg. Visa, Mastercard, etc.).
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -104,7 +104,7 @@ class CreditCard extends PayPalResourceModel
      * 2 digit card expiry month.
      *
      * @param int $expire_month
-     * 
+     *
      * @return $this
      */
     public function setExpireMonth($expire_month)
@@ -127,7 +127,7 @@ class CreditCard extends PayPalResourceModel
      * 4 digit card expiry year
      *
      * @param int $expire_year
-     * 
+     *
      * @return $this
      */
     public function setExpireYear($expire_year)
@@ -150,7 +150,7 @@ class CreditCard extends PayPalResourceModel
      * Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
      *
      * @param int $cvv2
-     * 
+     *
      * @return $this
      */
     public function setCvv2($cvv2)
@@ -173,7 +173,7 @@ class CreditCard extends PayPalResourceModel
      * Card holder's first name.
      *
      * @param string $first_name
-     * 
+     *
      * @return $this
      */
     public function setFirstName($first_name)
@@ -196,7 +196,7 @@ class CreditCard extends PayPalResourceModel
      * Card holder's last name.
      *
      * @param string $last_name
-     * 
+     *
      * @return $this
      */
     public function setLastName($last_name)
@@ -219,7 +219,7 @@ class CreditCard extends PayPalResourceModel
      * Billing Address associated with this card.
      *
      * @param \PayPal\Api\Address $billing_address
-     * 
+     *
      * @return $this
      */
     public function setBillingAddress($billing_address)
@@ -242,7 +242,7 @@ class CreditCard extends PayPalResourceModel
      * A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
      *
      * @param string $external_customer_id
-     * 
+     *
      * @return $this
      */
     public function setExternalCustomerId($external_customer_id)
@@ -266,7 +266,7 @@ class CreditCard extends PayPalResourceModel
      * Valid Values: ["expired", "ok"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -289,7 +289,7 @@ class CreditCard extends PayPalResourceModel
      * Date/Time until this resource can be used fund a payment.
      *
      * @param string $valid_until
-     * 
+     *
      * @return $this
      */
     public function setValidUntil($valid_until)
@@ -312,7 +312,7 @@ class CreditCard extends PayPalResourceModel
      * Time the resource was created in UTC ISO8601 format.
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -335,7 +335,7 @@ class CreditCard extends PayPalResourceModel
      * Time the resource was created in UTC ISO8601 format.
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)

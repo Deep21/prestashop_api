@@ -1,16 +1,11 @@
 <?php
 namespace PayPal\Test\Api;
 
-use PayPal\Api\CreditCardHistory;
-
-use PayPal\Api\Address;
 use PayPal\Api\CreditCard;
-use PayPal\Test\Constants;
+use PayPal\Api\CreditCardHistory;
 
 class CreditCardHistoryTest extends \PHPUnit_Framework_TestCase
 {
-
-    private $cards;
 
     public static $id = "id";
     public static $validUntil = "2013-02-28T00:00:00Z";
@@ -23,6 +18,19 @@ class CreditCardHistoryTest extends \PHPUnit_Framework_TestCase
     public static $cvv = "012";
     public static $firstName = "V";
     public static $lastName = "C";
+    private $cards;
+
+    public function setup()
+    {
+
+        $card = self::createCreditCard();
+        $card->setBillingAddress(AddressTest::getObject());
+        $card->setLinks(array(LinksTest::getObject()));
+        $this->cards['full'] = $card;
+
+        $card = self::createCreditCard();
+        $this->cards['partial'] = $card;
+    }
 
     public static function createCreditCard()
     {
@@ -38,18 +46,6 @@ class CreditCardHistoryTest extends \PHPUnit_Framework_TestCase
         $card->setValidUntil(self::$validUntil);
         $card->setState(self::$state);
         return $card;
-    }
-
-    public function setup()
-    {
-
-        $card = self::createCreditCard();
-        $card->setBillingAddress(AddressTest::getObject());
-        $card->setLinks(array(LinksTest::getObject()));
-        $this->cards['full'] = $card;
-
-        $card = self::createCreditCard();
-        $this->cards['partial'] = $card;
     }
 
     public function testGetterSetters()

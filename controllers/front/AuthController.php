@@ -40,8 +40,7 @@ class AuthControllerCore extends FrontController
 	 */
 	public function init()
 	{
-        var_dump(Context::getContext()->cookie);
-        exit;
+
 		parent::init();
 
 		if (!Tools::getIsset('step') && $this->context->customer->isLogged() && !$this->ajax)

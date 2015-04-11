@@ -3,17 +3,19 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\Payee;
-use PayPal\Test\Constants;
 
 class PayeeTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $payee;
-
     public static $email = "test@paypal.com";
     public static $merchant_id = "1XY12121";
     public static $phone = "+14081234566";
+    private $payee;
 
+    public function setup()
+    {
+        $this->payee = self::createPayee();
+    }
 
     public static function createPayee()
     {
@@ -23,11 +25,6 @@ class PayeeTest extends \PHPUnit_Framework_TestCase
         $payee->setPhone(self::$phone);
 
         return $payee;
-    }
-
-    public function setup()
-    {
-        $this->payee = self::createPayee();
     }
 
     public function testGetterSetter()

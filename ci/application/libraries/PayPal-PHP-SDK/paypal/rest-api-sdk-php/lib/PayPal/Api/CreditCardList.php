@@ -18,29 +18,6 @@ use PayPal\Common\PayPalModel;
 class CreditCardList extends PayPalModel
 {
     /**
-     * A list of credit card resources
-     *
-     * @param \PayPal\Api\CreditCard[] $credit_cards
-     * 
-     * @return $this
-     */
-    public function setCreditCards($credit_cards)
-    {
-        $this->{"credit-cards"} = $credit_cards;
-        return $this;
-    }
-
-    /**
-     * A list of credit card resources
-     *
-     * @return \PayPal\Api\CreditCard[]
-     */
-    public function getCreditCards()
-    {
-        return $this->{"credit-cards"};
-    }
-
-    /**
      * Append CreditCards to the list.
      *
      * @param \PayPal\Api\CreditCard $creditCard
@@ -55,6 +32,29 @@ class CreditCardList extends PayPalModel
                 array_merge($this->getCreditCards(), array($creditCard))
             );
         }
+    }
+
+    /**
+     * A list of credit card resources
+     *
+     * @return \PayPal\Api\CreditCard[]
+     */
+    public function getCreditCards()
+    {
+        return $this->{"credit-cards"};
+    }
+
+    /**
+     * A list of credit card resources
+     *
+     * @param \PayPal\Api\CreditCard[] $credit_cards
+     *
+     * @return $this
+     */
+    public function setCreditCards($credit_cards)
+    {
+        $this->{"credit-cards"} = $credit_cards;
+        return $this;
     }
 
     /**
@@ -74,7 +74,7 @@ class CreditCardList extends PayPalModel
      * Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
      *
      * @param int $count
-     * 
+     *
      * @return $this
      */
     public function setCount($count)
@@ -97,7 +97,7 @@ class CreditCardList extends PayPalModel
      * Identifier of the next element to get the next range of results.
      *
      * @param string $next_id
-     * 
+     *
      * @return $this
      */
     public function setNextId($next_id)

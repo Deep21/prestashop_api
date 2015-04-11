@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\CreditCardList;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\CreditCardList;
 class CreditCardListTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object CreditCardList
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"credit-cards":' .CreditCardTest::getJson() . ',"count":123,"next_id":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return CreditCardList
      */
@@ -30,6 +20,14 @@ class CreditCardListTest extends \PHPUnit_Framework_TestCase
         return new CreditCardList(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object CreditCardList
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"credit-cards":' . CreditCardTest::getJson() . ',"count":123,"next_id":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

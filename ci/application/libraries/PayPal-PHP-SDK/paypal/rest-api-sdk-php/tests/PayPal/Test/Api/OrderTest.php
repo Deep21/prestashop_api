@@ -2,16 +2,9 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\Order;
-use PayPal\Api\Amount;
-use PayPal\Api\Details;
-use PayPal\Api\Links;
-use PayPal\Test\Constants;
 
 class OrderTest extends \PHPUnit_Framework_TestCase
 {
-
-    /** @var  Order */
-    private $order;
 
     public static $id = 'O-0AA8876533760860M';
     public static $createTime = '2014-08-25T19:24:04Z';
@@ -19,6 +12,13 @@ class OrderTest extends \PHPUnit_Framework_TestCase
     public static $state = 'pending';
     public static $parentPayment = 'PAY-0AL32935UM2331537KP5Y2VA';
     public static $reasonCode = 'order';
+    /** @var  Order */
+    private $order;
+
+    public function setup()
+    {
+        $this->order = self::createOrder();
+    }
 
     public static function createOrder()
     {
@@ -30,11 +30,6 @@ class OrderTest extends \PHPUnit_Framework_TestCase
         $order->setAmount(AmountTest::createAmount());
 
         return $order;
-    }
-
-    public function setup()
-    {
-        $this->order = self::createOrder();
     }
 
     public function testGetterSetter()

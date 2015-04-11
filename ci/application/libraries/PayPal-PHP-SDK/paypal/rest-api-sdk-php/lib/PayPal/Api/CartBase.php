@@ -3,7 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 
 /**
  * Class CartBase
@@ -26,10 +25,10 @@ class CartBase extends PayPalModel
 {
     /**
      * Amount being collected.
-     * 
+     *
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -50,10 +49,10 @@ class CartBase extends PayPalModel
 
     /**
      * Recipient of the funds in this transaction.
-     * 
+     *
      *
      * @param \PayPal\Api\Payee $payee
-     * 
+     *
      * @return $this
      */
     public function setPayee($payee)
@@ -74,10 +73,10 @@ class CartBase extends PayPalModel
 
     /**
      * Description of what is being paid for.
-     * 
+     *
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -98,10 +97,10 @@ class CartBase extends PayPalModel
 
     /**
      * Note to the recipient of the funds in this transaction.
-     * 
+     *
      *
      * @param string $note_to_payee
-     * 
+     *
      * @return $this
      */
     public function setNoteToPayee($note_to_payee)
@@ -122,10 +121,10 @@ class CartBase extends PayPalModel
 
     /**
      * free-form field for the use of clients
-     * 
+     *
      *
      * @param string $custom
-     * 
+     *
      * @return $this
      */
     public function setCustom($custom)
@@ -146,10 +145,10 @@ class CartBase extends PayPalModel
 
     /**
      * invoice number to track this payment
-     * 
+     *
      *
      * @param string $invoice_number
-     * 
+     *
      * @return $this
      */
     public function setInvoiceNumber($invoice_number)
@@ -170,10 +169,10 @@ class CartBase extends PayPalModel
 
     /**
      * Soft descriptor used when charging this funding source.
-     * 
+     *
      *
      * @param string $soft_descriptor
-     * 
+     *
      * @return $this
      */
     public function setSoftDescriptor($soft_descriptor)
@@ -194,10 +193,10 @@ class CartBase extends PayPalModel
 
     /**
      * Payment options requested for this purchase unit
-     * 
+     *
      *
      * @param \PayPal\Api\PaymentOptions $payment_options
-     * 
+     *
      * @return $this
      */
     public function setPaymentOptions($payment_options)
@@ -218,10 +217,10 @@ class CartBase extends PayPalModel
 
     /**
      * List of items being paid for.
-     * 
+     *
      *
      * @param \PayPal\Api\ItemList $item_list
-     * 
+     *
      * @return $this
      */
     public function setItemList($item_list)

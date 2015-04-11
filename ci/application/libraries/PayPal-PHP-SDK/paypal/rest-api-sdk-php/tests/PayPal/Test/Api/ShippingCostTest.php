@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\ShippingCost;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\ShippingCost;
 class ShippingCostTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object ShippingCost
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"amount":' .CurrencyTest::getJson() . ',"tax":' .TaxTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return ShippingCost
      */
@@ -30,6 +20,14 @@ class ShippingCostTest extends \PHPUnit_Framework_TestCase
         return new ShippingCost(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object ShippingCost
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"amount":' . CurrencyTest::getJson() . ',"tax":' . TaxTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

@@ -33,7 +33,7 @@ class PaymentCard extends PayPalModel
      * ID of the credit card being saved for later use.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -56,7 +56,7 @@ class PaymentCard extends PayPalModel
      * Card number.
      *
      * @param string $number
-     * 
+     *
      * @return $this
      */
     public function setNumber($number)
@@ -80,7 +80,7 @@ class PaymentCard extends PayPalModel
      * Valid Values: ["VISA", "AMEX", "SOLO", "JCB", "STAR", "DELTA", "DISCOVER", "SWITCH", "MAESTRO", "CB_NATIONALE", "CONFINOGA", "COFIDIS", "ELECTRON", "CETELEM", "CHINA_UNION_PAY", "MASTERCARD"]
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -103,7 +103,7 @@ class PaymentCard extends PayPalModel
      * 2 digit card expiry month.
      *
      * @param int $expire_month
-     * 
+     *
      * @return $this
      */
     public function setExpireMonth($expire_month)
@@ -126,7 +126,7 @@ class PaymentCard extends PayPalModel
      * 4 digit card expiry year.
      *
      * @param int $expire_year
-     * 
+     *
      * @return $this
      */
     public function setExpireYear($expire_year)
@@ -149,7 +149,7 @@ class PaymentCard extends PayPalModel
      * 2 digit card start month.
      *
      * @param int $start_month
-     * 
+     *
      * @return $this
      */
     public function setStartMonth($start_month)
@@ -172,7 +172,7 @@ class PaymentCard extends PayPalModel
      * 4 digit card start year.
      *
      * @param int $start_year
-     * 
+     *
      * @return $this
      */
     public function setStartYear($start_year)
@@ -195,7 +195,7 @@ class PaymentCard extends PayPalModel
      * Card validation code. Only supported when making a Payment, but not when saving a payment card for future use.
      *
      * @param int $cvv2
-     * 
+     *
      * @return $this
      */
     public function setCvv2($cvv2)
@@ -218,7 +218,7 @@ class PaymentCard extends PayPalModel
      * Card holder's first name.
      *
      * @param string $first_name
-     * 
+     *
      * @return $this
      */
     public function setFirstName($first_name)
@@ -241,7 +241,7 @@ class PaymentCard extends PayPalModel
      * Card holder's last name.
      *
      * @param string $last_name
-     * 
+     *
      * @return $this
      */
     public function setLastName($last_name)
@@ -264,7 +264,7 @@ class PaymentCard extends PayPalModel
      * Billing Address associated with this card.
      *
      * @param \PayPal\Api\Address $billing_address
-     * 
+     *
      * @return $this
      */
     public function setBillingAddress($billing_address)
@@ -287,7 +287,7 @@ class PaymentCard extends PayPalModel
      * A unique identifier of the customer to whom this card account belongs. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
      *
      * @param string $external_customer_id
-     * 
+     *
      * @return $this
      */
     public function setExternalCustomerId($external_customer_id)
@@ -311,7 +311,7 @@ class PaymentCard extends PayPalModel
      * Valid Values: ["EXPIRED", "ACTIVE"]
      *
      * @param string $status
-     * 
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -334,7 +334,7 @@ class PaymentCard extends PayPalModel
      * Date/Time until this resource can be used to fund a payment.
      *
      * @param string $valid_until
-     * 
+     *
      * @return $this
      */
     public function setValidUntil($valid_until)
@@ -354,29 +354,6 @@ class PaymentCard extends PayPalModel
     }
 
     /**
-     * Sets Links
-     *
-     * @param \PayPal\Api\Links[] $links
-     * 
-     * @return $this
-     */
-    public function setLinks($links)
-    {
-        $this->links = $links;
-        return $this;
-    }
-
-    /**
-     * Gets Links
-     *
-     * @return \PayPal\Api\Links[]
-     */
-    public function getLinks()
-    {
-        return $this->links;
-    }
-
-    /**
      * Append Links to the list.
      *
      * @param \PayPal\Api\Links $links
@@ -391,6 +368,29 @@ class PaymentCard extends PayPalModel
                 array_merge($this->getLinks(), array($links))
             );
         }
+    }
+
+    /**
+     * Gets Links
+     *
+     * @return \PayPal\Api\Links[]
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
+     * Sets Links
+     *
+     * @param \PayPal\Api\Links[] $links
+     *
+     * @return $this
+     */
+    public function setLinks($links)
+    {
+        $this->links = $links;
+        return $this;
     }
 
     /**

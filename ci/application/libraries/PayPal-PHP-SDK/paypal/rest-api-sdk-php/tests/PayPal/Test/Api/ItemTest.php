@@ -2,18 +2,21 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\Item;
-use PayPal\Test\Constants;
 
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
-
-    private $item;
 
     public static $name = "item name";
     public static $price = "1.12";
     public static $quantity = "10";
     public static $sku = "AXVTY123";
     public static $currency = "USD";
+    private $item;
+
+    public function setup()
+    {
+        $this->item = ItemTest::createItem();
+    }
 
     public static function createItem()
     {
@@ -25,11 +28,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $item->setCurrency(self::$currency);
 
         return $item;
-    }
-
-    public function setup()
-    {
-        $this->item = ItemTest::createItem();
     }
 
     public function testGetterSetters()

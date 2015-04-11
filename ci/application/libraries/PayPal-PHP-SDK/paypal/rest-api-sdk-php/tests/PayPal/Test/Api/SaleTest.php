@@ -3,21 +3,24 @@ namespace PayPal\Test\Api;
 
 use PayPal\Api\Currency;
 use PayPal\Api\Sale;
-use PayPal\Test\Api\AmountTest;
 
 class SaleTest extends \PHPUnit_Framework_TestCase
 {
+    public static $captureId = "CAP-123";
+    public static $createTime = "2013-02-28T00:00:00Z";
+    public static $id = "R-5678";
+    public static $parentPayment = "PAY-123";
+    public static $state = "Created";
     /**
      * @var Sale
      */
     private $sale;
     private $tFee;
 
-    public static $captureId = "CAP-123";
-    public static $createTime = "2013-02-28T00:00:00Z";
-    public static $id = "R-5678";
-    public static $parentPayment = "PAY-123";
-    public static $state = "Created";
+    public function setup()
+    {
+        $this->sale = $this->createSale();
+    }
 
     private function createSale()
     {
@@ -34,11 +37,6 @@ class SaleTest extends \PHPUnit_Framework_TestCase
 
         $sale->setTransactionFee($this->tFee);
         return $sale;
-    }
-
-    public function setup()
-    {
-        $this->sale = $this->createSale();
     }
 
     public function testGetterSetter()

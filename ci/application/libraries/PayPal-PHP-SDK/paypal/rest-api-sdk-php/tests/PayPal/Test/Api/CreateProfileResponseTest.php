@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\CreateProfileResponse;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\CreateProfileResponse;
 class CreateProfileResponseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object CreateProfileResponse
-     * @return string
-     */
-    public static function getJson()
-    {
-        return json_encode(json_decode('{"id":"TestSample"}'));
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return CreateProfileResponse
      */
@@ -30,6 +20,14 @@ class CreateProfileResponseTest extends \PHPUnit_Framework_TestCase
         return new CreateProfileResponse(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object CreateProfileResponse
+     * @return string
+     */
+    public static function getJson()
+    {
+        return json_encode(json_decode('{"id":"TestSample"}'));
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

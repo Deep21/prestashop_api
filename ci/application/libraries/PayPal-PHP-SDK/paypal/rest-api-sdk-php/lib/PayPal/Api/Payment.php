@@ -2,12 +2,9 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Common\PayPalResourceModel;
 use PayPal\Core\PayPalConstants;
 use PayPal\Rest\ApiContext;
-use PayPal\Rest\IResource;
-use PayPal\Api\PaymentHistory;
 use PayPal\Transport\PayPalRestCall;
 use PayPal\Validation\ArgumentValidator;
 
@@ -281,7 +278,7 @@ class Payment extends PayPalResourceModel
     {
         return $this->getLink(PayPalConstants::APPROVAL_URL);
     }
-    
+
     /**
      * Creates (and processes) a new Payment Resource.
      *

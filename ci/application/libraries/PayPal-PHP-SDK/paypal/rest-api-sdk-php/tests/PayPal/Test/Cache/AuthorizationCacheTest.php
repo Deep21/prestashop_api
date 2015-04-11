@@ -12,22 +12,6 @@ class AuthorizationCacheTest extends \PHPUnit_Framework_TestCase
 {
     const CACHE_FILE = 'tests/var/test.cache';
 
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
     public static function EnabledProvider()
     {
         return array(
@@ -102,6 +86,22 @@ class AuthorizationCacheTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('tokenExpiresIn', $result['tokenExpiresIn']);
 
         unlink(AuthorizationCacheTest::CACHE_FILE);
+    }
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
     }
 
 }

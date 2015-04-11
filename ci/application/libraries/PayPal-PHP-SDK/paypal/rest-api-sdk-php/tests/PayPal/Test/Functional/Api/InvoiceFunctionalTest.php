@@ -1,6 +1,7 @@
 <?php
 
 namespace PayPal\Test\Functional\Api;
+
 use PayPal\Api\CancelNotification;
 use PayPal\Api\Invoice;
 use PayPal\Api\Notification;
@@ -112,7 +113,7 @@ class InvoiceFunctionalTest extends \PHPUnit_Framework_TestCase
         $result = Invoice::getAll(array('page_size' => '20', 'total_count_required' => 'true'), null, $this->mockPayPalRestCall);
         $this->assertNotNull($result);
         $this->assertNotNull($result->getTotalCount());
-        $totalPages = ceil($result->getTotalCount()/20);
+        $totalPages = ceil($result->getTotalCount() / 20);
         $found = false;
         $foundObject = null;
         do {

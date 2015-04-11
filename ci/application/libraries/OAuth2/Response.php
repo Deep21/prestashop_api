@@ -13,12 +13,6 @@ namespace OAuth2;
  */
 class Response implements ResponseInterface
 {
-    public $version;
-    protected $statusCode = 200;
-    protected $statusText;
-    protected $parameters = array();
-    protected $httpHeaders = array();
-
     public static $statusTexts = array(
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -62,6 +56,11 @@ class Response implements ResponseInterface
         504 => 'Gateway Timeout',
         505 => 'HTTP Version Not Supported',
     );
+    public $version;
+    protected $statusCode = 200;
+    protected $statusText;
+    protected $parameters = array();
+    protected $httpHeaders = array();
 
     public function __construct($parameters = array(), $statusCode = 200, $headers = array())
     {
@@ -80,26 +79,55 @@ class Response implements ResponseInterface
     {
         $headers = array();
         foreach ($this->httpHeaders as $name => $value) {
-            $headers[$name] = (array) $value;
+            $headers[$name] = (array)$value;
         }
 
         return
-            sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText)."\r\n".
-            $this->getHttpHeadersAsString($headers)."\r\n".
+            sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText) . "\r\n" .
+            $this->getHttpHeadersAsString($headers) . "\r\n" .
             $this->getResponseBody();
     }
 
-    /**
-     * Returns the build header line.
-     *
-     * @param string $name  The header name
-     * @param string $value The header value
-     *
-     * @return string The built header line
-     */
-    protected function buildHeader($name, $value)
+    private function getHttpHeadersAsString($headers)
     {
-        return sprintf("%s: %s\n", $name, $value);
+        if (count($headers) == 0) {
+            return '';
+        }
+
+        $max = max(array_map('strlen', array_keys($headers))) + 1;
+        $content = '';
+        ksort($headers);
+        foreach ($headers as $name => $values) {
+            foreach ($values as $value) {
+                $content .= sprintf("%-{$max}s %s\r\n", $this->beautifyHeaderName($name) . ':', $value);
+            }
+        }
+
+        return $content;
+    }
+
+    private function beautifyHeaderName($name)
+    {
+        return preg_replace_callback('/\-(.)/', array($this, 'beautifyCallback'), ucfirst($name));
+    }
+
+    public function getResponseBody($format = 'json')
+    {
+        switch ($format) {
+            case 'json':
+                return json_encode($this->parameters);
+            case 'xml':
+                // this only works for single-level arrays
+                $xml = new \SimpleXMLElement('<response/>');
+                foreach ($this->parameters as $key => $param) {
+                    $xml->addChild($key, $param);
+                }
+
+                return $xml->asXML();
+        }
+
+        throw new \InvalidArgumentException(sprintf('The format %s is not supported', $format));
+
     }
 
     public function getStatusCode()
@@ -109,7 +137,7 @@ class Response implements ResponseInterface
 
     public function setStatusCode($statusCode, $text = null)
     {
-        $this->statusCode = (int) $statusCode;
+        $this->statusCode = (int)$statusCode;
         if ($this->isInvalid()) {
             throw new \InvalidArgumentException(sprintf('The HTTP status code "%s" is not valid.', $statusCode));
         }
@@ -132,11 +160,6 @@ class Response implements ResponseInterface
         $this->parameters = $parameters;
     }
 
-    public function addParameters(array $parameters)
-    {
-        $this->parameters = array_merge($this->parameters, $parameters);
-    }
-
     public function getParameter($name, $default = null)
     {
         return isset($this->parameters[$name]) ? $this->parameters[$name] : $default;
@@ -147,48 +170,9 @@ class Response implements ResponseInterface
         $this->parameters[$name] = $value;
     }
 
-    public function setHttpHeaders(array $httpHeaders)
-    {
-        $this->httpHeaders = $httpHeaders;
-    }
-
-    public function setHttpHeader($name, $value)
-    {
-        $this->httpHeaders[$name] = $value;
-    }
-
-    public function addHttpHeaders(array $httpHeaders)
-    {
-        $this->httpHeaders = array_merge($this->httpHeaders, $httpHeaders);
-    }
-
-    public function getHttpHeaders()
-    {
-        return $this->httpHeaders;
-    }
-
     public function getHttpHeader($name, $default = null)
     {
         return isset($this->httpHeaders[$name]) ? $this->httpHeaders[$name] : $default;
-    }
-
-    public function getResponseBody($format = 'json')
-    {
-        switch ($format) {
-            case 'json':
-                return json_encode($this->parameters);
-            case 'xml':
-                // this only works for single-level arrays
-                $xml = new \SimpleXMLElement('<response/>');
-                foreach ($this->parameters as $key => $param) {
-                    $xml->addChild($key, $param);
-                }
-
-                return $xml->asXML();
-        }
-
-        throw new \InvalidArgumentException(sprintf('The format %s is not supported', $format));
-
     }
 
     public function send($format = 'json')
@@ -213,6 +197,53 @@ class Response implements ResponseInterface
             header(sprintf('%s: %s', $name, $header));
         }
         echo $this->getResponseBody($format);
+    }
+
+    public function setHttpHeader($name, $value)
+    {
+        $this->httpHeaders[$name] = $value;
+    }
+
+    public function getHttpHeaders()
+    {
+        return $this->httpHeaders;
+    }
+
+    public function setHttpHeaders(array $httpHeaders)
+    {
+        $this->httpHeaders = $httpHeaders;
+    }
+
+    public function setRedirect($statusCode, $url, $state = null, $error = null, $errorDescription = null, $errorUri = null)
+    {
+        if (empty($url)) {
+            throw new \InvalidArgumentException('Cannot redirect to an empty URL.');
+        }
+
+        $parameters = array();
+
+        if (!is_null($state)) {
+            $parameters['state'] = $state;
+        }
+
+        if (!is_null($error)) {
+            $this->setError(400, $error, $errorDescription, $errorUri);
+        }
+        $this->setStatusCode($statusCode);
+        $this->addParameters($parameters);
+
+        if (count($this->parameters) > 0) {
+            // add parameters to URL redirection
+            $parts = parse_url($url);
+            $sep = isset($parts['query']) && count($parts['query']) > 0 ? '&' : '?';
+            $url .= $sep . http_build_query($this->parameters);
+        }
+
+        $this->addHttpHeaders(array('Location' => $url));
+
+        if (!$this->isRedirection()) {
+            throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $statusCode));
+        }
     }
 
     public function setError($statusCode, $error, $errorDescription = null, $errorUri = null)
@@ -243,77 +274,16 @@ class Response implements ResponseInterface
         }
     }
 
-    public function setRedirect($statusCode, $url, $state = null, $error = null, $errorDescription = null, $errorUri = null)
+    public function addParameters(array $parameters)
     {
-        if (empty($url)) {
-            throw new \InvalidArgumentException('Cannot redirect to an empty URL.');
-        }
-
-        $parameters = array();
-
-        if (!is_null($state)) {
-            $parameters['state'] = $state;
-        }
-
-        if (!is_null($error)) {
-            $this->setError(400, $error, $errorDescription, $errorUri);
-        }
-        $this->setStatusCode($statusCode);
-        $this->addParameters($parameters);
-
-        if (count($this->parameters) > 0) {
-            // add parameters to URL redirection
-            $parts = parse_url($url);
-            $sep = isset($parts['query']) && count($parts['query']) > 0 ? '&' : '?';
-            $url .= $sep . http_build_query($this->parameters);
-        }
-
-        $this->addHttpHeaders(array('Location' =>  $url));
-
-        if (!$this->isRedirection()) {
-            throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $statusCode));
-        }
+        $this->parameters = array_merge($this->parameters, $parameters);
     }
 
     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-    /**
-     * @return Boolean
-     *
-     * @api
-     */
-    public function isInvalid()
-    {
-        return $this->statusCode < 100 || $this->statusCode >= 600;
-    }
 
-    /**
-     * @return Boolean
-     *
-     * @api
-     */
-    public function isInformational()
+    public function addHttpHeaders(array $httpHeaders)
     {
-        return $this->statusCode >= 100 && $this->statusCode < 200;
-    }
-
-    /**
-     * @return Boolean
-     *
-     * @api
-     */
-    public function isSuccessful()
-    {
-        return $this->statusCode >= 200 && $this->statusCode < 300;
-    }
-
-    /**
-     * @return Boolean
-     *
-     * @api
-     */
-    public function isRedirection()
-    {
-        return $this->statusCode >= 300 && $this->statusCode < 400;
+        $this->httpHeaders = array_merge($this->httpHeaders, $httpHeaders);
     }
 
     /**
@@ -336,34 +306,65 @@ class Response implements ResponseInterface
         return $this->statusCode >= 500 && $this->statusCode < 600;
     }
 
+    /**
+     * @return Boolean
+     *
+     * @api
+     */
+    public function isRedirection()
+    {
+        return $this->statusCode >= 300 && $this->statusCode < 400;
+    }
+
+    /**
+     * @return Boolean
+     *
+     * @api
+     */
+    public function isInvalid()
+    {
+        return $this->statusCode < 100 || $this->statusCode >= 600;
+    }
+
+    /**
+     * @return Boolean
+     *
+     * @api
+     */
+    public function isInformational()
+    {
+        return $this->statusCode >= 100 && $this->statusCode < 200;
+    }
+
     /*
      * Functions from Symfony2 HttpFoundation - output pretty header
      */
-    private function getHttpHeadersAsString($headers)
+
+    /**
+     * @return Boolean
+     *
+     * @api
+     */
+    public function isSuccessful()
     {
-        if (count($headers) == 0) {
-            return '';
-        }
-
-        $max = max(array_map('strlen', array_keys($headers))) + 1;
-        $content = '';
-        ksort($headers);
-        foreach ($headers as $name => $values) {
-            foreach ($values as $value) {
-                $content .= sprintf("%-{$max}s %s\r\n", $this->beautifyHeaderName($name).':', $value);
-            }
-        }
-
-        return $content;
+        return $this->statusCode >= 200 && $this->statusCode < 300;
     }
 
-    private function beautifyHeaderName($name)
+    /**
+     * Returns the build header line.
+     *
+     * @param string $name The header name
+     * @param string $value The header value
+     *
+     * @return string The built header line
+     */
+    protected function buildHeader($name, $value)
     {
-        return preg_replace_callback('/\-(.)/', array($this, 'beautifyCallback'), ucfirst($name));
+        return sprintf("%s: %s\n", $name, $value);
     }
 
     private function beautifyCallback($match)
     {
-        return '-'.strtoupper($match[1]);
+        return '-' . strtoupper($match[1]);
     }
 }

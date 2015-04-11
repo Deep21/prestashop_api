@@ -4,10 +4,9 @@ namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
 use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\PlanList;
 use PayPal\Rest\ApiContext;
 use PayPal\Transport\PayPalRestCall;
+use PayPal\Validation\ArgumentValidator;
 
 /**
  * Class Plan
@@ -33,7 +32,7 @@ class Plan extends PayPalResourceModel
      * Identifier of the billing plan. 128 characters max.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -56,7 +55,7 @@ class Plan extends PayPalResourceModel
      * Name of the billing plan. 128 characters max.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -79,7 +78,7 @@ class Plan extends PayPalResourceModel
      * Description of the billing plan. 128 characters max.
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -102,7 +101,7 @@ class Plan extends PayPalResourceModel
      * Type of the billing plan. Allowed values: `FIXED`, `INFINITE`.
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -125,7 +124,7 @@ class Plan extends PayPalResourceModel
      * Status of the billing plan. Allowed values: `CREATED`, `ACTIVE`, `INACTIVE`, and `DELETED`.
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -148,7 +147,7 @@ class Plan extends PayPalResourceModel
      * Time when the billing plan was created. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -171,7 +170,7 @@ class Plan extends PayPalResourceModel
      * Time when this billing plan was updated. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)
@@ -194,7 +193,7 @@ class Plan extends PayPalResourceModel
      * Array of payment definitions for this billing plan.
      *
      * @param \PayPal\Api\PaymentDefinition[] $payment_definitions
-     * 
+     *
      * @return $this
      */
     public function setPaymentDefinitions($payment_definitions)
@@ -247,7 +246,7 @@ class Plan extends PayPalResourceModel
      * Array of terms for this billing plan.
      *
      * @param \PayPal\Api\Terms[] $terms
-     * 
+     *
      * @return $this
      */
     public function setTerms($terms)
@@ -300,7 +299,7 @@ class Plan extends PayPalResourceModel
      * Specific preferences such as: set up fee, max fail attempts, autobill amount, and others that are configured for this billing plan.
      *
      * @param \PayPal\Api\MerchantPreferences $merchant_preferences
-     * 
+     *
      * @return $this
      */
     public function setMerchantPreferences($merchant_preferences)

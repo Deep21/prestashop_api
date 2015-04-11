@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Credit;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Credit;
 class CreditTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Credit
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","type":"TestSample","terms":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Credit
      */
@@ -30,6 +20,14 @@ class CreditTest extends \PHPUnit_Framework_TestCase
         return new Credit(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Credit
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","type":"TestSample","terms":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

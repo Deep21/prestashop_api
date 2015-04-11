@@ -2,11 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\CreateProfileResponse;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
 use PayPal\Api\WebProfile;
 
 /**
@@ -16,25 +11,6 @@ use PayPal\Api\WebProfile;
  */
 class WebProfileTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Gets Json String of Object WebProfile
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","name":"TestSample","flow_config":' .FlowConfigTest::getJson() . ',"input_fields":' .InputFieldsTest::getJson() . ',"presentation":' .PresentationTest::getJson() . '}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return WebProfile
-     */
-    public static function getObject()
-    {
-        return new WebProfile(self::getJson());
-    }
-
-
     /**
      * Tests for Serialization and Deserialization Issues
      * @return WebProfile
@@ -50,6 +26,15 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getPresentation());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object WebProfile
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","name":"TestSample","flow_config":' . FlowConfigTest::getJson() . ',"input_fields":' . InputFieldsTest::getJson() . ',"presentation":' . PresentationTest::getJson() . '}';
     }
 
     /**
@@ -78,12 +63,13 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    CreateProfileResponseTest::getJson()
+                CreateProfileResponseTest::getJson()
             ));
 
         $result = $obj->create($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param WebProfile $obj
@@ -97,12 +83,13 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
 
         $result = $obj->update($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param WebProfile $obj
@@ -116,13 +103,14 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
         $patch = array(PatchTest::getObject());
 
         $result = $obj->partial_update($patch, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param WebProfile $obj
@@ -136,12 +124,13 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    WebProfileTest::getJson()
+                WebProfileTest::getJson()
             ));
 
         $result = $obj->get("profileId", $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param WebProfile $obj
@@ -155,12 +144,13 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    json_encode(array(json_decode(WebProfileTest::getJson())))
+                json_encode(array(json_decode(WebProfileTest::getJson())))
             ));
 
         $result = $obj->get_list($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param WebProfile $obj
@@ -174,7 +164,7 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
 
         $result = $obj->delete($mockApiContext, $mockPayPalRestCall);
@@ -185,11 +175,20 @@ class WebProfileTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return WebProfile
+     */
+    public static function getObject()
+    {
+        return new WebProfile(self::getJson());
     }
 }

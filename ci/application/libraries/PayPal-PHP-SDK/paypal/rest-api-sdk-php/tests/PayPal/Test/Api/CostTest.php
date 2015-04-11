@@ -2,9 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
-use PayPal\Converter\FormatConverter;
-use PayPal\Validation\NumericValidator;
 use PayPal\Api\Cost;
 
 /**
@@ -15,15 +12,6 @@ use PayPal\Api\Cost;
 class CostTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Cost
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"percent":"12.34","amount":' .CurrencyTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Cost
      */
@@ -32,6 +20,14 @@ class CostTest extends \PHPUnit_Framework_TestCase
         return new Cost(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Cost
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"percent":"12.34","amount":' . CurrencyTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues
@@ -56,5 +52,5 @@ class CostTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getPercent(), "12.34");
         $this->assertEquals($obj->getAmount(), CurrencyTest::getObject());
     }
-    
+
 }

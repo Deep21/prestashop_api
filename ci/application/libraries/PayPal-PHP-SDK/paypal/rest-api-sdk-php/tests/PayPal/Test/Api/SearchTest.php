@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Search;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Search;
 class SearchTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Search
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"email":"TestSample","recipient_first_name":"TestSample","recipient_last_name":"TestSample","recipient_business_name":"TestSample","number":"TestSample","status":"TestSample","lower_total_amount":' .CurrencyTest::getJson() . ',"upper_total_amount":' .CurrencyTest::getJson() . ',"start_invoice_date":"TestSample","end_invoice_date":"TestSample","start_due_date":"TestSample","end_due_date":"TestSample","start_payment_date":"TestSample","end_payment_date":"TestSample","start_creation_date":"TestSample","end_creation_date":"TestSample","page":"12.34","page_size":"12.34","total_count_required":true}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Search
      */
@@ -30,6 +20,14 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         return new Search(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Search
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"email":"TestSample","recipient_first_name":"TestSample","recipient_last_name":"TestSample","recipient_business_name":"TestSample","number":"TestSample","status":"TestSample","lower_total_amount":' . CurrencyTest::getJson() . ',"upper_total_amount":' . CurrencyTest::getJson() . ',"start_invoice_date":"TestSample","end_invoice_date":"TestSample","start_due_date":"TestSample","end_due_date":"TestSample","start_payment_date":"TestSample","end_payment_date":"TestSample","start_creation_date":"TestSample","end_creation_date":"TestSample","page":"12.34","page_size":"12.34","total_count_required":true}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

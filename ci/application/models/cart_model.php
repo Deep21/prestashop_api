@@ -116,6 +116,12 @@ class Cart_Model extends CI_Model
             ->result('Cart_Model');
     }
 
+    public function mergeIdCartWithCustomer($customer, $id_cart){
+        $this->db->where('id_cart', $id_cart);
+        return $this->db->update('cart', array('id_customer' => $customer->id_customer));
+
+    }
+
     public function addCart($cart)
     {
         $this->db->insert(self::$table, $cart);
@@ -274,5 +280,3 @@ class Cart_Model extends CI_Model
 
 
 }
-
-?>

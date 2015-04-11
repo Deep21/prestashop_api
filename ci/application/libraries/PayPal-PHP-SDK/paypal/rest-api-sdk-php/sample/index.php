@@ -56,6 +56,7 @@ if (PHP_SAPI == 'cli') {
         h6:hover .header-link {
             opacity: 1;
         }
+
         .list-group-item h5 {
             padding-left: 10px;
         }
@@ -66,24 +67,25 @@ if (PHP_SAPI == 'cli') {
             background-color: #EEE;
         }
 
-        .jumbotron{
+        .jumbotron {
             background: #fff url("https://www.paypalobjects.com/webstatic/developer/banners/Braintree_desktop_BG_2X.jpg") no-repeat top right;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
         }
-        .jumbotron{
+
+        .jumbotron {
             margin-bottom: 0px;
             padding-bottom: 20px;
         }
 
-        .jumbotron h2, .jumbotron p, h5{
-            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        .jumbotron h2, .jumbotron p, h5 {
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
         }
 
         .footer-links a {
-            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
         }
 
         @media (max-width: 992px) {
@@ -153,8 +155,7 @@ if (PHP_SAPI == 'cli') {
         }
 
         .footer-links a {
-            color: #428bca;
-        ;
+            color: #428bca;;
         }
 
         .fixed {
@@ -179,7 +180,8 @@ if (PHP_SAPI == 'cli') {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 pull-left img-div">
-                <img src="https://www.paypalobjects.com/webstatic/developer/logo2_paypal_developer_2x.png" class="logo img-responsive"/>
+                <img src="https://www.paypalobjects.com/webstatic/developer/logo2_paypal_developer_2x.png"
+                     class="logo img-responsive"/>
             </div>
             <div class="col-md-9 pull-right">
                 <h2>// REST API Samples</h2>
@@ -187,7 +189,8 @@ if (PHP_SAPI == 'cli') {
                 <p>These examples are created to experiment with the PayPal-PHP-SDK capabilities. Each examples
                     are
                     designed to demonstrate the default use-cases in each segment.</p>
-                <br />
+                <br/>
+
                 <div class="footer-div">
                     <ul class="footer-links">
                         <li>
@@ -241,10 +244,12 @@ if (PHP_SAPI == 'cli') {
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>PayPal Payments - similar to Express Checkout in Classic APIs</small></h5>
+                            <div class="col-md-8"><h5>PayPal Payments - similar to Express Checkout in Classic
+                                    APIs</small></h5>
                             </div>
                             <div class="col-md-4">
-                                <a href="payments/CreatePaymentUsingPayPal.php" class="btn btn-primary pull-left execute">
+                                <a href="payments/CreatePaymentUsingPayPal.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a><a
                                     href="doc/payments/CreatePaymentUsingPayPal.html"
@@ -256,7 +261,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h6>Step II: Execute after Success
-                                    <small>(required step after user approval)</small></h6>
+                                    <small>(required step after user approval)</small>
+                                </h6>
                             </div>
                             <div class="col-md-4">
                                 <a
@@ -271,7 +277,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Payments using credit card information</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/CreatePayment.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payments/CreatePayment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/payments/CreatePayment.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -280,12 +287,17 @@ if (PHP_SAPI == 'cli') {
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Payments using saved credit card <small>(using Vault APIs)</small></h5></div>
+                            <div class="col-md-8">
+                                <h5>Payments using saved credit card
+                                    <small>(using Vault APIs)</small>
+                                </h5>
+                            </div>
                             <div class="col-md-4">
                                 <a href="payments/CreatePaymentUsingSavedCard.php"
                                    class="btn btn-primary pull-left execute">
                                     Try It <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/CreatePaymentUsingSavedCard.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payments/CreatePaymentUsingSavedCard.html"
+                                   class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -299,7 +311,8 @@ if (PHP_SAPI == 'cli') {
                             </div>
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
-                                <a href="doc/payments/CreateFuturePayment.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payments/CreateFuturePayment.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
 
@@ -309,7 +322,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Update payment details</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/UpdatePayment.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payments/UpdatePayment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/payments/UpdatePayment.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -353,9 +367,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Create Single Payout (Synchronously)</h5></div>
                             <div class="col-md-4">
-                                <a href="payouts/CreateSinglePayout.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payouts/CreateSinglePayout.php" class="btn btn-primary pull-left execute"> Try
+                                    It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payouts/CreateSinglePayout.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payouts/CreateSinglePayout.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -364,9 +380,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Create Batch Payout</h5></div>
                             <div class="col-md-4">
-                                <a href="payouts/CreateBatchPayout.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payouts/CreateBatchPayout.php" class="btn btn-primary pull-left execute"> Try
+                                    It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payouts/CreateBatchPayout.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payouts/CreateBatchPayout.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -375,9 +393,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get Payout Batch Status</h5></div>
                             <div class="col-md-4">
-                                <a href="payouts/GetPayoutBatchStatus.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payouts/GetPayoutBatchStatus.php" class="btn btn-primary pull-left execute">
+                                    Try It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payouts/GetPayoutBatchStatus.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payouts/GetPayoutBatchStatus.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -386,9 +406,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get Payout Item Status</h5></div>
                             <div class="col-md-4">
-                                <a href="payouts/GetPayoutItemStatus.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payouts/GetPayoutItemStatus.php" class="btn btn-primary pull-left execute"> Try
+                                    It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payouts/GetPayoutItemStatus.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payouts/GetPayoutItemStatus.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -397,7 +419,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Cancel Uncliamed Payout Item</h5></div>
                             <div class="col-md-4">
-                                <a href="payouts/CancelPayoutItem.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payouts/CancelPayoutItem.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/payouts/CancelPayoutItem.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -419,10 +442,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Authorize Payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/AuthorizePayment.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="payments/AuthorizePayment.php" class="btn btn-primary pull-left execute"> Try
+                                    It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/AuthorizePayment.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payments/AuthorizePayment.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -431,10 +456,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Authorize Payment Using PayPal</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/AuthorizePaymentUsingPayPal.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="payments/AuthorizePaymentUsingPayPal.php"
+                                   class="btn btn-primary pull-left execute"> Try It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/AuthorizePaymentUsingPayPal.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payments/AuthorizePaymentUsingPayPal.html"
+                                   class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -443,10 +470,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get details of an authorized payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/GetAuthorization.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="payments/GetAuthorization.php" class="btn btn-primary pull-left execute"> Try
+                                    It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/GetAuthorization.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payments/GetAuthorization.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -479,10 +508,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Void an authorized payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/VoidAuthorization.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="payments/VoidAuthorization.php" class="btn btn-primary pull-left execute"> Try
+                                    It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/VoidAuthorization.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/payments/VoidAuthorization.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -491,7 +522,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Reauthorize a payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/Reauthorization.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payments/Reauthorization.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/payments/Reauthorization.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -502,7 +534,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Refund captured payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/RefundCapture.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payments/RefundCapture.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/payments/RefundCapture.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -570,7 +603,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h6>Step II: Execute after Success
-                                    <small>(required step after user approval)</small></h6>
+                                    <small>(required step after user approval)</small>
+                                </h6>
                             </div>
                             <div class="col-md-4">
                                 <a
@@ -586,7 +620,8 @@ if (PHP_SAPI == 'cli') {
                             <div class="col-md-8"><h5>Authorize Order Using PayPal</small></h5>
                             </div>
                             <div class="col-md-4">
-                                <a href="payments/OrderCreateForAuthorization.php" class="btn btn-primary pull-left execute">
+                                <a href="payments/OrderCreateForAuthorization.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a><a
                                     href="doc/payments/OrderCreateForAuthorization.html"
@@ -598,7 +633,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h6>Step II: Authorize after Executing Order
-                                    <small>(required step after user approval)</small></h6>
+                                    <small>(required step after user approval)</small>
+                                </h6>
                             </div>
                             <div class="col-md-4">
                                 <a
@@ -626,7 +662,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h6>Step II: Capture after Executing Order
-                                    <small>(required step after user approval)</small></h6>
+                                    <small>(required step after user approval)</small>
+                                </h6>
                             </div>
                             <div class="col-md-4">
                                 <a
@@ -654,7 +691,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h6>Step II: Void after Executing Order
-                                    <small>(required step after user approval)</small></h6>
+                                    <small>(required step after user approval)</small>
+                                </h6>
                             </div>
                             <div class="col-md-4">
                                 <a
@@ -717,7 +755,8 @@ if (PHP_SAPI == 'cli') {
                                 <a href="billing/UpdatePlanPaymentDefinitions.php"
                                    class="btn btn-primary pull-left execute">
                                     Try It <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/billing/UpdatePlanPaymentDefinitions.html" class="btn btn-default pull-right">Source
+                                <a href="doc/billing/UpdatePlanPaymentDefinitions.html"
+                                   class="btn btn-default pull-right">Source
                                     <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
@@ -773,7 +812,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h6>Step II: Execute after Success
-                                    <small>(required step after user approval)</small></h6>
+                                    <small>(required step after user approval)</small>
+                                </h6>
                             </div>
                             <div class="col-md-4">
                                 <a
@@ -788,10 +828,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get Billing Agreement</h5></div>
                             <div class="col-md-4">
-                                <a href="billing/GetBillingAgreement.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="billing/GetBillingAgreement.php" class="btn btn-primary pull-left execute"> Try
+                                    It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/billing/GetBillingAgreement.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/billing/GetBillingAgreement.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -800,10 +842,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Search for Transactions</h5></div>
                             <div class="col-md-4">
-                                <a href="billing/SearchBillingTransactions.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="billing/SearchBillingTransactions.php"
+                                   class="btn btn-primary pull-left execute"> Try It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/billing/SearchBillingTransactions.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/billing/SearchBillingTransactions.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -838,10 +882,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Reactivate Billing Agreement</h5></div>
                             <div class="col-md-4">
-                                <a href="billing/ReactivateBillingAgreement.php" class="btn btn-primary pull-left execute">
+                                <a href="billing/ReactivateBillingAgreement.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/billing/ReactivateBillingAgreement.html" class="btn btn-default pull-right">Source
+                                <a href="doc/billing/ReactivateBillingAgreement.html"
+                                   class="btn btn-default pull-right">Source
                                     <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
@@ -852,8 +898,9 @@ if (PHP_SAPI == 'cli') {
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 id="vault" class="panel-title"><a href="https://developer.paypal.com/webapps/developer/docs/api/#vault"
-                                                          target="_blank">Vault</a></h3>
+                    <h3 id="vault" class="panel-title"><a
+                            href="https://developer.paypal.com/webapps/developer/docs/api/#vault"
+                            target="_blank">Vault</a></h3>
                 </div>
                 <!-- List group -->
                 <ul class="list-group">
@@ -861,7 +908,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Credit Card - Save</h5></div>
                             <div class="col-md-4">
-                                <a href="vault/CreateCreditCard.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="vault/CreateCreditCard.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/vault/CreateCreditCard.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -883,7 +931,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Credit Card - Update</h5></div>
                             <div class="col-md-4">
-                                <a href="vault/UpdateCreditCard.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="vault/UpdateCreditCard.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/vault/UpdateCreditCard.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -894,7 +943,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Credit Card - Delete</h5></div>
                             <div class="col-md-4">
-                                <a href="vault/DeleteCreditCard.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="vault/DeleteCreditCard.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/vault/DeleteCreditCard.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -905,7 +955,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Bank Account - Save</h5></div>
                             <div class="col-md-4">
-                                <a href="vault/CreateCreditCard.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="vault/CreateCreditCard.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/vault/CreateCreditCard.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -916,7 +967,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Bank Account - Retrieve</h5></div>
                             <div class="col-md-4">
-                                <a href="vault/CreateBankAccount.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="vault/CreateBankAccount.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/vault/CreateBankAccount.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -927,7 +979,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Bank Account - Delete</h5></div>
                             <div class="col-md-4">
-                                <a href="vault/DeleteBankAccount.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="vault/DeleteBankAccount.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/vault/GetBankAccount.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -949,10 +1002,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Create a web experience profile</h5></div>
                             <div class="col-md-4">
-                                <a href="payment-experience/CreateWebProfile.php" class="btn btn-primary pull-left execute">
+                                <a href="payment-experience/CreateWebProfile.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payment-experience/CreateWebProfile.html" class="btn btn-default pull-right">Source
+                                <a href="doc/payment-experience/CreateWebProfile.html"
+                                   class="btn btn-default pull-right">Source
                                     <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
@@ -962,7 +1017,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Retrieve a web experience profile</h5></div>
                             <div class="col-md-4">
-                                <a href="payment-experience/GetWebProfile.php" class="btn btn-primary pull-left execute">
+                                <a href="payment-experience/GetWebProfile.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/payment-experience/GetWebProfile.html" class="btn btn-default pull-right">Source
@@ -975,10 +1031,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>List web experience profiles</h5></div>
                             <div class="col-md-4">
-                                <a href="payment-experience/ListWebProfiles.php" class="btn btn-primary pull-left execute">
+                                <a href="payment-experience/ListWebProfiles.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payment-experience/ListWebProfiles.html" class="btn btn-default pull-right">Source
+                                <a href="doc/payment-experience/ListWebProfiles.html"
+                                   class="btn btn-default pull-right">Source
                                     <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
@@ -988,10 +1046,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Update a web experience profile</h5></div>
                             <div class="col-md-4">
-                                <a href="payment-experience/UpdateWebProfile.php" class="btn btn-primary pull-left execute">
+                                <a href="payment-experience/UpdateWebProfile.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payment-experience/UpdateWebProfile.html" class="btn btn-default pull-right">Source
+                                <a href="doc/payment-experience/UpdateWebProfile.html"
+                                   class="btn btn-default pull-right">Source
                                     <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
@@ -1014,10 +1074,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Delete a web experience profile</h5></div>
                             <div class="col-md-4">
-                                <a href="payment-experience/DeleteWebProfile.php" class="btn btn-primary pull-left execute">
+                                <a href="payment-experience/DeleteWebProfile.php"
+                                   class="btn btn-primary pull-left execute">
                                     Try It
                                     <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payment-experience/DeleteWebProfile.html" class="btn btn-default pull-right">Source
+                                <a href="doc/payment-experience/DeleteWebProfile.html"
+                                   class="btn btn-default pull-right">Source
                                     <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
@@ -1038,10 +1100,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get a reference list of webhook event types</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/WebhookEventTypesList.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="notifications/WebhookEventTypesList.php"
+                                   class="btn btn-primary pull-left execute"> Try It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/WebhookEventTypesList.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/WebhookEventTypesList.html"
+                                   class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1050,10 +1114,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Create a webhook</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/CreateWebhook.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="notifications/CreateWebhook.php" class="btn btn-primary pull-left execute"> Try
+                                    It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/CreateWebhook.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/CreateWebhook.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1074,9 +1140,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>List subscribed webhook event types</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/ListSubscribedWebhookEventTypes.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="notifications/ListSubscribedWebhookEventTypes.php"
+                                   class="btn btn-primary pull-left execute"> Try It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/ListSubscribedWebhookEventTypes.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/ListSubscribedWebhookEventTypes.html"
+                                   class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1098,10 +1166,12 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Update a webhook</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/UpdateWebhook.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="notifications/UpdateWebhook.php" class="btn btn-primary pull-left execute"> Try
+                                    It
                                     <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/UpdateWebhook.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/UpdateWebhook.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1110,9 +1180,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Delete a webhook</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/DeleteWebhook.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="notifications/DeleteWebhook.php" class="btn btn-primary pull-left execute"> Try
+                                    It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/DeleteWebhook.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/DeleteWebhook.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1121,9 +1193,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Delete all webhooks</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/DeleteAllWebhooks.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="notifications/DeleteAllWebhooks.php" class="btn btn-primary pull-left execute">
+                                    Try It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/DeleteAllWebhooks.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/DeleteAllWebhooks.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1132,9 +1206,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Search webhook events</h5></div>
                             <div class="col-md-4">
-                                <a href="notifications/SearchWebhookEvents.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="notifications/SearchWebhookEvents.php"
+                                   class="btn btn-primary pull-left execute"> Try It <i
                                         class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/notifications/SearchWebhookEvents.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/notifications/SearchWebhookEvents.html" class="btn btn-default pull-right">Source
+                                    <i
                                         class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -1209,7 +1285,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Search for Invoices</h5></div>
                             <div class="col-md-4">
-                                <a href="invoice/SearchInvoices.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="invoice/SearchInvoices.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/invoice/SearchInvoices.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -1253,7 +1330,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Retrieve a QR Code</h5></div>
                             <div class="col-md-4">
-                                <a href="invoice/RetrieveQRCode.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="invoice/RetrieveQRCode.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/invoice/RetrieveQRCode.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -1297,7 +1375,8 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Obtain User's Consent</h5></div>
                             <div class="col-md-4">
-                                <a href="lipp/ObtainUserConsent.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="lipp/ObtainUserConsent.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                         class="fa fa-play-circle-o"></i></a>
                                 <a href="doc/lipp/ObtainUserConsent.html" class="btn btn-default pull-right">Source <i
                                         class="fa fa-file-code-o"></i></a>
@@ -1343,7 +1422,7 @@ if (PHP_SAPI == 'cli') {
     </div>
 </div>
 <!-- /container -->
-<hr />
+<hr/>
 <footer class="footer">
     <div class="container">
         <div class="footer-div">
@@ -1379,8 +1458,8 @@ if (PHP_SAPI == 'cli') {
             $(".execute").hide();
         }
     });
-    $(function() {
-        return $(".samples h5, h6").each(function(i, el) {
+    $(function () {
+        return $(".samples h5, h6").each(function (i, el) {
             var $el, icon, id;
             $el = $(el);
             id = CryptoJS.MD5(($el.html())).toString();

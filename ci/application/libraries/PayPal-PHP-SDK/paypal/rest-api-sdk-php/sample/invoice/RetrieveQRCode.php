@@ -7,7 +7,6 @@
 $invoice = require 'SendInvoice.php';
 
 use PayPal\Api\Invoice;
-use PayPal\Api\Notification;
 
 try {
 
@@ -37,5 +36,5 @@ ResultPrinter::printResult("Retrieved QR Code for Invoice", "Invoice", $invoice-
 // In PHP, there are many ways to present an images.
 // One of the ways, you could directly inject the base64-encoded string
 // with proper image information in front of it.
-echo '<img src="data:image/png;base64,'. $image->getImage() . '" alt="Invoice QR Code" />';
+echo '<img src="data:image/png;base64,' . $image->getImage() . '" alt="Invoice QR Code" />';
 

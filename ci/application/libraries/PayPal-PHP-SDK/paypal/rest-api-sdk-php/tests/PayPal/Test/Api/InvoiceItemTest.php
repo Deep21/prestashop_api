@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\InvoiceItem;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\InvoiceItem;
 class InvoiceItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object InvoiceItem
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"name":"TestSample","description":"TestSample","quantity":"12.34","unit_price":' .CurrencyTest::getJson() . ',"tax":' .TaxTest::getJson() . ',"date":"TestSample","discount":' .CostTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return InvoiceItem
      */
@@ -30,6 +20,14 @@ class InvoiceItemTest extends \PHPUnit_Framework_TestCase
         return new InvoiceItem(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object InvoiceItem
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"name":"TestSample","description":"TestSample","quantity":"12.34","unit_price":' . CurrencyTest::getJson() . ',"tax":' . TaxTest::getJson() . ',"date":"TestSample","discount":' . CostTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

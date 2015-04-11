@@ -2,8 +2,8 @@
 
 namespace OAuth2\Storage;
 
-use OAuth2\OpenID\Storage\UserClaimsInterface;
 use OAuth2\OpenID\Storage\AuthorizationCodeInterface as OpenIDAuthorizationCodeInterface;
+use OAuth2\OpenID\Storage\UserClaimsInterface;
 
 /**
  * Simple PDO storage for all storage types
@@ -63,10 +63,10 @@ class Pdo implements
             'refresh_token_table' => 'oauth_refresh_tokens',
             'code_table' => 'oauth_authorization_codes',
             'user_table' => 'oauth_users',
-            'jwt_table'  => 'oauth_jwt',
-            'jti_table'  => 'oauth_jti',
-            'scope_table'  => 'oauth_scopes',
-            'public_key_table'  => 'oauth_public_keys',
+            'jwt_table' => 'oauth_jwt',
+            'jti_table' => 'oauth_jti',
+            'scope_table' => 'oauth_scopes',
+            'public_key_table' => 'oauth_public_keys',
         ), $config);
     }
 
@@ -94,13 +94,6 @@ class Pdo implements
     }
 
     /* OAuth2\Storage\ClientInterface */
-    public function getClientDetails($client_id)
-    {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
-        $stmt->execute(compact('client_id'));
-
-        return $stmt->fetch(\PDO::FETCH_BOTH);
-    }
 
     public function setClientDetails($client_id, $client_secret = null, $redirect_uri = null, $grant_types = null, $scope = null, $user_id = null)
     {
@@ -114,13 +107,21 @@ class Pdo implements
         return $stmt->execute(compact('client_id', 'client_secret', 'redirect_uri', 'grant_types', 'scope', 'user_id'));
     }
 
+    public function getClientDetails($client_id)
+    {
+        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        $stmt->execute(compact('client_id'));
+
+        return $stmt->fetch(\PDO::FETCH_BOTH);
+    }
+
     public function checkRestrictedGrantType($client_id, $grant_type)
     {
         $details = $this->getClientDetails($client_id);
         if (isset($details['grant_types'])) {
             $grant_types = explode(' ', $details['grant_types']);
 
-            return in_array($grant_type, (array) $grant_types);
+            return in_array($grant_type, (array)$grant_types);
         }
 
         // if grant_types are not defined, then none are restricted
@@ -128,18 +129,6 @@ class Pdo implements
     }
 
     /* OAuth2\Storage\AccessTokenInterface */
-    public function getAccessToken($access_token)
-    {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where access_token = :access_token', $this->config['access_token_table']));
-
-        $token = $stmt->execute(compact('access_token'));
-        if ($token = $stmt->fetch(\PDO::FETCH_BOTH)) {
-            // convert date string back to timestamp
-            $token['expires'] = strtotime($token['expires']);
-        }
-
-        return $token;
-    }
 
     public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
     {
@@ -156,19 +145,20 @@ class Pdo implements
         return $stmt->execute(compact('access_token', 'client_id', 'user_id', 'expires', 'scope'));
     }
 
-    /* OAuth2\Storage\AuthorizationCodeInterface */
-    public function getAuthorizationCode($code)
+    public function getAccessToken($access_token)
     {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where authorization_code = :code', $this->config['code_table']));
-        $stmt->execute(compact('code'));
+        $stmt = $this->db->prepare(sprintf('SELECT * from %s where access_token = :access_token', $this->config['access_token_table']));
 
-        if ($code = $stmt->fetch(\PDO::FETCH_BOTH)) {
+        $token = $stmt->execute(compact('access_token'));
+        if ($token = $stmt->fetch(\PDO::FETCH_BOTH)) {
             // convert date string back to timestamp
-            $code['expires'] = strtotime($code['expires']);
+            $token['expires'] = strtotime($token['expires']);
         }
 
-        return $code;
+        return $token;
     }
+
+    /* OAuth2\Storage\AuthorizationCodeInterface */
 
     public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
     {
@@ -190,19 +180,17 @@ class Pdo implements
         return $stmt->execute(compact('code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope'));
     }
 
-    private function setAuthorizationCodeWithIdToken($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    public function getAuthorizationCode($code)
     {
-        // convert expires to datestring
-        $expires = date('Y-m-d H:i:s', $expires);
+        $stmt = $this->db->prepare(sprintf('SELECT * from %s where authorization_code = :code', $this->config['code_table']));
+        $stmt->execute(compact('code'));
 
-        // if it exists, update it.
-        if ($this->getAuthorizationCode($code)) {
-            $stmt = $this->db->prepare($sql = sprintf('UPDATE %s SET client_id=:client_id, user_id=:user_id, redirect_uri=:redirect_uri, expires=:expires, scope=:scope, id_token =:id_token where authorization_code=:code', $this->config['code_table']));
-        } else {
-            $stmt = $this->db->prepare(sprintf('INSERT INTO %s (authorization_code, client_id, user_id, redirect_uri, expires, scope, id_token) VALUES (:code, :client_id, :user_id, :redirect_uri, :expires, :scope, :id_token)', $this->config['code_table']));
+        if ($code = $stmt->fetch(\PDO::FETCH_BOTH)) {
+            // convert date string back to timestamp
+            $code['expires'] = strtotime($code['expires']);
         }
 
-        return $stmt->execute(compact('code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope', 'id_token'));
+        return $code;
     }
 
     public function expireAuthorizationCode($code)
@@ -212,7 +200,6 @@ class Pdo implements
         return $stmt->execute(compact('code'));
     }
 
-    /* OAuth2\Storage\UserCredentialsInterface */
     public function checkUserCredentials($username, $password)
     {
         if ($user = $this->getUser($username)) {
@@ -222,12 +209,30 @@ class Pdo implements
         return false;
     }
 
-    public function getUserDetails($username)
+    /* OAuth2\Storage\UserCredentialsInterface */
+
+    public function getUser($username)
     {
-        return $this->getUser($username);
+        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
+        $stmt->execute(array('username' => $username));
+
+        if (!$userInfo = $stmt->fetch(\PDO::FETCH_BOTH)) {
+            return false;
+        }
+
+        // the default behavior is to use "username" as the user_id
+        return array_merge(array(
+            'user_id' => $username
+        ), $userInfo);
+    }
+
+    protected function checkPassword($user, $password)
+    {
+        return $user['password'] == sha1($password);
     }
 
     /* UserClaimsInterface */
+
     public function getUserClaims($user_id, $claims)
     {
         if (!$userDetails = $this->getUserDetails($user_id)) {
@@ -253,6 +258,13 @@ class Pdo implements
         return $userClaims;
     }
 
+    public function getUserDetails($username)
+    {
+        return $this->getUser($username);
+    }
+
+    /* OAuth2\Storage\RefreshTokenInterface */
+
     protected function getUserClaim($claim, $userDetails)
     {
         $userClaims = array();
@@ -266,7 +278,6 @@ class Pdo implements
         return $userClaims;
     }
 
-    /* OAuth2\Storage\RefreshTokenInterface */
     public function getRefreshToken($refresh_token)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * FROM %s WHERE refresh_token = :refresh_token', $this->config['refresh_token_table']));
@@ -290,32 +301,13 @@ class Pdo implements
         return $stmt->execute(compact('refresh_token', 'client_id', 'user_id', 'expires', 'scope'));
     }
 
+    // plaintext passwords are bad!  Override this for your application
+
     public function unsetRefreshToken($refresh_token)
     {
         $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE refresh_token = :refresh_token', $this->config['refresh_token_table']));
 
         return $stmt->execute(compact('refresh_token'));
-    }
-
-    // plaintext passwords are bad!  Override this for your application
-    protected function checkPassword($user, $password)
-    {
-        return $user['password'] == sha1($password);
-    }
-
-    public function getUser($username)
-    {
-        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
-        $stmt->execute(array('username' => $username));
-
-        if (!$userInfo = $stmt->fetch(\PDO::FETCH_BOTH)) {
-            return false;
-        }
-
-        // the default behavior is to use "username" as the user_id
-        return array_merge(array(
-            'user_id' => $username
-        ), $userInfo);
     }
 
     public function setUser($username, $password, $firstName = null, $lastName = null)
@@ -333,7 +325,6 @@ class Pdo implements
         return $stmt->execute(compact('username', 'password', 'firstName', 'lastName'));
     }
 
-    /* ScopeInterface */
     public function scopeExists($scope)
     {
         $scope = explode(' ', $scope);
@@ -347,6 +338,8 @@ class Pdo implements
 
         return false;
     }
+
+    /* ScopeInterface */
 
     public function getDefaultScope($client_id = null)
     {
@@ -364,7 +357,6 @@ class Pdo implements
         return null;
     }
 
-    /* JWTBearerInterface */
     public function getClientKey($client_id, $subject)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT public_key from %s where client_id=:client_id AND subject=:subject', $this->config['jwt_table']));
@@ -373,6 +365,8 @@ class Pdo implements
 
         return $stmt->fetchColumn();
     }
+
+    /* JWTBearerInterface */
 
     public function getClientScope($client_id)
     {
@@ -413,7 +407,6 @@ class Pdo implements
         return $stmt->execute(compact('client_id', 'subject', 'audience', 'expires', 'jti'));
     }
 
-    /* PublicKeyInterface */
     public function getPublicKey($client_id = null)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT public_key FROM %s WHERE client_id=:client_id OR client_id IS NULL ORDER BY client_id IS NOT NULL DESC', $this->config['public_key_table']));
@@ -423,6 +416,8 @@ class Pdo implements
             return $result['public_key'];
         }
     }
+
+    /* PublicKeyInterface */
 
     public function getPrivateKey($client_id = null)
     {
@@ -514,7 +509,7 @@ class Pdo implements
           subject             VARCHAR(80),
           public_key          VARCHAR(2000) NOT NULL
         );
-        
+
         CREATE TABLE {$this->config['jti_table']} (
           issuer              VARCHAR(80)   NOT NULL,
           subject             VARCHAR(80),
@@ -532,5 +527,20 @@ class Pdo implements
 ";
 
         return $sql;
+    }
+
+    private function setAuthorizationCodeWithIdToken($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    {
+        // convert expires to datestring
+        $expires = date('Y-m-d H:i:s', $expires);
+
+        // if it exists, update it.
+        if ($this->getAuthorizationCode($code)) {
+            $stmt = $this->db->prepare($sql = sprintf('UPDATE %s SET client_id=:client_id, user_id=:user_id, redirect_uri=:redirect_uri, expires=:expires, scope=:scope, id_token =:id_token where authorization_code=:code', $this->config['code_table']));
+        } else {
+            $stmt = $this->db->prepare(sprintf('INSERT INTO %s (authorization_code, client_id, user_id, redirect_uri, expires, scope, id_token) VALUES (:code, :client_id, :user_id, :redirect_uri, :expires, :scope, :id_token)', $this->config['code_table']));
+        }
+
+        return $stmt->execute(compact('code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope', 'id_token'));
     }
 }

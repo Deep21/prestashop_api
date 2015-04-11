@@ -3,7 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 use PayPal\Validation\UrlValidator;
 
 /**
@@ -20,7 +19,7 @@ class RedirectUrls extends PayPalModel
 {
     /**
      * Url where the payer would be redirected to after approving the payment.
-     * 
+     *
      *
      * @param string $return_url
      * @throws InvalidArgumentException
@@ -45,7 +44,7 @@ class RedirectUrls extends PayPalModel
 
     /**
      * Url where the payer would be redirected to after canceling the payment.
-     * 
+     *
      *
      * @param string $cancel_url
      * @throws \InvalidArgumentException

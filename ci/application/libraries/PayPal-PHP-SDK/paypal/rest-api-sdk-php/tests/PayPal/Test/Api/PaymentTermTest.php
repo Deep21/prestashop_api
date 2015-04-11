@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PaymentTerm;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PaymentTerm;
 class PaymentTermTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PaymentTerm
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"term_type":"TestSample","due_date":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PaymentTerm
      */
@@ -30,6 +20,14 @@ class PaymentTermTest extends \PHPUnit_Framework_TestCase
         return new PaymentTerm(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PaymentTerm
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"term_type":"TestSample","due_date":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues
@@ -54,5 +52,5 @@ class PaymentTermTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getTermType(), "TestSample");
         $this->assertEquals($obj->getDueDate(), "TestSample");
     }
-    
+
 }

@@ -2,12 +2,9 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
 use PayPal\Api\ItemsArray;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PPRestCall;
 use PayPal\Api\PayoutItem;
+use PayPal\Transport\PPRestCall;
 
 /**
  * Class PayoutItem
@@ -22,7 +19,7 @@ class PayoutItemTest extends \PHPUnit_Framework_TestCase
      */
     public static function getJson()
     {
-        return '{"recipient_type":"TestSample","amount":' .CurrencyTest::getJson() . ',"note":"TestSample","receiver":"TestSample","sender_item_id":"TestSample"}';
+        return '{"recipient_type":"TestSample","amount":' . CurrencyTest::getJson() . ',"note":"TestSample","receiver":"TestSample","sender_item_id":"TestSample"}';
     }
 
     /**
@@ -109,8 +106,8 @@ class PayoutItemTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)

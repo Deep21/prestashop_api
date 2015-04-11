@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Presentation;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Presentation;
 class PresentationTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Presentation
-     * @return string
-     */
-    public static function getJson()
-    {
-        return json_encode(json_decode('{"brand_name":"TestSample","logo_image":"TestSample","locale_code":"TestSample"}'));
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Presentation
      */
@@ -30,6 +20,14 @@ class PresentationTest extends \PHPUnit_Framework_TestCase
         return new Presentation(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Presentation
+     * @return string
+     */
+    public static function getJson()
+    {
+        return json_encode(json_decode('{"brand_name":"TestSample","logo_image":"TestSample","locale_code":"TestSample"}'));
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

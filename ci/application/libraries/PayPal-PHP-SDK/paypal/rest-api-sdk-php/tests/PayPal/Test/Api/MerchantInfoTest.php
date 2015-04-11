@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\MerchantInfo;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\MerchantInfo;
 class MerchantInfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object MerchantInfo
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"email":"TestSample","first_name":"TestSample","last_name":"TestSample","address":' .AddressTest::getJson() . ',"business_name":"TestSample","phone":' .PhoneTest::getJson() . ',"fax":' .PhoneTest::getJson() . ',"website":"TestSample","tax_id":"TestSample","additional_info":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return MerchantInfo
      */
@@ -30,6 +20,14 @@ class MerchantInfoTest extends \PHPUnit_Framework_TestCase
         return new MerchantInfo(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object MerchantInfo
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"email":"TestSample","first_name":"TestSample","last_name":"TestSample","address":' . AddressTest::getJson() . ',"business_name":"TestSample","phone":' . PhoneTest::getJson() . ',"fax":' . PhoneTest::getJson() . ',"website":"TestSample","tax_id":"TestSample","additional_info":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

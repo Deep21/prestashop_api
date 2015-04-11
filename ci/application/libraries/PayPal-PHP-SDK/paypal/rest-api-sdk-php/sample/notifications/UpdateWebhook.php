@@ -32,7 +32,7 @@ $webhook = require 'CreateWebhook.php';
 $patch = new \PayPal\Api\Patch();
 $patch->setOp("replace")
     ->setPath("/url")
-    ->setValue("https://requestb.in/10ujt3c1?uniqid=". uniqid());
+    ->setValue("https://requestb.in/10ujt3c1?uniqid=" . uniqid());
 
 $patch2 = new \PayPal\Api\Patch();
 $patch2->setOp("replace")

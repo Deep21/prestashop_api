@@ -12,6 +12,9 @@ use PayPal\Exception\PayPalConfigurationException;
  */
 class PayPalHttpConfig
 {
+    const HEADER_SEPARATOR = ';';
+    const HTTP_GET = 'GET';
+    const HTTP_POST = 'POST';
     /**
      * Some default options for curl
      * These are typically overridden by PayPalConnectionManager
@@ -31,11 +34,6 @@ class PayPalHttpConfig
         //Allowing TLSv1 cipher list.
         //Adding it like this for backward compatibility with older versions of curl
     );
-
-    const HEADER_SEPARATOR = ';';
-    const HTTP_GET = 'GET';
-    const HTTP_POST = 'POST';
-
     private $headers = array();
 
     private $curlOptions;
@@ -71,6 +69,40 @@ class PayPalHttpConfig
     }
 
     /**
+     * Retrieves an array of constant key, and value based on Prefix
+     *
+     * @param array $configs
+     * @param       $prefix
+     * @return array
+     */
+    public function getHttpConstantsFromConfigs($configs = array(), $prefix)
+    {
+        $arr = array();
+        if ($prefix != null && is_array($configs)) {
+            foreach ($configs as $k => $v) {
+                // Check if it startsWith
+                if (substr($k, 0, strlen($prefix)) === $prefix) {
+                    $newKey = ltrim($k, $prefix);
+                    if (defined($newKey)) {
+                        $arr[constant($newKey)] = $v;
+                    }
+                }
+            }
+        }
+        return $arr;
+    }
+
+    /**
+     * Removes a curl option from the list
+     *
+     * @param $name
+     */
+    public function removeCurlOption($name)
+    {
+        unset($this->curlOptions[$name]);
+    }
+
+    /**
      * Gets Url
      *
      * @return null|string
@@ -78,6 +110,16 @@ class PayPalHttpConfig
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Sets Url
+     *
+     * @param $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 
     /**
@@ -101,6 +143,16 @@ class PayPalHttpConfig
     }
 
     /**
+     * Set Headers
+     *
+     * @param array $headers
+     */
+    public function setHeaders(array $headers = array())
+    {
+        $this->headers = $headers;
+    }
+
+    /**
      * Get Header by Name
      *
      * @param $name
@@ -112,26 +164,6 @@ class PayPalHttpConfig
             return $this->headers[$name];
         }
         return null;
-    }
-
-    /**
-     * Sets Url
-     *
-     * @param $url
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
-    /**
-     * Set Headers
-     *
-     * @param array $headers
-     */
-    public function setHeaders(array $headers = array())
-    {
-        $this->headers = $headers;
     }
 
     /**
@@ -171,27 +203,6 @@ class PayPalHttpConfig
     }
 
     /**
-     * Add Curl Option
-     *
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function addCurlOption($name, $value)
-    {
-        $this->curlOptions[$name] = $value;
-    }
-
-    /**
-     * Removes a curl option from the list
-     *
-     * @param $name
-     */
-    public function removeCurlOption($name)
-    {
-        unset($this->curlOptions[$name]);
-    }
-
-    /**
      * Set Curl Options. Overrides all curl options
      *
      * @param $options
@@ -199,6 +210,17 @@ class PayPalHttpConfig
     public function setCurlOptions($options)
     {
         $this->curlOptions = $options;
+    }
+
+    /**
+     * Add Curl Option
+     *
+     * @param string $name
+     * @param mixed $value
+     */
+    public function addCurlOption($name, $value)
+    {
+        $this->curlOptions[$name] = $value;
     }
 
     /**
@@ -274,29 +296,5 @@ class PayPalHttpConfig
     public function setUserAgent($userAgentString)
     {
         $this->curlOptions[CURLOPT_USERAGENT] = $userAgentString;
-    }
-
-    /**
-     * Retrieves an array of constant key, and value based on Prefix
-     *
-     * @param array $configs
-     * @param       $prefix
-     * @return array
-     */
-    public function getHttpConstantsFromConfigs($configs = array(), $prefix)
-    {
-        $arr = array();
-        if ($prefix != null && is_array($configs)) {
-            foreach ($configs as $k => $v) {
-                // Check if it startsWith
-                if (substr($k, 0, strlen($prefix)) === $prefix) {
-                    $newKey = ltrim($k, $prefix);
-                    if (defined($newKey)) {
-                        $arr[constant($newKey)] = $v;
-                    }
-                }
-            }
-        }
-        return $arr;
     }
 }

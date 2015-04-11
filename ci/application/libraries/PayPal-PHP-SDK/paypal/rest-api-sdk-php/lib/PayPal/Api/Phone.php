@@ -21,7 +21,7 @@ class Phone extends PayPalModel
      * Country code (in E.164 format). Assume length is n.
      *
      * @param string $country_code
-     * 
+     *
      * @return $this
      */
     public function setCountryCode($country_code)
@@ -44,7 +44,7 @@ class Phone extends PayPalModel
      * In-country phone number (in E.164 format). Maximum (15 - n) digits.
      *
      * @param string $national_number
-     * 
+     *
      * @return $this
      */
     public function setNationalNumber($national_number)

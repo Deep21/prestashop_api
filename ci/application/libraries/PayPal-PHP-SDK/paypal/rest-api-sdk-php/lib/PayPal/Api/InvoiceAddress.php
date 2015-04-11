@@ -2,8 +2,6 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
-
 /**
  * Class InvoiceAddress
  *
@@ -13,13 +11,13 @@ use PayPal\Common\PayPalModel;
  *
  * @property \PayPal\Api\Phone phone
  */
-class InvoiceAddress extends BaseAddress 
+class InvoiceAddress extends BaseAddress
 {
     /**
      * Phone number in E.123 format.
      *
      * @param \PayPal\Api\Phone $phone
-     * 
+     *
      * @return $this
      */
     public function setPhone($phone)

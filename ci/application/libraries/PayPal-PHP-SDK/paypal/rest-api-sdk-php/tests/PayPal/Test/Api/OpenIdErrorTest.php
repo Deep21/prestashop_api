@@ -15,6 +15,17 @@ class OpenIdErrorTest extends \PHPUnit_Framework_TestCase
     private $error;
 
     /**
+     * @test
+     */
+    public function testSerializationDeserialization()
+    {
+        $errorCopy = new OpenIdError();
+        $errorCopy->fromJson($this->error->toJson());
+
+        $this->assertEquals($this->error, $errorCopy);
+    }
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -32,16 +43,5 @@ class OpenIdErrorTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @test
-     */
-    public function testSerializationDeserialization()
-    {
-        $errorCopy = new OpenIdError();
-        $errorCopy->fromJson($this->error->toJson());
-
-        $this->assertEquals($this->error, $errorCopy);
     }
 }

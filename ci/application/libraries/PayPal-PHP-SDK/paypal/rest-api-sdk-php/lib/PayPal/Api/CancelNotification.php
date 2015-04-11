@@ -22,7 +22,7 @@ class CancelNotification extends PayPalModel
      * Subject of the notification.
      *
      * @param string $subject
-     * 
+     *
      * @return $this
      */
     public function setSubject($subject)
@@ -45,7 +45,7 @@ class CancelNotification extends PayPalModel
      * Note to the payer.
      *
      * @param string $note
-     * 
+     *
      * @return $this
      */
     public function setNote($note)
@@ -68,7 +68,7 @@ class CancelNotification extends PayPalModel
      * A flag indicating whether a copy of the email has to be sent to the merchant.
      *
      * @param bool $send_to_merchant
-     * 
+     *
      * @return $this
      */
     public function setSendToMerchant($send_to_merchant)
@@ -91,7 +91,7 @@ class CancelNotification extends PayPalModel
      * A flag indicating whether a copy of the email has to be sent to the payer.
      *
      * @param bool $send_to_payer
-     * 
+     *
      * @return $this
      */
     public function setSendToPayer($send_to_payer)

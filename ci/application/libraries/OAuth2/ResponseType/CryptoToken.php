@@ -5,9 +5,9 @@ namespace OAuth2\ResponseType;
 use OAuth2\Encryption\EncryptionInterface;
 use OAuth2\Encryption\Jwt;
 use OAuth2\Storage\AccessTokenInterface as AccessTokenStorageInterface;
-use OAuth2\Storage\RefreshTokenInterface;
-use OAuth2\Storage\PublicKeyInterface;
 use OAuth2\Storage\Memory;
+use OAuth2\Storage\PublicKeyInterface;
+use OAuth2\Storage\RefreshTokenInterface;
 
 /**
  *
@@ -61,12 +61,12 @@ class CryptoToken extends AccessToken
         // token to encrypt
         $expires = time() + $this->config['access_lifetime'];
         $cryptoToken = array(
-            'id'         => $this->generateAccessToken(),
-            'client_id'  => $client_id,
-            'user_id'    => $user_id,
-            'expires'    => $expires,
+            'id' => $this->generateAccessToken(),
+            'client_id' => $client_id,
+            'user_id' => $user_id,
+            'expires' => $expires,
             'token_type' => $this->config['token_type'],
-            'scope'      => $scope
+            'scope' => $scope
         );
 
         /*
@@ -111,7 +111,7 @@ class CryptoToken extends AccessToken
     protected function encodeToken(array $token, $client_id = null)
     {
         $private_key = $this->publicKeyStorage->getPrivateKey($client_id);
-        $algorithm   = $this->publicKeyStorage->getEncryptionAlgorithm($client_id);
+        $algorithm = $this->publicKeyStorage->getEncryptionAlgorithm($client_id);
 
         return $this->encryptionUtil->encode($token, $private_key, $algorithm);
     }

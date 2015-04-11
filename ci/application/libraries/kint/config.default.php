@@ -1,5 +1,5 @@
 <?php
-isset( $GLOBALS['_kint_settings'] ) or $GLOBALS['_kint_settings'] = array();
+isset($GLOBALS['_kint_settings']) or $GLOBALS['_kint_settings'] = array();
 $_kintSettings = &$GLOBALS['_kint_settings'];
 
 
@@ -22,7 +22,7 @@ $_kintSettings['displayCalledFrom'] = true;
  * $_kintSettings['fileLinkFormat'] = 'http://localhost:8091/?message=%f:%l';
  *
  */
-$_kintSettings['fileLinkFormat'] = ini_get( 'xdebug.file_link_format' );
+$_kintSettings['fileLinkFormat'] = ini_get('xdebug.file_link_format');
 
 
 /**
@@ -50,7 +50,7 @@ $_kintSettings['fileLinkFormat'] = ini_get( 'xdebug.file_link_format' );
  *
  */
 $_kintSettings['appRootDirs'] = array(
-	$_SERVER['DOCUMENT_ROOT'] => '&lt;ROOT&gt;'
+    $_SERVER['DOCUMENT_ROOT'] => '&lt;ROOT&gt;'
 );
 
 
@@ -101,7 +101,7 @@ $_kintSettings['theme'] = 'original';
  * @var callback filters array/object keys before outputting; return false if you do not wish to see it in the output
  *
  * @param string $key the key being output
- * @param mixed  $val the contents of the dumped element in case you need it
+ * @param mixed $val the contents of the dumped element in case you need it
  *
  * @return bool return false to skip displaying
  *
@@ -127,4 +127,4 @@ $_kintSettings['keyFilterCallback'] = null;
 $_kintSettings['devel'] = false;
 
 
-unset( $_kintSettings );
+unset($_kintSettings);

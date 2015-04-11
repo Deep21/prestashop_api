@@ -5,8 +5,8 @@ use PayPal\Api\Amount;
 use PayPal\Api\Currency;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
-use PayPal\Converter\FormatConverter;
 use PayPal\Common\PayPalModel;
+use PayPal\Converter\FormatConverter;
 use PayPal\Test\Validation\NumericValidatorTest;
 
 class FormatConverterTest extends \PHPUnit_Framework_TestCase

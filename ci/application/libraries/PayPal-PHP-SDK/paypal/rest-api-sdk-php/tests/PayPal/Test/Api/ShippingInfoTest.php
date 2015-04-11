@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\ShippingInfo;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\ShippingInfo;
 class ShippingInfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object ShippingInfo
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"first_name":"TestSample","last_name":"TestSample","business_name":"TestSample","address":' .AddressTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return ShippingInfo
      */
@@ -30,6 +20,14 @@ class ShippingInfoTest extends \PHPUnit_Framework_TestCase
         return new ShippingInfo(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object ShippingInfo
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"first_name":"TestSample","last_name":"TestSample","business_name":"TestSample","address":' . AddressTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

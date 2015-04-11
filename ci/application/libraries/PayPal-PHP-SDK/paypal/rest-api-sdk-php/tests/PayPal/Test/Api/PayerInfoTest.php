@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PayerInfo;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PayerInfo;
 class PayerInfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PayerInfo
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"email":"TestSample","external_remember_me_id":"TestSample","buyer_account_number":"TestSample","first_name":"TestSample","last_name":"TestSample","payer_id":"TestSample","phone":"TestSample","phone_type":"TestSample","birth_date":"TestSample","tax_id":"TestSample","tax_id_type":"TestSample","billing_address":' .AddressTest::getJson() . ',"shipping_address":' .ShippingAddressTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PayerInfo
      */
@@ -30,6 +20,14 @@ class PayerInfoTest extends \PHPUnit_Framework_TestCase
         return new PayerInfo(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PayerInfo
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"email":"TestSample","external_remember_me_id":"TestSample","buyer_account_number":"TestSample","first_name":"TestSample","last_name":"TestSample","payer_id":"TestSample","phone":"TestSample","phone_type":"TestSample","birth_date":"TestSample","tax_id":"TestSample","tax_id_type":"TestSample","billing_address":' . AddressTest::getJson() . ',"shipping_address":' . ShippingAddressTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

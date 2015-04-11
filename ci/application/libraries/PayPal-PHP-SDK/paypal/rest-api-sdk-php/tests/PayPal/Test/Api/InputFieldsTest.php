@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\InputFields;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\InputFields;
 class InputFieldsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object InputFields
-     * @return string
-     */
-    public static function getJson()
-    {
-        return json_encode(json_decode('{"allow_note":true,"no_shipping":123,"address_override":123}'));
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return InputFields
      */
@@ -30,6 +20,14 @@ class InputFieldsTest extends \PHPUnit_Framework_TestCase
         return new InputFields(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object InputFields
+     * @return string
+     */
+    public static function getJson()
+    {
+        return json_encode(json_decode('{"allow_note":true,"no_shipping":123,"address_override":123}'));
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

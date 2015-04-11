@@ -2,8 +2,6 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
-
 /**
  * Class ShippingAddress
  *
@@ -15,13 +13,13 @@ use PayPal\Common\PayPalModel;
  * @property string recipient_name
  * @property bool default_address
  */
-class ShippingAddress extends Address 
+class ShippingAddress extends Address
 {
     /**
      * Address ID assigned in PayPal system.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -44,7 +42,7 @@ class ShippingAddress extends Address
      * Name of the recipient at this address.
      *
      * @param string $recipient_name
-     * 
+     *
      * @return $this
      */
     public function setRecipientName($recipient_name)
@@ -67,7 +65,7 @@ class ShippingAddress extends Address
      * Default shipping address of the Payer.
      *
      * @param bool $default_address
-     * 
+     *
      * @return $this
      */
     public function setDefaultAddress($default_address)

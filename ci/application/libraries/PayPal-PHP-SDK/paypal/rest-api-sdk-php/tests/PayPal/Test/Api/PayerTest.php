@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Payer;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Payer;
 class PayerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Payer
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"payment_method":"TestSample","status":"TestSample","funding_instruments":' .FundingInstrumentTest::getJson() . ',"funding_option_id":"TestSample","payer_info":' .PayerInfoTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Payer
      */
@@ -30,6 +20,14 @@ class PayerTest extends \PHPUnit_Framework_TestCase
         return new Payer(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Payer
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"payment_method":"TestSample","status":"TestSample","funding_instruments":' . FundingInstrumentTest::getJson() . ',"funding_option_id":"TestSample","payer_info":' . PayerInfoTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

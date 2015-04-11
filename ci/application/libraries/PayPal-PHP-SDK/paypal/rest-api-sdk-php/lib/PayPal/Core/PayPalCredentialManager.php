@@ -53,20 +53,6 @@ class PayPalCredentialManager
     }
 
     /**
-     * Create singleton instance for this class.
-     *
-     * @param array|null $config
-     * @return PayPalCredentialManager
-     */
-    public static function getInstance($config = null)
-    {
-        if (!self::$instance) {
-            self::$instance = new self($config == null ? PayPalConfigManager::getInstance()->getConfigHashmap() : $config);
-        }
-        return self::$instance;
-    }
-
-    /**
      * Load credentials for multiple accounts, with priority given to Signature credential.
      *
      * @param array $config
@@ -117,10 +103,24 @@ class PayPalCredentialManager
     }
 
     /**
+     * Create singleton instance for this class.
+     *
+     * @param array|null $config
+     * @return PayPalCredentialManager
+     */
+    public static function getInstance($config = null)
+    {
+        if (!self::$instance) {
+            self::$instance = new self($config == null ? PayPalConfigManager::getInstance()->getConfigHashmap() : $config);
+        }
+        return self::$instance;
+    }
+
+    /**
      * Sets credential object for users
      *
      * @param \PayPal\Auth\OAuthTokenCredential $credential
-     * @param string|null   $userId  User Id associated with the account
+     * @param string|null $userId User Id associated with the account
      * @param bool $default If set, it would make it as a default credential for all requests
      *
      * @return $this
@@ -151,8 +151,8 @@ class PayPalCredentialManager
         }
 
         if (empty($credObj)) {
-            throw new PayPalInvalidCredentialException("Credential not found for " .  ($userId ? $userId : " default user") .
-            ". Please make sure your configuration/APIContext has credential information");
+            throw new PayPalInvalidCredentialException("Credential not found for " . ($userId ? $userId : " default user") .
+                ". Please make sure your configuration/APIContext has credential information");
         }
         return $credObj;
     }

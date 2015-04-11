@@ -37,7 +37,7 @@ class Search extends PayPalModel
      * Initial letters of the email address.
      *
      * @param string $email
-     * 
+     *
      * @return $this
      */
     public function setEmail($email)
@@ -60,7 +60,7 @@ class Search extends PayPalModel
      * Initial letters of the recipient's first name.
      *
      * @param string $recipient_first_name
-     * 
+     *
      * @return $this
      */
     public function setRecipientFirstName($recipient_first_name)
@@ -83,7 +83,7 @@ class Search extends PayPalModel
      * Initial letters of the recipient's last name.
      *
      * @param string $recipient_last_name
-     * 
+     *
      * @return $this
      */
     public function setRecipientLastName($recipient_last_name)
@@ -106,7 +106,7 @@ class Search extends PayPalModel
      * Initial letters of the recipient's business name.
      *
      * @param string $recipient_business_name
-     * 
+     *
      * @return $this
      */
     public function setRecipientBusinessName($recipient_business_name)
@@ -129,7 +129,7 @@ class Search extends PayPalModel
      * The invoice number that appears on the invoice.
      *
      * @param string $number
-     * 
+     *
      * @return $this
      */
     public function setNumber($number)
@@ -153,7 +153,7 @@ class Search extends PayPalModel
      * Valid Values: ["DRAFT", "SENT", "PAID", "MARKED_AS_PAID", "CANCELLED", "REFUNDED", "PARTIALLY_REFUNDED", "MARKED_AS_REFUNDED"]
      *
      * @param string $status
-     * 
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -176,7 +176,7 @@ class Search extends PayPalModel
      * Lower limit of total amount.
      *
      * @param \PayPal\Api\Currency $lower_total_amount
-     * 
+     *
      * @return $this
      */
     public function setLowerTotalAmount($lower_total_amount)
@@ -199,7 +199,7 @@ class Search extends PayPalModel
      * Upper limit of total amount.
      *
      * @param \PayPal\Api\Currency $upper_total_amount
-     * 
+     *
      * @return $this
      */
     public function setUpperTotalAmount($upper_total_amount)
@@ -222,7 +222,7 @@ class Search extends PayPalModel
      * Start invoice date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $start_invoice_date
-     * 
+     *
      * @return $this
      */
     public function setStartInvoiceDate($start_invoice_date)
@@ -245,7 +245,7 @@ class Search extends PayPalModel
      * End invoice date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $end_invoice_date
-     * 
+     *
      * @return $this
      */
     public function setEndInvoiceDate($end_invoice_date)
@@ -268,7 +268,7 @@ class Search extends PayPalModel
      * Start invoice due date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $start_due_date
-     * 
+     *
      * @return $this
      */
     public function setStartDueDate($start_due_date)
@@ -291,7 +291,7 @@ class Search extends PayPalModel
      * End invoice due date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $end_due_date
-     * 
+     *
      * @return $this
      */
     public function setEndDueDate($end_due_date)
@@ -314,7 +314,7 @@ class Search extends PayPalModel
      * Start invoice payment date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $start_payment_date
-     * 
+     *
      * @return $this
      */
     public function setStartPaymentDate($start_payment_date)
@@ -337,7 +337,7 @@ class Search extends PayPalModel
      * End invoice payment date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $end_payment_date
-     * 
+     *
      * @return $this
      */
     public function setEndPaymentDate($end_payment_date)
@@ -360,7 +360,7 @@ class Search extends PayPalModel
      * Start invoice creation date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $start_creation_date
-     * 
+     *
      * @return $this
      */
     public function setStartCreationDate($start_creation_date)
@@ -383,7 +383,7 @@ class Search extends PayPalModel
      * End invoice creation date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $end_creation_date
-     * 
+     *
      * @return $this
      */
     public function setEndCreationDate($end_creation_date)
@@ -406,7 +406,7 @@ class Search extends PayPalModel
      * Offset of the search results.
      *
      * @param \PayPal\Api\number $page
-     * 
+     *
      * @return $this
      */
     public function setPage($page)
@@ -429,7 +429,7 @@ class Search extends PayPalModel
      * Page size of the search results.
      *
      * @param \PayPal\Api\number $page_size
-     * 
+     *
      * @return $this
      */
     public function setPageSize($page_size)
@@ -452,7 +452,7 @@ class Search extends PayPalModel
      * A flag indicating whether total count is required in the response.
      *
      * @param bool $total_count_required
-     * 
+     *
      * @return $this
      */
     public function setTotalCountRequired($total_count_required)

@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\BankToken;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\BankToken;
 class BankTokenTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object BankToken
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"bank_id":"TestSample","external_customer_id":"TestSample","mandate_reference_number":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return BankToken
      */
@@ -30,6 +20,14 @@ class BankTokenTest extends \PHPUnit_Framework_TestCase
         return new BankToken(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object BankToken
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"bank_id":"TestSample","external_customer_id":"TestSample","mandate_reference_number":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

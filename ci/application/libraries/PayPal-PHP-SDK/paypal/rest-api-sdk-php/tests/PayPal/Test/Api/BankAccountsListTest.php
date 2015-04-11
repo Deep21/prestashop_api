@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\BankAccountsList;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\BankAccountsList;
 class BankAccountsListTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object BankAccountsList
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"bank-accounts":' .BankAccountTest::getJson() . ',"count":123,"next_id":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return BankAccountsList
      */
@@ -30,6 +20,14 @@ class BankAccountsListTest extends \PHPUnit_Framework_TestCase
         return new BankAccountsList(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object BankAccountsList
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"bank-accounts":' . BankAccountTest::getJson() . ',"count":123,"next_id":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PaymentDetail;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PaymentDetail;
 class PaymentDetailTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PaymentDetail
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"type":"TestSample","transaction_id":"TestSample","transaction_type":"TestSample","date":"TestSample","method":"TestSample","note":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PaymentDetail
      */
@@ -30,6 +20,14 @@ class PaymentDetailTest extends \PHPUnit_Framework_TestCase
         return new PaymentDetail(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PaymentDetail
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"type":"TestSample","transaction_id":"TestSample","transaction_type":"TestSample","date":"TestSample","method":"TestSample","note":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

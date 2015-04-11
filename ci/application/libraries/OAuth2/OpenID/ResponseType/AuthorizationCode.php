@@ -2,8 +2,8 @@
 
 namespace OAuth2\OpenID\ResponseType;
 
-use OAuth2\ResponseType\AuthorizationCode as BaseAuthorizationCode;
 use OAuth2\OpenID\Storage\AuthorizationCodeInterface as AuthorizationCodeStorageInterface;
+use OAuth2\ResponseType\AuthorizationCode as BaseAuthorizationCode;
 
 /**
  *

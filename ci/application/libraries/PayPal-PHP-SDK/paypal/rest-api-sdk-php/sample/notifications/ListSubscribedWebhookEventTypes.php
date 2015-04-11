@@ -21,6 +21,6 @@ try {
     exit(1);
 }
 
-ResultPrinter::printResult("List subscribed webhook event types", "WebhookEventTypeList",null, null, $output);
+ResultPrinter::printResult("List subscribed webhook event types", "WebhookEventTypeList", null, null, $output);
 
 return $output;

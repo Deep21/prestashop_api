@@ -22,6 +22,6 @@ try {
     exit(1);
 }
 
-ResultPrinter::printResult("List all webhooks", "WebhookList",null, null, $output);
+ResultPrinter::printResult("List all webhooks", "WebhookList", null, null, $output);
 
 return $output;

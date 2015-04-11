@@ -3,7 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 
 /**
  * Class NameValuePair
@@ -18,11 +17,11 @@ use PayPal\Rest\ApiContext;
 class NameValuePair extends PayPalModel
 {
     /**
-     * Key for the name value pair.  The value name types should be correlated 
-     * 
+     * Key for the name value pair.  The value name types should be correlated
+     *
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -32,7 +31,7 @@ class NameValuePair extends PayPalModel
     }
 
     /**
-     * Key for the name value pair.  The value name types should be correlated 
+     * Key for the name value pair.  The value name types should be correlated
      *
      * @return string
      */
@@ -43,10 +42,10 @@ class NameValuePair extends PayPalModel
 
     /**
      * Value for the name value pair.
-     * 
+     *
      *
      * @param string $value
-     * 
+     *
      * @return $this
      */
     public function setValue($value)

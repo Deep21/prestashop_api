@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Terms;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Terms;
 class TermsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Terms
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","type":"TestSample","max_billing_amount":' .CurrencyTest::getJson() . ',"occurrences":"TestSample","amount_range":' .CurrencyTest::getJson() . ',"buyer_editable":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Terms
      */
@@ -30,6 +20,14 @@ class TermsTest extends \PHPUnit_Framework_TestCase
         return new Terms(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Terms
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","type":"TestSample","max_billing_amount":' . CurrencyTest::getJson() . ',"occurrences":"TestSample","amount_range":' . CurrencyTest::getJson() . ',"buyer_editable":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

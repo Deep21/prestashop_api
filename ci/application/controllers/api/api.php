@@ -32,7 +32,7 @@ class Api extends REST_Controller
 
     public function boot_get($id = null)
     {
-
+        $this->response(array('f'));
     }
 
 

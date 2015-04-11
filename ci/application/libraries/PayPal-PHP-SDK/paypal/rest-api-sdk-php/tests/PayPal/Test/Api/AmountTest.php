@@ -3,24 +3,13 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\Amount;
-use PayPal\Test\Constants;
 
 class AmountTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $amounts;
-
     public static $currency = "USD";
     public static $total = "1.12";
-
-    public static function createAmount()
-    {
-        $amount = new Amount();
-        $amount->setCurrency(self::$currency);
-        $amount->setTotal(self::$total);
-
-        return $amount;
-    }
+    private $amounts;
 
     public function setup()
     {
@@ -29,6 +18,15 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $amount = self::createAmount();
         $amount->setDetails(DetailsTest::createAmountDetails());
         $this->amounts['full'] = $amount;
+    }
+
+    public static function createAmount()
+    {
+        $amount = new Amount();
+        $amount->setCurrency(self::$currency);
+        $amount->setTotal(self::$total);
+
+        return $amount;
     }
 
     public function testGetterSetter()

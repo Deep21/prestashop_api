@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PayoutBatch;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PayoutBatch;
 class PayoutBatchTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PayoutBatch
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"batch_header":' .PayoutBatchHeaderTest::getJson() . ',"items":' .PayoutItemDetailsTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PayoutBatch
      */
@@ -30,6 +20,14 @@ class PayoutBatchTest extends \PHPUnit_Framework_TestCase
         return new PayoutBatch(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PayoutBatch
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"batch_header":' . PayoutBatchHeaderTest::getJson() . ',"items":' . PayoutItemDetailsTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

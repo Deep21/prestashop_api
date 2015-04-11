@@ -2,11 +2,11 @@
 
 namespace OAuth2\Controller;
 
-use OAuth2\Storage\ClientInterface;
-use OAuth2\ScopeInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
 use OAuth2\Scope;
+use OAuth2\ScopeInterface;
+use OAuth2\Storage\ClientInterface;
 
 /**
  * @see OAuth2\Controller\AuthorizeControllerInterface
@@ -26,9 +26,9 @@ class AuthorizeController implements AuthorizeControllerInterface
 
     /**
      * @param OAuth2\Storage\ClientInterface $clientStorage REQUIRED Instance of OAuth2\Storage\ClientInterface to retrieve client information
-     * @param array                          $responseTypes OPTIONAL Array of OAuth2\ResponseType\ResponseTypeInterface objects.  Valid array
+     * @param array $responseTypes OPTIONAL Array of OAuth2\ResponseType\ResponseTypeInterface objects.  Valid array
      *                                                      keys are "code" and "token"
-     * @param array                          $config        OPTIONAL Configuration options for the server
+     * @param array $config OPTIONAL Configuration options for the server
      *                                                      <code>
      *                                                      $config = array(
      *                                                      'allow_implicit' => false,            // if the controller should allow the "implicit" grant type
@@ -37,7 +37,7 @@ class AuthorizeController implements AuthorizeControllerInterface
      *                                                      'redirect_status_code' => 302,        // HTTP status code to use for redirect responses
      *                                                      );
      *                                                      </code>
-     * @param OAuth2\ScopeInterface          $scopeUtil     OPTIONAL Instance of OAuth2\ScopeInterface to validate the requested scope
+     * @param OAuth2\ScopeInterface $scopeUtil OPTIONAL Instance of OAuth2\ScopeInterface to validate the requested scope
      */
     public function __construct(ClientInterface $clientStorage, array $responseTypes = array(), array $config = array(), ScopeInterface $scopeUtil = null)
     {
@@ -45,7 +45,7 @@ class AuthorizeController implements AuthorizeControllerInterface
         $this->responseTypes = $responseTypes;
         $this->config = array_merge(array(
             'allow_implicit' => false,
-            'enforce_state'  => true,
+            'enforce_state' => true,
             'require_exact_redirect_uri' => true,
             'redirect_status_code' => 302,
         ), $config);
@@ -70,7 +70,7 @@ class AuthorizeController implements AuthorizeControllerInterface
 
         // If no redirect_uri is passed in the request, use client's registered one
         if (empty($this->redirect_uri)) {
-            $clientData              = $this->clientStorage->getClientDetails($this->client_id);
+            $clientData = $this->clientStorage->getClientDetails($this->client_id);
             $registered_redirect_uri = $clientData['redirect_uri'];
         }
 
@@ -116,10 +116,10 @@ class AuthorizeController implements AuthorizeControllerInterface
     {
         // @TODO: we should be explicit with this in the future
         $params = array(
-            'scope'         => $this->scope,
-            'state'         => $this->state,
-            'client_id'     => $this->client_id,
-            'redirect_uri'  => $this->redirect_uri,
+            'scope' => $this->scope,
+            'state' => $this->state,
+            'client_id' => $this->client_id,
+            'redirect_uri' => $this->redirect_uri,
             'response_type' => $this->response_type,
         );
 
@@ -237,7 +237,8 @@ class AuthorizeController implements AuthorizeControllerInterface
             // otherwise verify the scope exists
             $clientScope = $this->clientStorage->getClientScope($client_id);
             if ((is_null($clientScope) && !$this->scopeUtil->scopeExists($requestedScope))
-                || ($clientScope && !$this->scopeUtil->checkScope($requestedScope, $clientScope))) {
+                || ($clientScope && !$this->scopeUtil->checkScope($requestedScope, $clientScope))
+            ) {
                 $response->setRedirect($this->config['redirect_status_code'], $redirect_uri, $state, 'invalid_scope', 'An unsupported scope was requested', null);
 
                 return false;
@@ -263,11 +264,11 @@ class AuthorizeController implements AuthorizeControllerInterface
         }
 
         // save the input data and return true
-        $this->scope         = $requestedScope;
-        $this->state         = $state;
-        $this->client_id     = $client_id;
+        $this->scope = $requestedScope;
+        $this->state = $state;
+        $this->client_id = $client_id;
         // Only save the SUPPLIED redirect URI (@see http://tools.ietf.org/html/rfc6749#section-4.1.3)
-        $this->redirect_uri  = $supplied_redirect_uri;
+        $this->redirect_uri = $supplied_redirect_uri;
         $this->response_type = $response_type;
 
         return true;
@@ -301,13 +302,12 @@ class AuthorizeController implements AuthorizeControllerInterface
         return
             ((isset($parse_url["scheme"])) ? $parse_url["scheme"] . "://" : "")
             . ((isset($parse_url["user"])) ? $parse_url["user"]
-            . ((isset($parse_url["pass"])) ? ":" . $parse_url["pass"] : "") . "@" : "")
+                . ((isset($parse_url["pass"])) ? ":" . $parse_url["pass"] : "") . "@" : "")
             . ((isset($parse_url["host"])) ? $parse_url["host"] : "")
             . ((isset($parse_url["port"])) ? ":" . $parse_url["port"] : "")
             . ((isset($parse_url["path"])) ? $parse_url["path"] : "")
             . ((isset($parse_url["query"]) && !empty($parse_url['query'])) ? "?" . $parse_url["query"] : "")
-            . ((isset($parse_url["fragment"])) ? "#" . $parse_url["fragment"] : "")
-        ;
+            . ((isset($parse_url["fragment"])) ? "#" . $parse_url["fragment"] : "");
     }
 
     protected function getValidResponseTypes()
@@ -321,7 +321,7 @@ class AuthorizeController implements AuthorizeControllerInterface
     /**
      * Internal method for validating redirect URI supplied
      *
-     * @param string $inputUri            The submitted URI to be validated
+     * @param string $inputUri The submitted URI to be validated
      * @param string $registeredUriString The allowed URI(s) to validate against.  Can be a space-delimited string of URIs to
      *                                    allow for multiple URIs
      *

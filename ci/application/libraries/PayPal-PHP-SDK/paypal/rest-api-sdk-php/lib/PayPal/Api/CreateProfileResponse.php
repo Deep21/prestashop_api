@@ -17,10 +17,10 @@ class CreateProfileResponse extends PayPalModel
 {
     /**
      * ID of the payment web experience profile.
-     * 
+     *
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)

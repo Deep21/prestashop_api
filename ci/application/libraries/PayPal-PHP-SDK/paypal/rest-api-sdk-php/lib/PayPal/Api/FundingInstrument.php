@@ -25,7 +25,7 @@ class FundingInstrument extends PayPalModel
      * Credit Card information.
      *
      * @param \PayPal\Api\CreditCard $credit_card
-     * 
+     *
      * @return $this
      */
     public function setCreditCard($credit_card)
@@ -48,7 +48,7 @@ class FundingInstrument extends PayPalModel
      * Credit Card information.
      *
      * @param \PayPal\Api\CreditCardToken $credit_card_token
-     * 
+     *
      * @return $this
      */
     public function setCreditCardToken($credit_card_token)
@@ -71,7 +71,7 @@ class FundingInstrument extends PayPalModel
      * Payment Card information.
      *
      * @param \PayPal\Api\PaymentCard $payment_card
-     * 
+     *
      * @return $this
      */
     public function setPaymentCard($payment_card)
@@ -94,7 +94,7 @@ class FundingInstrument extends PayPalModel
      * Payment card token information.
      *
      * @param \PayPal\Api\PaymentCardToken $payment_card_token
-     * 
+     *
      * @return $this
      */
     public function setPaymentCardToken($payment_card_token)
@@ -117,7 +117,7 @@ class FundingInstrument extends PayPalModel
      * Bank Account information.
      *
      * @param \PayPal\Api\ExtendedBankAccount $bank_account
-     * 
+     *
      * @return $this
      */
     public function setBankAccount($bank_account)
@@ -140,7 +140,7 @@ class FundingInstrument extends PayPalModel
      * Bank Account information.
      *
      * @param \PayPal\Api\BankToken $bank_account_token
-     * 
+     *
      * @return $this
      */
     public function setBankAccountToken($bank_account_token)
@@ -163,7 +163,7 @@ class FundingInstrument extends PayPalModel
      * Credit funding information.
      *
      * @param \PayPal\Api\Credit $credit
-     * 
+     *
      * @return $this
      */
     public function setCredit($credit)

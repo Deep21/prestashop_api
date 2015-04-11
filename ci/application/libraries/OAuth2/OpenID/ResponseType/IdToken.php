@@ -4,8 +4,8 @@ namespace OAuth2\OpenID\ResponseType;
 
 use OAuth2\Encryption\EncryptionInterface;
 use OAuth2\Encryption\Jwt;
-use OAuth2\Storage\PublicKeyInterface;
 use OAuth2\OpenID\Storage\UserClaimsInterface;
+use OAuth2\Storage\PublicKeyInterface;
 
 class IdToken implements IdTokenInterface
 {
@@ -56,12 +56,12 @@ class IdToken implements IdTokenInterface
         list($user_id, $auth_time) = $this->getUserIdAndAuthTime($userInfo);
 
         $token = array(
-            'iss'        => $this->config['issuer'],
-            'sub'        => $user_id,
-            'aud'        => $client_id,
-            'iat'        => time(),
-            'exp'        => time() + $this->config['id_lifetime'],
-            'auth_time'  => $auth_time,
+            'iss' => $this->config['issuer'],
+            'sub' => $user_id,
+            'aud' => $client_id,
+            'iat' => time(),
+            'exp' => time() + $this->config['id_lifetime'],
+            'auth_time' => $auth_time,
         );
 
         if ($nonce) {

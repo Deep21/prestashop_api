@@ -85,7 +85,7 @@ class OAuthTokenCredential extends PayPalResourceModel
     /**
      * Construct
      *
-     * @param string $clientId     client id obtained from the developer portal
+     * @param string $clientId client id obtained from the developer portal
      * @param string $clientSecret client secret obtained from the developer portal
      */
     public function __construct($clientId, $clientSecret)

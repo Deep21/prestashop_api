@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\CustomAmount;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\CustomAmount;
 class CustomAmountTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object CustomAmount
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"label":"TestSample","amount":' .CurrencyTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return CustomAmount
      */
@@ -30,6 +20,14 @@ class CustomAmountTest extends \PHPUnit_Framework_TestCase
         return new CustomAmount(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object CustomAmount
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"label":"TestSample","amount":' . CurrencyTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

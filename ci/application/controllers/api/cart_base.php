@@ -25,7 +25,6 @@ class CartBase extends REST_Controller
 
     /**
      * Default constructor
-     * @return
      */
     public function __construct()
     {
@@ -42,9 +41,13 @@ class CartBase extends REST_Controller
     protected function addCart($auto_add)
     {
         $this->load->model('Guest_Model');
+        //Si auto load vaut true
         if ($auto_add) {
-            if ( $this->cookie == null) {
+            //On vérifie si il n'y a pas de cookie qui existe
+            if ($this->cookie == null) {
+                //on créer un nouveau guest
                 $id_guest = $this->Guest_Model->setNewGuest();
+
                 $cart = array(
                     'id_cart' => null,
                     'id_shop_group' => 1,
@@ -52,7 +55,7 @@ class CartBase extends REST_Controller
                     'id_address_delivery' => 0,
                     'id_address_invoice' => 0,
                     'id_currency' => 1,
-                    'id_customer' => 2,
+                    'id_customer' => 0,
                     'id_guest' => $id_guest,
                     'id_lang' => 2,
                     'gift_message' => '',
@@ -62,11 +65,8 @@ class CartBase extends REST_Controller
                     'date_add' => date('Y-m-d H:i:s'),
                     'date_upd' => date('Y-m-d H:i:s'),
                 );
+                // Création d'un nouveau panier
                 $id_cart = $this->cart_model->addCart($cart);
-
-
-
-                exit;
                 $cookie_data = array(
                     'id_guest' => $id_guest,
                     'is_logged' => $this->oauth->getServer()->verifyResourceRequest(OAuth2\Request::createFromGlobals()),

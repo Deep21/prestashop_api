@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\FlowConfig;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\FlowConfig;
 class FlowConfigTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object FlowConfig
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"landing_page_type":"TestSample","bank_txn_pending_url":"http://www.google.com"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return FlowConfig
      */
@@ -30,6 +20,14 @@ class FlowConfigTest extends \PHPUnit_Framework_TestCase
         return new FlowConfig(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object FlowConfig
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"landing_page_type":"TestSample","bank_txn_pending_url":"http://www.google.com"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

@@ -15,31 +15,6 @@ class OpenIdSessionTest extends \PHPUnit_Framework_TestCase
     private $context;
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->context = new ApiContext();
-        $this->context->setConfig(
-            array(
-                'acct1.ClientId' => 'DummyId',
-                'acct1.ClientSecret' => 'A8VERY8SECRET8VALUE0',
-                'mode' => 'live'
-            )
-        );
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
-
-    /**
      * @test
      */
     public function testLoginUrlForMultipleScopes()
@@ -92,5 +67,29 @@ class OpenIdSessionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedBaseUrl . "?id_token=$idToken&redirect_uri=" . urlencode($redirectUri) . "&logout=true",
             OpenIdSession::getLogoutUrl($redirectUri, $idToken, $this->context), "Failed case - custom config");
+    }
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->context = new ApiContext();
+        $this->context->setConfig(
+            array(
+                'acct1.ClientId' => 'DummyId',
+                'acct1.ClientSecret' => 'A8VERY8SECRET8VALUE0',
+                'mode' => 'live'
+            )
+        );
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
     }
 }

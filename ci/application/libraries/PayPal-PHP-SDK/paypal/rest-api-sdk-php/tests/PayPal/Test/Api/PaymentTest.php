@@ -1,15 +1,10 @@
 <?php
 namespace PayPal\Test\Api;
 
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\Address;
-use PayPal\Api\Amount;
-use PayPal\Api\CreditCard;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
-use PayPal\Api\FundingInstrument;
+use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
-use PayPal\Test\Constants;
 
 class PaymentTest extends \PHPUnit_Framework_TestCase
 {

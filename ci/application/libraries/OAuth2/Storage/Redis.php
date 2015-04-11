@@ -25,21 +25,21 @@ class Redis implements AuthorizationCodeInterface,
     OpenIDAuthorizationCodeInterface
 {
 
-    private $cache;
-
-    /* The redis client */
     protected $redis;
 
-    /* Configuration array */
+    /* The redis client */
     protected $config;
+
+    /* Configuration array */
+    private $cache;
 
     /**
      * Redis Storage!
      *
      * @param \Predis\Client $redis
-     * @param array          $config
+     * @param array $config
      */
-    public function __construct($redis, $config=array())
+    public function __construct($redis, $config = array())
     {
         $this->redis = $redis;
         $this->config = array_merge(array(
@@ -53,20 +53,36 @@ class Redis implements AuthorizationCodeInterface,
         ), $config);
     }
 
+    public function getAuthorizationCode($code)
+    {
+        return $this->getValue($this->config['code_key'] . $code);
+    }
+
     protected function getValue($key)
     {
-        if ( isset($this->cache[$key]) ) {
+        if (isset($this->cache[$key])) {
             return $this->cache[$key];
         }
         $value = $this->redis->get($key);
-        if ( isset($value) ) {
+        if (isset($value)) {
             return json_decode($value, true);
         } else {
             return false;
         }
     }
 
-    protected function setValue($key, $value, $expire=0)
+    public function setAuthorizationCode($authorization_code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    {
+        return $this->setValue(
+            $this->config['code_key'] . $authorization_code,
+            compact('authorization_code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope', 'id_token'),
+            $expires
+        );
+    }
+
+    /* AuthorizationCodeInterface */
+
+    protected function setValue($key, $value, $expire = 0)
     {
         $this->cache[$key] = $value;
         $str = json_encode($value);
@@ -82,28 +98,6 @@ class Redis implements AuthorizationCodeInterface,
         return is_bool($ret) ? $ret : $ret->getPayload() == 'OK';
     }
 
-    protected function expireValue($key)
-    {
-        unset($this->cache[$key]);
-
-        return $this->redis->del($key);
-    }
-
-    /* AuthorizationCodeInterface */
-    public function getAuthorizationCode($code)
-    {
-        return $this->getValue($this->config['code_key'] . $code);
-    }
-
-    public function setAuthorizationCode($authorization_code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
-    {
-        return $this->setValue(
-            $this->config['code_key'] . $authorization_code,
-            compact('authorization_code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope', 'id_token'),
-            $expires
-        );
-    }
-
     public function expireAuthorizationCode($code)
     {
         $key = $this->config['code_key'] . $code;
@@ -112,7 +106,15 @@ class Redis implements AuthorizationCodeInterface,
         return $this->expireValue($key);
     }
 
+    protected function expireValue($key)
+    {
+        unset($this->cache[$key]);
+
+        return $this->redis->del($key);
+    }
+
     /* UserCredentialsInterface */
+
     public function checkUserCredentials($username, $password)
     {
         $user = $this->getUserDetails($username);
@@ -153,8 +155,15 @@ class Redis implements AuthorizationCodeInterface,
         }
 
         return isset($client['client_secret'])
-            && $client['client_secret'] == $client_secret;
+        && $client['client_secret'] == $client_secret;
     }
+
+    public function getClientDetails($client_id)
+    {
+        return $this->getValue($this->config['client_key'] . $client_id);
+    }
+
+    /* ClientInterface */
 
     public function isPublicClient($client_id)
     {
@@ -163,12 +172,6 @@ class Redis implements AuthorizationCodeInterface,
         }
 
         return empty($result['client_secret']);;
-    }
-
-    /* ClientInterface */
-    public function getClientDetails($client_id)
-    {
-        return $this->getValue($this->config['client_key'] . $client_id);
     }
 
     public function setClientDetails($client_id, $client_secret = null, $redirect_uri = null, $grant_types = null, $scope = null, $user_id = null)
@@ -185,7 +188,7 @@ class Redis implements AuthorizationCodeInterface,
         if (isset($details['grant_types'])) {
             $grant_types = explode(' ', $details['grant_types']);
 
-            return in_array($grant_type, (array) $grant_types);
+            return in_array($grant_type, (array)$grant_types);
         }
 
         // if grant_types are not defined, then none are restricted
@@ -215,13 +218,13 @@ class Redis implements AuthorizationCodeInterface,
     /* AccessTokenInterface */
     public function getAccessToken($access_token)
     {
-        return $this->getValue($this->config['access_token_key'].$access_token);
+        return $this->getValue($this->config['access_token_key'] . $access_token);
     }
 
     public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
     {
         return $this->setValue(
-            $this->config['access_token_key'].$access_token,
+            $this->config['access_token_key'] . $access_token,
             compact('access_token', 'client_id', 'user_id', 'expires', 'scope'),
             $expires
         );
@@ -232,17 +235,17 @@ class Redis implements AuthorizationCodeInterface,
     {
         $scope = explode(' ', $scope);
 
-        $result = $this->getValue($this->config['scope_key'].'supported:global');
+        $result = $this->getValue($this->config['scope_key'] . 'supported:global');
 
-        $supportedScope = explode(' ', (string) $result);
+        $supportedScope = explode(' ', (string)$result);
 
         return (count(array_diff($scope, $supportedScope)) == 0);
     }
 
     public function getDefaultScope($client_id = null)
     {
-        if (is_null($client_id) || !$result = $this->getValue($this->config['scope_key'].'default:'.$client_id)) {
-            $result = $this->getValue($this->config['scope_key'].'default:global');
+        if (is_null($client_id) || !$result = $this->getValue($this->config['scope_key'] . 'default:' . $client_id)) {
+            $result = $this->getValue($this->config['scope_key'] . 'default:global');
         }
 
         return $result;
@@ -255,9 +258,9 @@ class Redis implements AuthorizationCodeInterface,
         }
 
         if (is_null($client_id)) {
-            $key = $this->config['scope_key'].$type.':global';
+            $key = $this->config['scope_key'] . $type . ':global';
         } else {
-            $key = $this->config['scope_key'].$type.':'.$client_id;
+            $key = $this->config['scope_key'] . $type . ':' . $client_id;
         }
 
         return $this->setValue($key, $scope);

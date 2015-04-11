@@ -86,7 +86,6 @@ class Cart extends CartBase
     {
 
         $this->addCart();
-        exit;
         $cart = $this->post();
         $id_cart = null;
         if (!empty($cart)) {
@@ -96,15 +95,15 @@ class Cart extends CartBase
             $id_product_attribute = (int)$cart['cart_product']['id_product_attribute'];
             $clientQty = (int)$cart['cart_product']['quantity'];
 
-            //load quantity of the cart
-            //It may be empty or full
+            //permet de récupérer la quantité du produit enregistré dans le panier
 
-            $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $id_cart);
-
+            $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $this->cookie->customer->id_cart);
+            dump($this->cookie->customer->id_cart);
             exit;
             //Load the number of aviable stock product
             $stock = $this->Cart_Model->getStockById(1, $id_product_attribute, $id_product);
 
+            //Recupération du paramètre
             $cart = $this->input->get('cart');
 
             if (empty($cart)) {
@@ -117,10 +116,12 @@ class Cart extends CartBase
                 if ($clientQty > (int)$stock->quantity) {
                     $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                     exit;
-                } elseif ($response = $this->Cart_Model->insertProductToCart($id_product, $id_product_attribute, $id_cart, $clientQty)) {
+                }
+                elseif ($response = $this->Cart_Model->insertProductToCart($id_product, $id_product_attribute, $id_cart, $clientQty)) {
                     $this->response(array('http_code' => 202, 'error' => false, 'create' => true, 'updated' => false, 'deleted' => false, 'message' => 'Product added to the cart'), 202);
                 }
-            } elseif ($cartProductQty > 0 && ((int)$stock->quantity) >= ($cartProductQty + $clientQty) && $this->input->get('cart') === 'up') {
+            }
+            elseif ($cartProductQty > 0 && ((int)$stock->quantity) >= ($cartProductQty + $clientQty) && $this->input->get('cart') === 'up') {
                 $clientQtyUp = '+ ' . (int)$clientQty;
                 $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyUp);
                 $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Quantity updated'), 202);
@@ -132,12 +133,14 @@ class Cart extends CartBase
                 if (((int)$cartProductQty) - (int)$clientQty == 0) {
                     $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, 0);
                     $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => false, 'deleted' => true, 'message' => 'Product deleted'), 200);
-                } else {
+                }
+                else {
                     $clientQtyDown = '- ' . (int)$clientQty;
                     $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyDown);
                     $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Qantity removed'), 200);
                 }
-            } elseif ($clientQty > $cartProductQty && $this->input->get('cart') === 'down') {
+            }
+            elseif ($clientQty > $cartProductQty && $this->input->get('cart') === 'down') {
                 $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                 exit;
             }
@@ -146,7 +149,8 @@ class Cart extends CartBase
                 $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                 exit;
             }
-        } else {
+        }
+        else {
             $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'message' => 'Empty'), 404);
             exit;
         }

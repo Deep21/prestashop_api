@@ -3,9 +3,8 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
-use PayPal\Validation\NumericValidator;
 use PayPal\Converter\FormatConverter;
+use PayPal\Validation\NumericValidator;
 
 /**
  * Class Amount
@@ -22,10 +21,10 @@ class Amount extends PayPalModel
 {
     /**
      * 3 letter currency code
-     * 
+     *
      *
      * @param string $currency
-     * 
+     *
      * @return $this
      */
     public function setCurrency($currency)
@@ -46,10 +45,10 @@ class Amount extends PayPalModel
 
     /**
      * Total amount charged from the Payer account (or card) to Payee. In case of a refund, this is the refunded amount to the original Payer from Payee account.
-     * 
+     *
      *
      * @param string|double $total
-     * 
+     *
      * @return $this
      */
     public function setTotal($total)
@@ -72,10 +71,10 @@ class Amount extends PayPalModel
 
     /**
      * Additional details of the payment amount.
-     * 
+     *
      *
      * @param \PayPal\Api\Details $details
-     * 
+     *
      * @return $this
      */
     public function setDetails($details)

@@ -2,10 +2,10 @@
 
 namespace OAuth2\GrantType;
 
-use OAuth2\Storage\RefreshTokenInterface;
-use OAuth2\ResponseType\AccessTokenInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
+use OAuth2\ResponseType\AccessTokenInterface;
+use OAuth2\Storage\RefreshTokenInterface;
 
 /**
  *
@@ -20,7 +20,7 @@ class RefreshToken implements GrantTypeInterface
 
     /**
      * @param OAuth2\Storage\RefreshTokenInterface $storage REQUIRED Storage class for retrieving refresh token information
-     * @param array                                $config  OPTIONAL Configuration options for the server
+     * @param array $config OPTIONAL Configuration options for the server
      *                                                      <code>
      *                                                      $config = array(
      *                                                      'always_issue_new_refresh_token' => true, // whether to issue a new refresh token upon successful token request

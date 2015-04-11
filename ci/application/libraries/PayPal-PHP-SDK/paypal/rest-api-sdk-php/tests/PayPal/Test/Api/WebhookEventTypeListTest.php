@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\WebhookEventTypeList;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\WebhookEventTypeList;
 class WebhookEventTypeListTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object WebhookEventTypeList
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"event_types":' .WebhookEventTypeTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return WebhookEventTypeList
      */
@@ -30,6 +20,14 @@ class WebhookEventTypeListTest extends \PHPUnit_Framework_TestCase
         return new WebhookEventTypeList(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object WebhookEventTypeList
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"event_types":' . WebhookEventTypeTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

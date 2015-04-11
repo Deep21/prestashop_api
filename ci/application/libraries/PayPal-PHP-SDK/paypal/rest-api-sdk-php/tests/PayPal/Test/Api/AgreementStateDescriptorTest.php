@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\AgreementStateDescriptor;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\AgreementStateDescriptor;
 class AgreementStateDescriptorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object AgreementStateDescriptor
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"note":"TestSample","amount":' .CurrencyTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return AgreementStateDescriptor
      */
@@ -30,6 +20,14 @@ class AgreementStateDescriptorTest extends \PHPUnit_Framework_TestCase
         return new AgreementStateDescriptor(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object AgreementStateDescriptor
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"note":"TestSample","amount":' . CurrencyTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues
