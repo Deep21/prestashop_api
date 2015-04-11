@@ -78,6 +78,7 @@ class MY_Form_validation extends CI_Form_validation
 
     public function is_product_exist($id_product)
     {
+
         $ci =& get_instance();
         $ci->load->model('Product_Model');
         $d = $ci->Product_Model->is_product_exist($id_product);

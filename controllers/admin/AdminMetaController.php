@@ -318,7 +318,7 @@ class AdminMetaControllerCore extends AdminController
 					'required' => true,
 					'disabled' => (bool)$is_index,
 					'hint' => $this->l('Only letters and hyphens are allowed'),
-					'desc' => $this->l('e.g. "contacts" for http://mysite.com/shop/contacts to redirect to http://mysite.com/shop/contact-form.php'),
+					'desc' => $this->l('e.g. "contacts" for http://mysite.com/shop/contacts to redirect to http://mysite.com/shop/contact-form_error_lang.php'),
 					'size' => 50
 				),
 			),

@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25903712-b161-4dfa-b28d-625b8c4f98a3" name="Default" comment="Refactor the code in the cart and cart class">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/admin/AdminMetaController.php" afterPath="$PROJECT_DIR$/controllers/admin/AdminMetaController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/system/libraries/Form_validation.php" afterPath="$PROJECT_DIR$/ci/system/libraries/Form_validation.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/application/libraries/MY_Form_validation.php" afterPath="$PROJECT_DIR$/ci/application/libraries/MY_Form_validation.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/translations/fr/admin.php" afterPath="$PROJECT_DIR$/translations/fr/admin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/application/config/autoload.php" afterPath="$PROJECT_DIR$/ci/application/config/autoload.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/application/config/config.php" afterPath="$PROJECT_DIR$/ci/application/config/config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/application/controllers/api/customer.php" afterPath="$PROJECT_DIR$/ci/application/controllers/api/customer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/application/config/form_validation.php" afterPath="$PROJECT_DIR$/ci/application/config/form_validation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/application/config/paypal.php" afterPath="$PROJECT_DIR$/ci/application/config/paypal.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ci/system/language/english/form_validation_lang.php" afterPath="$PROJECT_DIR$/ci/system/language/english/form_validation_lang.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="prestashop_test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,31 +55,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cart_product_model.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/application/models/cart_product_model.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="595">
-              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="cart_model.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ci/application/models/cart_model.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-6.690909" vertical-offset="1927" max-vertical-offset="4760">
               <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cart.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/application/controllers/api/cart.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.0" vertical-offset="1907" max-vertical-offset="3961">
-              <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -94,28 +78,38 @@
       <file leaf-file-name="customer.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ci/application/controllers/api/customer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.3454547" vertical-offset="1147" max-vertical-offset="2431">
-              <caret line="88" column="46" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="53" />
+            <state vertical-scroll-proportion="-13.963636" vertical-offset="473" max-vertical-offset="2669">
+              <caret line="73" column="33" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="paypal.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/application/config/paypal.php">
+      <file leaf-file-name="form_validation_lang.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ci/application/language/french/form_validation_lang.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.9615384" vertical-offset="0" max-vertical-offset="255">
-              <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.38962606" vertical-offset="0" max-vertical-offset="829">
+              <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form_validation.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="form_validation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ci/application/config/form_validation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8201058" vertical-offset="3360" max-vertical-offset="3927">
-              <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+            <state vertical-scroll-proportion="-32.346153" vertical-offset="1488" max-vertical-offset="3927">
+              <caret line="137" column="111" selection-start-line="137" selection-start-column="108" selection-end-line="137" selection-end-column="115" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form_validation_lang.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ci/system/language/english/form_validation_lang.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="595">
+              <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -124,28 +118,8 @@
       <file leaf-file-name="MY_Form_validation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ci/application/libraries/MY_Form_validation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-156.92308" vertical-offset="0" max-vertical-offset="4182">
-              <caret line="240" column="0" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/application/config/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.3461537" vertical-offset="4093" max-vertical-offset="6290">
-              <caret line="252" column="39" selection-start-line="252" selection-start-column="39" selection-end-line="252" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="address.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/application/controllers/api/address.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.730769" vertical-offset="119" max-vertical-offset="3264">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state vertical-scroll-proportion="10.269231" vertical-offset="1508" max-vertical-offset="4199">
+              <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -219,7 +193,6 @@
         <option value="$PROJECT_DIR$/ci/application/controllers/api/cart_R.php" />
         <option value="$PROJECT_DIR$/controllers/front/AuthController.php" />
         <option value="$PROJECT_DIR$/ci/application/libraries/REST_Controller.php" />
-        <option value="$PROJECT_DIR$/ci/application/config/autoload.php" />
         <option value="$PROJECT_DIR$/ci/application/controllers/api/cart_base.php" />
         <option value="$PROJECT_DIR$/ci/application/models/cart_model.php" />
         <option value="$PROJECT_DIR$/ci/application/controllers/api/cart.php" />
@@ -229,11 +202,17 @@
         <option value="$PROJECT_DIR$/ci/application/config/routes.php" />
         <option value="$PROJECT_DIR$/ci/application/controllers/api/address.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/ci/application/config/config.php" />
-        <option value="$PROJECT_DIR$/ci/application/controllers/api/customer.php" />
-        <option value="$PROJECT_DIR$/ci/application/libraries/MY_Form_validation.php" />
         <option value="$PROJECT_DIR$/ci/application/config/paypal.php" />
         <option value="$PROJECT_DIR$/ci/application/config/form_validation.php" />
+        <option value="$PROJECT_DIR$/ci/application/libraries/MY_Form_validation.php" />
+        <option value="$PROJECT_DIR$/ci/system/libraries/Form_validation.php" />
+        <option value="$PROJECT_DIR$/ci/system/language/french/form_validation_lang.php" />
+        <option value="$PROJECT_DIR$/ci/system/language/french/form_validation_fr_lang.php" />
+        <option value="$PROJECT_DIR$/ci/system/language/english/form_validation_lang.php" />
+        <option value="$PROJECT_DIR$/ci/application/config/config.php" />
+        <option value="$PROJECT_DIR$/ci/application/config/autoload.php" />
+        <option value="$PROJECT_DIR$/ci/application/controllers/api/customer.php" />
+        <option value="$PROJECT_DIR$/ci/application/language/french/form_validation_lang.php" />
       </list>
     </option>
   </component>
@@ -350,7 +329,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="language" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="french" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prestashop_test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="prestashop_test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ci" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="language" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -372,6 +377,9 @@
     <property name="LayoutCode.rearrangeEntries" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\re\wamp\www\prestashop_test\ci\system\language\french" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\re\wamp\www\prestashop_test\ci\application\libraries" />
     </key>
@@ -578,7 +586,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27567568" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32864866" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21108742" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -630,42 +638,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ci/application/models/product_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12359">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/models/carrier_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5" max-vertical-offset="901">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/helpers/prestashop_helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1771" max-vertical-offset="2516">
-          <caret line="130" column="24" selection-start-line="130" selection-start-column="9" selection-end-line="130" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/models/cart_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4096" max-vertical-offset="4760">
-          <caret line="268" column="0" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/models/address_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="751" max-vertical-offset="1377">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ci/application/models/address_model.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.57507986" vertical-offset="751" max-vertical-offset="1377">
@@ -875,14 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/config/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77112675" vertical-offset="480" max-vertical-offset="2057">
-          <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ci/application/libraries/REST_Controller.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.061261263" vertical-offset="255" max-vertical-offset="19839">
@@ -949,18 +913,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/models/cart_model.php">
+    <entry file="file://$PROJECT_DIR$/ci/application/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.690909" vertical-offset="1927" max-vertical-offset="4760">
-          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.35978836" vertical-offset="204" max-vertical-offset="1156">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/config/config.php">
+    <entry file="file://$PROJECT_DIR$/ci/application/config/paypal.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3461537" vertical-offset="4093" max-vertical-offset="6290">
-          <caret line="252" column="39" selection-start-line="252" selection-start-column="39" selection-end-line="252" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.08994709" vertical-offset="0" max-vertical-offset="567">
+          <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -973,11 +937,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ci/application/models/cart_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.690909" vertical-offset="1927" max-vertical-offset="4760">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ci/application/libraries/MY_Form_validation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-156.92308" vertical-offset="0" max-vertical-offset="4182">
-          <caret line="240" column="0" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="0" />
+        <state vertical-scroll-proportion="10.269231" vertical-offset="1508" max-vertical-offset="4199">
+          <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/system/helpers/form_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.788809" vertical-offset="7085" max-vertical-offset="18020">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1427160695684" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -989,26 +971,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/controllers/api/customer.php">
+    <entry file="file://$PROJECT_DIR$/ci/system/language/english/form_validation_lang.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.3454547" vertical-offset="1147" max-vertical-offset="2431">
-          <caret line="88" column="46" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="53" />
+        <state vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="595">
+          <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ci/application/config/paypal.php">
+    <entry file="file://$PROJECT_DIR$/ci/application/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9615384" vertical-offset="0" max-vertical-offset="255">
-          <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.49406177" vertical-offset="808" max-vertical-offset="6290">
+          <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/application/config/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7363421" vertical-offset="1046" max-vertical-offset="2057">
+          <caret line="98" column="46" selection-start-line="98" selection-start-column="46" selection-end-line="98" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/application/controllers/api/customer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.963636" vertical-offset="473" max-vertical-offset="2669">
+          <caret line="73" column="33" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/system/libraries/Form_validation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.9073634" vertical-offset="7862" max-vertical-offset="23596">
+          <caret line="656" column="99" selection-start-line="656" selection-start-column="33" selection-end-line="656" selection-end-column="99" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ci/application/config/form_validation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8201058" vertical-offset="3360" max-vertical-offset="3927">
-          <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+        <state vertical-scroll-proportion="-32.346153" vertical-offset="1488" max-vertical-offset="3927">
+          <caret line="137" column="111" selection-start-line="137" selection-start-column="108" selection-end-line="137" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/application/language/french/form_validation_lang.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38962606" vertical-offset="0" max-vertical-offset="829">
+          <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
           <folding />
         </state>
       </provider>
