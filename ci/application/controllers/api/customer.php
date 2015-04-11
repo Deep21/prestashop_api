@@ -16,77 +16,60 @@ require APPPATH . '/libraries/REST_Controller.php';
 class Customer extends REST_Controller
 {
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('oauth');
-        $this->load->library('session');
         $this->load->library('form_validation');
     }
 
+    /**
+     *
+     */
     function addCustomer_post()
     {
-        die("ef")
-        if ($customer = $this->post()) {
-            $_POST['email'] = $customer['email'];
-            $_POST['firstname'] = $customer['firstname'];
-            $_POST['lastname'] = $customer['lastname'];
-            $_POST['pwd'] = $customer['pwd'];
-            $_POST['pwdconfirmed'] = $customer['pwdconfirmed'];
-            $_POST['gender'] = $customer['gender'];
-            $_POST['birthday'] = $customer['birthday'];
+        //Chargement des données Json
+        $json_input = $this->post();
+        if (!empty($json_input)) {
+            $_POST['email'] = $json_input['email'];
+            $_POST['firstname'] = $json_input['firstname'];
+            $_POST['lastname'] = $json_input['lastname'];
+            $_POST['pwd'] = $json_input['pwd'];
+            $_POST['pwdconfirmed'] = $json_input['pwdconfirmed'];
+            $_POST['gender'] = $json_input['gender'];
+            $_POST['birthday'] = $json_input['birthday'];
+
         } else {
+            // Si le corps est vide, on affiche une erreur
             $this->response(array('message' => "empty"), 404);
         }
-        $this->_addCustomer();
-        /*if($this->form_validation->run('customer_add')){ 
-
-          $this->addCustomer();
-        }
-        else{
-              $this->response(array('message'=>strip_tags(validation_errors())), 404);
-        }*/
-
-    }
-
-    private function _addCustomer()
-    {
-        $this->load->model('Customer_Model');
-        $now = date('Y-m-d H:i:s');
-        $customer = $this->Customer_Model;
-        $customer->email = $this->input->post('email');
-        $customer->firstname = $this->input->post('firstname');
-        $customer->lastname = $this->input->post('lastname');
-        $customer->passwd = $this->input->post('pwd');
-        $customer->id_gender = $this->input->post('gender');
-        $customer->birthday = $this->input->post('birthday');
-        $customer->secure_key = md5(uniqid(rand(), true));
-        $customer->id_lang = 1;
-        $customer->active = 1;
-        $customer->date_add = $now;
-        $customer->date_upd = $now;
-        if ($customer->addCustomer($customer)) {
-            $this->response(array('status' => 'Client ajouté avec succès', 'message' => 'OK'), 200);
+        //On vérifie la cohérence des données
+        if ($this->form_validation->run('customer_add')) {
+            // on ajoute le client à la base de donnée
+            $this->_addCustomer();
         } else {
-            $this->response(array('status' => 'error', 'message' => 'BAD'), 404);
+            $this->response(array('message' => strip_tags(validation_errors()), 'error'=>'Un problème est survenu' ), 404);
         }
+
     }
 
-
+    /**
+     * @param $id
+     */
     function getCustomer_get($id)
     {
-        $this->load->library('auth');
         $this->load->model('Customer_Model');
         return $this->response($this->Customer_Model->getById($id), 404);
 
     }
 
-
+    /**
+     * @param $id
+     */
     function editCustomer_put($id)
     {
-        $this->load->library('server');
-
-        $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'email', 'required|trim|xss_clean|valid_email');
         $customer = $this->put('customer_put');
         if ($customer) {
@@ -123,6 +106,32 @@ class Customer extends REST_Controller
         }
 
 
+    }
+
+    /**
+     *
+     */
+    private function _addCustomer()
+    {
+        $this->load->model('Customer_Model');
+        $now = date('Y-m-d H:i:s');
+        $customer = $this->Customer_Model;
+        $customer->email = $this->input->post('email');
+        $customer->firstname = $this->input->post('firstname');
+        $customer->lastname = $this->input->post('lastname');
+        $customer->passwd = $this->input->post('pwd');
+        $customer->id_gender = $this->input->post('gender');
+        $customer->birthday = $this->input->post('birthday');
+        $customer->secure_key = md5(uniqid(rand(), true));
+        $customer->id_lang = 1;
+        $customer->active = 1;
+        $customer->date_add = $now;
+        $customer->date_upd = $now;
+        if ($customer->addCustomer($customer)) {
+            $this->response(array('status' => 'Client ajouté avec succès', 'message' => 'OK'), 200);
+        } else {
+            $this->response(array('status' => 'error', 'message' => 'BAD'), 404);
+        }
     }
 
 
