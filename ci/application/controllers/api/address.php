@@ -20,23 +20,19 @@ class Address extends REST_Controller
 
     /**
      * Default constructor
-     * @return
      */
     public function __construct()
     {
         parent::__construct();
-        /*$this->load->library('server');
-        $this->server->verifyResourceRequest();*/
-    }
 
+    }
 
     /**
      * Get address by id
-     * @return
      */
     public function getAddressById_get($id = null)
     {
-        echo 'get';
+
     }
 
 

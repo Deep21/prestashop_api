@@ -1,6 +1,5 @@
 <?php
-defined('BASEPATH') OR
-exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
 
@@ -20,13 +19,14 @@ class Customer extends REST_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('auth');
+        $this->load->library('oauth');
         $this->load->library('session');
         $this->load->library('form_validation');
     }
 
     function addCustomer_post()
     {
+        die("ef")
         if ($customer = $this->post()) {
             $_POST['email'] = $customer['email'];
             $_POST['firstname'] = $customer['firstname'];
