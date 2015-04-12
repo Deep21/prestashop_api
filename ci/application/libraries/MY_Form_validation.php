@@ -7,25 +7,21 @@ class MY_Form_validation extends CI_Form_validation
     function __construct($config = array())
     {
         parent::__construct($config);
-        $this->setErrors();
     }
 
-
-    private function setErrors()
-    {
-
-    }
 
     /**
-     * Check for birthDate validity
-     *
+     * Check the birthDate validity
      * @param string $date birthdate to validate
      * @return boolean Validity is ok or not
      */
     public static function isBirthDate($date)
     {
-        if (empty($date) || $date == '0000-00-00')
+
+        if (empty($date) || $date == '0000-00-00') {
             return true;
+        }
+
         if (preg_match('/^([0-9]{4})-((?:0?[1-9])|(?:1[0-2]))-((?:0?[1-9])|(?:[1-2][0-9])|(?:3[01]))([0-9]{2}:[0-9]{2}:[0-9]{2})?$/', $date, $birth_date)) {
             if ($birth_date[1] > date('Y') && $birth_date[2] > date('m') && $birth_date[3] > date('d'))
                 return false;
@@ -78,6 +74,7 @@ class MY_Form_validation extends CI_Form_validation
 
     public function is_product_exist($id_product)
     {
+
         $ci =& get_instance();
         $ci->load->model('Product_Model');
         $d = $ci->Product_Model->is_product_exist($id_product);
