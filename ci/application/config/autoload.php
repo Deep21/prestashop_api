@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'oauth',);
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('tracy/tracy','kint/kint');
+$autoload['helper'] = array('kint/kint');
 
 
 /*
