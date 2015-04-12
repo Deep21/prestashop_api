@@ -63,9 +63,36 @@ class Customer extends REST_Controller
             (!empty(form_error('birthday'))) ? array_push($errors, form_error('birthday')) : null;
             $this->response(array(
                 'message' => $errors,
-            ), 404);
+            ),
+                404);
         }
 
+    }
+
+    /**
+     *
+     */
+    private function _addCustomer()
+    {
+        $this->load->model('Customer_Model');
+        $now = date('Y-m-d H:i:s');
+        $customer = $this->Customer_Model;
+        $customer->email = $this->input->post('email');
+        $customer->firstname = $this->input->post('firstname');
+        $customer->lastname = $this->input->post('lastname');
+        $customer->passwd = $this->input->post('pwd');
+        $customer->id_gender = $this->input->post('gender');
+        $customer->birthday = $this->input->post('birthday');
+        $customer->secure_key = md5(uniqid(rand(), true));
+        $customer->id_lang = 1;
+        $customer->active = 1;
+        $customer->date_add = $now;
+        $customer->date_upd = $now;
+        if ($customer->addCustomer($customer)) {
+            $this->response(array('status' => 'Client ajouté avec succès', 'message' => 'OK'), 200);
+        } else {
+            $this->response(array('status' => 'error', 'message' => 'BAD'), 404);
+        }
     }
 
     /**
@@ -120,32 +147,6 @@ class Customer extends REST_Controller
         }
 
 
-    }
-
-    /**
-     *
-     */
-    private function _addCustomer()
-    {
-        $this->load->model('Customer_Model');
-        $now = date('Y-m-d H:i:s');
-        $customer = $this->Customer_Model;
-        $customer->email = $this->input->post('email');
-        $customer->firstname = $this->input->post('firstname');
-        $customer->lastname = $this->input->post('lastname');
-        $customer->passwd = $this->input->post('pwd');
-        $customer->id_gender = $this->input->post('gender');
-        $customer->birthday = $this->input->post('birthday');
-        $customer->secure_key = md5(uniqid(rand(), true));
-        $customer->id_lang = 1;
-        $customer->active = 1;
-        $customer->date_add = $now;
-        $customer->date_upd = $now;
-        if ($customer->addCustomer($customer)) {
-            $this->response(array('status' => 'Client ajouté avec succès', 'message' => 'OK'), 200);
-        } else {
-            $this->response(array('status' => 'error', 'message' => 'BAD'), 404);
-        }
     }
 
 
