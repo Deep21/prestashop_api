@@ -33,13 +33,13 @@ class Customer extends REST_Controller
         //Chargement des données Json
         $json_input = $this->post();
         if (!empty($json_input)) {
-            $_POST['email'] = $json_input['email'];
-            $_POST['firstname'] = $json_input['firstname'];
-            $_POST['lastname'] = $json_input['lastname'];
-            $_POST['pwd'] = $json_input['pwd'];
-            $_POST['pwdconfirmed'] = $json_input['pwdconfirmed'];
-            $_POST['gender'] = $json_input['gender'];
-            $_POST['birthday'] = $json_input['birthday'];
+            (isset($json_input['email'])) ? $_POST['email'] = $json_input['email'] : null;
+            (isset($json_input['firstname'])) ? $_POST['firstname'] = $json_input['firstname'] : null;
+            (isset($json_input['lastname'])) ? $_POST['lastname'] = $json_input['lastname'] : null;
+            (isset($json_input['pwd'])) ? $_POST['pwd'] = $json_input['pwd'] : null;
+            (isset($json_input['pwdconfirmed'])) ? $_POST['pwdconfirmed'] = $json_input['pwdconfirmed'] : null;
+            (isset($json_input['gender'])) ? $_POST['gender'] = $json_input['gender'] : null;
+            (isset($json_input['birthday'])) ? $_POST['birthday'] = $json_input['birthday'] : null;
 
         } else {
             // Si le corps est vide, on affiche une erreur
@@ -54,45 +54,42 @@ class Customer extends REST_Controller
             $errors = array();
             //on ajoute chaque erreurs dans un tableau
             //on vérifie qu'il n'y est pas de chaine vide
-            (!empty(form_error('email'))) ? array_push($errors, form_error('email')) : null;
-            (!empty(form_error('firstname'))) ? array_push($errors, form_error('firstname')) : null;
-            (!empty(form_error('lastname'))) ? array_push($errors, form_error('lastname')) : null;
-            (!empty(form_error('pwd'))) ? array_push($errors, form_error('pwd')) : null;
-            (!empty(form_error('pwdconfirmed'))) ? array_push($errors, form_error('pwdconfirmed')) : null;
-            (!empty(form_error('gender'))) ? array_push($errors, form_error('gender')) : null;
-            (!empty(form_error('birthday'))) ? array_push($errors, form_error('birthday')) : null;
+            $email = form_error('email');
+            $firstname = form_error('firstname');
+            $lastname = form_error('lastname');
+            $pwd = form_error('pwd');
+            $pwdconfirmed = form_error('pwdconfirmed');
+            $gender = form_error('gender');
+            $birthday = form_error('birthday');
+
+
+            if(!empty($email))
+                array_push($errors, form_error('email'));
+            
+            if(!empty($firstname))
+                array_push($errors, form_error('firstname'));
+            
+            if(!empty($lastname))
+                array_push($errors, form_error('lastname'));
+            
+            if(!empty($pwd))
+                array_push($errors, form_error('pwd'));
+            
+            if(!empty($pwdconfirmed))
+                array_push($errors, form_error('pwdconfirmed'));
+            
+            if(!empty($gender))
+                array_push($errors, form_error('gender'));
+
+            if(!empty($birthday))
+                array_push($errors, form_error('birthday'));
+
+
             $this->response(array(
                 'message' => $errors,
-            ),
-                404);
+            ), 404);
         }
 
-    }
-
-    /**
-     *
-     */
-    private function _addCustomer()
-    {
-        $this->load->model('Customer_Model');
-        $now = date('Y-m-d H:i:s');
-        $customer = $this->Customer_Model;
-        $customer->email = $this->input->post('email');
-        $customer->firstname = $this->input->post('firstname');
-        $customer->lastname = $this->input->post('lastname');
-        $customer->passwd = $this->input->post('pwd');
-        $customer->id_gender = $this->input->post('gender');
-        $customer->birthday = $this->input->post('birthday');
-        $customer->secure_key = md5(uniqid(rand(), true));
-        $customer->id_lang = 1;
-        $customer->active = 1;
-        $customer->date_add = $now;
-        $customer->date_upd = $now;
-        if ($customer->addCustomer($customer)) {
-            $this->response(array('status' => 'Client ajouté avec succès', 'message' => 'OK'), 200);
-        } else {
-            $this->response(array('status' => 'error', 'message' => 'BAD'), 404);
-        }
     }
 
     /**
@@ -147,6 +144,32 @@ class Customer extends REST_Controller
         }
 
 
+    }
+
+    /**
+     *
+     */
+    private function _addCustomer()
+    {
+        $this->load->model('Customer_Model');
+        $now = date('Y-m-d H:i:s');
+        $customer = $this->Customer_Model;
+        $customer->email = $this->input->post('email');
+        $customer->firstname = $this->input->post('firstname');
+        $customer->lastname = $this->input->post('lastname');
+        $customer->passwd = $this->input->post('pwd');
+        $customer->id_gender = $this->input->post('gender');
+        $customer->birthday = $this->input->post('birthday');
+        $customer->secure_key = md5(uniqid(rand(), true));
+        $customer->id_lang = 1;
+        $customer->active = 1;
+        $customer->date_add = $now;
+        $customer->date_upd = $now;
+        if ($customer->addCustomer($customer)) {
+            $this->response(array('status' => 'Client ajouté avec succès', 'message' => 'OK'), 200);
+        } else {
+            $this->response(array('status' => 'error', 'message' => 'BAD'), 404);
+        }
     }
 
 

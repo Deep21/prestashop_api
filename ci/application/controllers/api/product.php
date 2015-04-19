@@ -44,6 +44,7 @@ class Product extends REST_Controller
     public function getProductById_get($id_product = null)
     {
         //retrieve GET method value
+        $stock = array();
         $limit = (is_numeric($this->input->get('limit'))) ? $this->input->get('limit') : null;
         $orderby = $this->input->get('orderby');
         $orderway = $this->input->get('orderway');
@@ -60,41 +61,45 @@ class Product extends REST_Controller
                 //$comment =  $this->Comment_Model->getCommentsByProductId($id_product);
                 $product = $this->Product_Model->getProductById($id_product, $orderby, $orderway);
                 $image = $this->Image_Model->getImagesIdByProductId($id_product);
+                if(!empty($product)){
+                    foreach ($image as $key => $images) {
+                        $images->url_image = (string)'http://localhost/prestashop/ci/index.php/api/image/' . (int)$images->id_image . '/get';
+                        $images->id_image = (int)$images->id_image;
+                        $images->cover = (int)$images->cover;
+                        $images->position = (int)$images->position;
+                    }
 
-                $stock = array();
-                foreach ($image as $key => $images) {
-                    $images->url_image = (string)'http://localhost/prestashop/ci/index.php/api/image/' . (int)$images->id_image . '/get';
-                    $images->id_image = (int)$images->id_image;
-                    $images->cover = (int)$images->cover;
-                    $images->position = (int)$images->position;
+                    $product->rate = (double)$product->rate;
+                    $product->id_product_attribute = (int)$product->id_product_attribute;
+                    $product->id_tax_rules_group = (int)$product->id_tax_rules_group;
+                    $product->orderprice = (double)$product->orderprice;
+                    $product->out_of_stock = (int)$product->out_of_stock;
+                    $product->nouveau = (int)$product->nouveau;
+                    $product->id_product = (int)$product->id_product;
+                    $product->id_image = (int)$product->id_image;
+                    $product->id_manufacturer = (int)$product->id_manufacturer;
+                    $product->id_category_default = (int)$product->id_category_default;
+                    $product->id_supplier = (int)$product->id_supplier;
+                    $product->id_shop_default = (int)$product->id_shop_default;
+                    $product->price = (double)$product->price;
+                    $product->online_only = (int)$product->online_only;
+                    $product->on_sale = (boolean)$product->on_sale;
+                    $product->show_price = (int)$product->show_price;
+                    $product->quantity = (int)$product->quantity;
+                    $product->width = (double)$product->width;
+                    $product->height = (double)$product->height;
+                    $product->depth = (double)$product->depth;
+                    $product->weight = (double)$product->weight;
+                    $product->images = $image;
+
+                    $this->response($product, 200);
+                    break;
+                }else{
+                    $this->response(array(null),  200);
                 }
 
 
-                $product->rate = (double)$product->rate;
-                $product->id_product_attribute = (int)$product->id_product_attribute;
-                $product->id_tax_rules_group = (int)$product->id_tax_rules_group;
-                $product->orderprice = (double)$product->orderprice;
-                $product->out_of_stock = (int)$product->out_of_stock;
-                $product->nouveau = (int)$product->nouveau;
-                $product->id_product = (int)$product->id_product;
-                $product->id_image = (int)$product->id_image;
-                $product->id_manufacturer = (int)$product->id_manufacturer;
-                $product->id_category_default = (int)$product->id_category_default;
-                $product->id_supplier = (int)$product->id_supplier;
-                $product->id_shop_default = (int)$product->id_shop_default;
-                $product->price = (double)$product->price;
-                $product->online_only = (int)$product->online_only;
-                $product->on_sale = (int)$product->on_sale;
-                $product->show_price = (int)$product->show_price;
-                $product->quantity = (int)$product->quantity;
-                $product->width = (double)$product->width;
-                $product->height = (double)$product->height;
-                $product->depth = (double)$product->depth;
-                $product->weight = (double)$product->weight;
-                $product->images = $image;
 
-                $this->response($product, 200);
-                break;
         }
 
     }

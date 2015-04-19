@@ -4,9 +4,9 @@ require_once('OAuth2/Autoloader.php');
 require_once(dirname(__FILE__) . '/../../../config/settings.inc.php');
 
 OAuth2\Autoloader::register();
-use Tracy\Debugger;
+/*use Tracy\Debugger;
 Debugger::enable(Debugger::DETECT, FCPATH.APPPATH.'logs');
-
+*/
 class Oauth
 {
     private $server;
@@ -113,7 +113,7 @@ class Oauth
             }
         } catch (Exception $e) {
             //Si une exception est attrapé on log l'erreur dans un fichier log
-            Debugger::log($e->getMessage());
+            //Debugger::log($e->getMessage());
         }
 
 

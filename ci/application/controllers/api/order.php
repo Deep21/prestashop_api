@@ -18,11 +18,10 @@ class Order extends REST_Controller
     const SDK_NAME = 'PayPal-PHP-SDK';
     const PAIEMENT_ACCEPTE = 2;
     private $cookie;
-
-    public function __construct()
-    {
+    
+    public function __construct() {
         parent::__construct();
-
+        
         //$this->oauth->verifyResourceRequest();
         $this->load->library('encrypt');
         $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
@@ -32,15 +31,14 @@ class Order extends REST_Controller
         $this->load->helper(array('prestashop_helper', 'url'));
         $this->load->model('Product_Model');
     }
-
+    
     /**
      * Retrieve Order by order id
      * @param $id_order the id of order
      * @return
      */
-    public function getOrderById_get($id_order = null)
-    {
-
+    public function getOrderById_get($id_order = null) {
+        
         $params = array();
         $params['limit'] = (is_numeric($this->input->get('limit'))) ? $this->input->get('limit') : null;
         $params['from'] = $this->input->get('from');
@@ -50,32 +48,34 @@ class Order extends REST_Controller
         $this->load->model('Address_model');
         $orders = array();
         $order = $this->Order_model->getLongOrderByOrderId($id_order, $params);
-        $order_state = $this->Order_State_Model->getOrderStateByIdOrder($id_order);
-
-        foreach ($order as $key => $value) {
-            $orders['reference'] = $value->reference;
-            $orders['total_paid'] = (double)$value->total_paid;
-            $orders['total_paid_tax_excl'] = (double)$value->total_paid_tax_excl;
-            $orders['tva'] = (float)$value->total_paid - $value->total_paid_tax_excl;
-            $orders['total_shipping'] = (float)$value->total_shipping;
-            $orders['order_date'] = $value->date_add;
-            $orders['order_state'] = $order_state;
-            $orders['adress'] = array('address_delivery' => $this->Address_model->getAddressById($value->id_address_delivery), 'address_invoice' => $this->Address_model->getAddressById($value->id_address_invoice));
-            if (!isset($orders[$value->id_order])) {
-                $orders['commande'][] = array('product_name' => $value->product_name, 'product_quantity' => (int)$value->product_quantity, 'total_price_tax_incl' => $value->total_price_tax_incl, 'total_price_tax_incl' => $value->total_price_tax_incl, 'id_image' => (int)$value->id_image, 'img_link' => base_url() . 'index.php/api/image/id/' . $value->id_image);
+        if (!empty($order)) {
+            $order_state = $this->Order_State_Model->getOrderStateByIdOrder($id_order);
+            
+            foreach ($order as $key => $value) {
+                $orders['reference'] = $value->reference;
+                $orders['total_paid'] = (double)$value->total_paid;
+                $orders['total_paid_tax_excl'] = (double)$value->total_paid_tax_excl;
+                $orders['tva'] = (float)$value->total_paid - $value->total_paid_tax_excl;
+                $orders['total_shipping'] = (float)$value->total_shipping;
+                $orders['order_date'] = $value->date_add;
+                $orders['order_state'] = $order_state;
+                $orders['adress'] = array('address_delivery' => $this->Address_model->getAddressById($value->id_address_delivery), 'address_invoice' => $this->Address_model->getAddressById($value->id_address_invoice));
+                if (!isset($orders[$value->id_order])) {
+                    $orders['commande'][] = array('product_name' => $value->product_name, 'product_quantity' => (int)$value->product_quantity, 'total_price_tax_incl' => $value->total_price_tax_incl, 'total_price_tax_incl' => $value->total_price_tax_incl, 'id_image' => (int)$value->id_image, 'img_link' => base_url() . 'index.php/api/image/id/' . $value->id_image);
+                }
             }
+                return $this->response($orders, 200);
         }
-
-        return $this->response($orders, 200);
+              return $this->response(array(null), 200);
+  
     }
-
+    
     /**
      * Retrieve the order by customer id
      * @param $id customer
      * @return
      */
-    public function getOrderByCustomerId_get($id = null)
-    {
+    public function getOrderByCustomerId_get($id = null) {
         $this->load->model('Order_model');
         $this->load->model('Address_model');
         $params = array();
@@ -100,22 +100,21 @@ class Order extends REST_Controller
                 $c = array();
                 break;
         }
-
+        
         return $this->response($data, 200);
     }
-
+    
     /**
      * Retrieve all orders
      * @param $id_manufacturer the id of manufacturer
      * @return
      */
-    public function getAllOrders_get()
-    {
+    public function getAllOrders_get() {
     }
-
-    public function getPaypal_get($id_payment)
-    {
+    
+    public function getPaypal_get($id_payment) {
         $prices = $this->Product_Model->getProductHTPrice(1, null, true);
+        
         //$prices = ps_round($prices, 2);
         var_dump($prices);
         exit;
@@ -124,28 +123,27 @@ class Order extends REST_Controller
             $payment = $this->paypal->getPayment($id_payment);
             if ($this->_isOrderExist($payment, $cookie->customer->id_cart)) {
                 $state = $payment->getState();
-
+                
                 switch ($state) {
-
                     case 'approved':
-
+                        
                         $this->_validateOrder($payment, $cookie->customer->id_customer, $id_payment, $cookie, 2);
-
-                    //$this->_validateOrder($payment, 2, $id_payment, $this->decoded_data, $state);
-
-
+                        
+                        //$this->_validateOrder($payment, 2, $id_payment, $this->decoded_data, $state);
+                        
+                        
                 }
             }
-        } else {
+        } 
+        else {
             die("empty cookie");
         }
-
+        
         /*     Kint::dump( $payment->getTransactions() [0]->getRelatedResources()[0]->getSale()->getCreateTime() );
          Kint::dump( $payment);*/
     }
-
-    private function _isOrderExist($payment, $id_cart)
-    {
+    
+    private function _isOrderExist($payment, $id_cart) {
         $this->load->model('Order_model');
         $this->load->model('Order_Payment_Model');
         $id_paypal_transaction = $this->paypal->getTransactionId($payment);
@@ -153,19 +151,16 @@ class Order extends REST_Controller
         $order = $this->Order_model->isOrderExist((int)$id_cart);
         if (empty($order) && empty($paypal_trasaction)) return true;
     }
-
-    private function getProductPriceByIds($id_product, $id_product_attribute = null, $tax)
-    {
+    
+    private function getProductPriceByIds($id_product, $id_product_attribute = null, $tax) {
         $this->load->model('Product_Model');
-
     }
-
-    private function _validateOrder(PayPal\Api\Payment $payment = null, $id_customer, $id_payment, $cookie, $state)
-    {
+    
+    private function _validateOrder(PayPal\Api\Payment $payment = null, $id_customer, $id_payment, $cookie, $state) {
         $this->load->model('Cart_Model');
         $this->load->model('Order_model');
         $this->load->model('Shop_Model');
-
+        
         $id_shop = $cookie->prestashop_config->id_shop;
         $id_currency = $cookie->prestashop_config->id_currency;
         $id_lang = $cookie->prestashop_config->id_lang;
@@ -173,18 +168,18 @@ class Order extends REST_Controller
         $shop = $this->Shop_Model;
         $shopObject = $shop->getShop($id_shop);
         $id_shop_group = (int)$shopObject[0]->id_shop_group;
-
+        
         $cartProductList = $this->_getCartProductList($cookie->customer->id_cart);
-
+        
         //is_array_empty() is loaded from prestashop_helper
         //return false if the array is empty and true if it's not
         if (!empty($cookie->customer->id_cart) && $cartProductList != null) {
-
+            
             // $cart = $this->Cart_Model->getCartById($cookie->customer->id_cart);
-
+            
             //generate a new order name
             $reference = passwdGen(9, 'NO_NUMERIC');
-
+            
             $payment_name = ucfirst($payment->getPayer()->getPaymentMethod()) . ' ' . 'mobile';
             $order->id_cart = $cookie->customer->id_cart;
             $order->id_address_delivery = 1;
@@ -205,7 +200,7 @@ class Order extends REST_Controller
             $order->mobile_theme = "";
             $order->shipping_number;
             $order->total_discounts = "";
-
+            
             /*
                     $order->total_products = (float)$this->context->cart->getOrderTotal(false, Cart::ONLY_PRODUCTS, $order->product_list, $id_carrier);
                     $order->total_products_wt = (float)$this->context->cart->getOrderTotal(true, Cart::ONLY_PRODUCTS, $order->product_list, $id_carrier);
@@ -239,39 +234,37 @@ class Order extends REST_Controller
             $order->delivery_date = '0000-00-00 00:00:00';
             $order->date_add = $payment->getCreateTime();
             $order->date_upd = $payment->getUpdateTime();
-
+            
             $this->_updateStockQty($cookie->customer->id_cart);
-
+            
             $id_order = $this->Order_model->saveOrder($order);
-
+            
             $id_order_invoice = $this->_setOrderInvoice($id_order, $order);
-
+            
             $this->_setOrderDetail($order, $cartProductList, $id_order_invoice, $id_order);
-
+            
             $this->_addInvoiceNumberToOrder($order, $id_order_invoice, $id_order);
-
+            
             $id_order_payment = $this->_addOrderPayment($order, $payment, $id_payment, $cookie);
-
+            
             $this->_setOrderHistoryState($id_order, PAIEMENT_ACCEPTE);
-
+            
             $this->_setOrderPaymentInvoice($id_order_invoice, $id_order_payment, $id_order);
-
+            
             //TODO send an email
-
-
+            
+            
         }
     }
-
-    private function _getCartProductList($id_cart)
-    {
+    
+    private function _getCartProductList(int $id_cart) {
         $this->load->model('Cart_Product_Model');
-        if (!empty((int)$id_cart)) if ($p = $this->Cart_Product_Model->getCartProductById($id_cart)) return $p;
-
+        if (!empty($id_cart)) if ($p = $this->Cart_Product_Model->getCartProductById($id_cart)) return $p;
+        
         return null;
     }
-
-    private function _updateStockQty($id_cart)
-    {
+    
+    private function _updateStockQty($id_cart) {
         $cartProductList = $this->_getCartProductList($id_cart);
         if ($cartProductList != null) {
             foreach ($cartProductList as $key => $cartProduct) {
@@ -279,13 +272,13 @@ class Order extends REST_Controller
                     die("error");
                 }
             }
-        } else {
+        } 
+        else {
             die("Can't update the stock, no product added in the cart");
         }
     }
-
-    private function _updateStockQuantity($id_product, $id_product_attribute, $id_shop, $qty)
-    {
+    
+    private function _updateStockQuantity($id_product, $id_product_attribute, $id_shop, $qty) {
         $this->load->model('Stock_Available_Model');
         $id_stock_availableModel = $this->Stock_Available_Model->getStockAvailableIdByProductIds($id_product, $id_product_attribute, $id_shop);
         $id_stock_available = (int)$id_stock_availableModel->id_stock_available;
@@ -293,11 +286,10 @@ class Order extends REST_Controller
         $stock_aviableModel->quantity = $stock_aviableModel->quantity + $qty;
         return $this->Stock_Available_Model->updateStockQty($stock_aviableModel);
     }
-
+    
     //$amount_paid, $payment_method = null, $payment_transaction_id = null, $currency = null, $date = null, $order_invoice = null
-
-    private function _setOrderInvoice($id_order, $order)
-    {
+    
+    private function _setOrderInvoice($id_order, $order) {
         $this->load->model('Order_Invoice_Model');
         $order_invoice = $this->Order_Invoice_Model;
         $order_invoice->id_order = $id_order;
@@ -317,9 +309,8 @@ class Order extends REST_Controller
         $order_invoice->date_add = date('Y-m-d H:i:s');
         return $order_invoice->setOrderInvoice($order_invoice);
     }
-
-    private function _setOrderDetail($order, array $cartProductList, $id_order_invoice, $id_order)
-    {
+    
+    private function _setOrderDetail($order, array $cartProductList, $id_order_invoice, $id_order) {
         $this->load->model('Order_Detail_Model');
         $this->load->model('Product_Model');
         $order_detail = $this->Order_Detail_Model;
@@ -329,12 +320,12 @@ class Order extends REST_Controller
             $ids_product[] = (int)$cartProduct->id_product;
         }
         $productList = $product_model->getProductByIds($ids_product);
-
+        
         foreach ($productList as $key => $product) {
             $order_detail->id_order = $id_order;
             $order_detail->product_id = (int)$product->id_product;
             $order_detail->id_order_invoice = $id_order_invoice;
-
+            
             $order_detail->product_name = $product->name;
             $order_detail->id_warehouse = 0;
             $order_detail->id_shop = $cartProductList[$key]->id_shop;
@@ -345,7 +336,7 @@ class Order extends REST_Controller
             $order_detail->product_quantity_refunded = 0;
             $order_detail->product_quantity_return = 0;
             $order_detail->product_quantity_reinjected = 0;
-
+            
             $order_detail->product_price = 0;
             $order_detail->reduction_percent = 0;
             $order_detail->reduction_amount = 0;
@@ -357,7 +348,7 @@ class Order extends REST_Controller
             $order_detail->product_upc = $product->upc;
             $order_detail->product_reference = $product->reference;
             $order_detail->product_supplier_reference = 0;
-
+            
             $order_detail->product_supplier_reference = 0;
             $order_detail->product_weight = 0;
             $order_detail->tax_computation_method = 0;
@@ -366,7 +357,7 @@ class Order extends REST_Controller
             $order_detail->ecotax = 0;
             $order_detail->ecotax_tax_rate = 0;
             $order_detail->discount_quantity_applied = 0;
-
+            
             $order_detail->download_hash = 0;
             $order_detail->download_nb = 0;
             $order_detail->download_deadline = "";
@@ -378,20 +369,18 @@ class Order extends REST_Controller
             $order_detail->total_shipping_price_tax_excl = 0;
             $order_detail->purchase_supplier_price = 0;
             $order_detail->original_product_price = 0;
-
+            
             $order_detail->setOrderDetail();
         }
     }
-
-    private function _addInvoiceNumberToOrder($order, $id_order_invoice, $id_order)
-    {
+    
+    private function _addInvoiceNumberToOrder($order, $id_order_invoice, $id_order) {
         $order->invoice_number = $id_order_invoice;
         $order->id_order = $id_order;
         $order->addInvoiceNumberToOrder();
     }
-
-    private function _addOrderPayment($order, PayPal\Api\Payment $payment, $id_payment, $cookie)
-    {
+    
+    private function _addOrderPayment($order, PayPal\Api\Payment $payment, $id_payment, $cookie) {
         $this->load->model('Order_Payment_Model');
         $id_currency = $cookie->prestashop_config->id_currency;
         $order_payment = $this->Order_Payment_Model;
@@ -404,9 +393,8 @@ class Order extends REST_Controller
         $order_payment->date_add = $this->paypal->getTransaction_date($payment);
         return $order_payment->addOrderPayment($order_payment);
     }
-
-    private function _setOrderHistoryState($id_order, $order_state)
-    {
+    
+    private function _setOrderHistoryState($id_order, $order_state) {
         $this->load->model('Order_History_Model');
         $now = date('Y-m-d H:i:s');
         $order_history = $this->Order_History_Model;
@@ -416,9 +404,8 @@ class Order extends REST_Controller
         $order_history->date_add = $now;
         $order_history->setOrderHistoryState($order_history);
     }
-
-    private function _setOrderPaymentInvoice($id_order_invoice, $id_order_payment, $id_order)
-    {
+    
+    private function _setOrderPaymentInvoice($id_order_invoice, $id_order_payment, $id_order) {
         $this->load->model('Order_Invoice_Payment_Model');
         $Order_Invoice_Payment_Model = $this->Order_Invoice_Payment_Model;
         $Order_Invoice_Payment_Model->id_order_invoice = $id_order_invoice;

@@ -1,7 +1,7 @@
 <?php
 
 $lang['is_customer_exist']	= "Un compte correspondant à cette adresse e-mail existe déjà.";
-$lang['isBirthDate']	    = "Le format du champ %s est invalide";
+$lang['isBirthDate']	    = "La date de naissance est invalide";
 $lang['required']			= "Le champ %s est requis.";
 $lang['isset']				= "Le champ %s doit avoir une valeur.";
 $lang['valid_email']		= "Le champ %s doit contenir une adresse email valide.";

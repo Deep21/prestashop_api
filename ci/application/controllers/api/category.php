@@ -86,6 +86,7 @@ class Category extends REST_Controller
 
     public function getProductListByCategoryId_get($id = null)
     {
+        
         $this->load->model('Category_model');
         $this->load->model('Stock_Available_Model');
         $this->load->model('Manufacturer_model');
@@ -127,7 +128,7 @@ class Category extends REST_Controller
         }
 
         $this->response(
-            array('nb_products' => $this->Category_model->getNbProducts($id)->total, 'product' => $product, 'filter' => $manufacturers), 200);
+            array('nb_products' => (int)$this->Category_model->getNbProducts($id)->total, 'product' => $product, 'filter' => $manufacturers), 200);
     }
 
 
