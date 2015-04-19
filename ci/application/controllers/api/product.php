@@ -63,7 +63,7 @@ class Product extends REST_Controller
                 $image = $this->Image_Model->getImagesIdByProductId($id_product);
                 if(!empty($product)){
                     foreach ($image as $key => $images) {
-                        $images->url_image = (string)'http://localhost/prestashop/ci/index.php/api/image/' . (int)$images->id_image . '/get';
+                        $images->url_image = (string)'http://142.4.211.181/dwickrema/prestashop.v1/ci/index.php/api/image/' . (int)$images->id_image . '/get';
                         $images->id_image = (int)$images->id_image;
                         $images->cover = (int)$images->cover;
                         $images->position = (int)$images->position;
@@ -83,8 +83,8 @@ class Product extends REST_Controller
                     $product->id_shop_default = (int)$product->id_shop_default;
                     $product->price = (double)$product->price;
                     $product->online_only = (boolean)$product->online_only; // changed to boolean
-                    $product->on_salegit = (boolean)$product->on_sale; // changed to boolean
-                    $product->show_price = (int)$product->show_price;
+                    $product->on_sale = (boolean)$product->on_sale; // changed to boolean
+                    $product->show_price = (boolean)$product->show_price;
                     $product->quantity = (int)$product->quantity;
                     $product->width = (double)$product->width;
                     $product->height = (double)$product->height;
