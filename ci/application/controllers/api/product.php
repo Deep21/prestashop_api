@@ -82,8 +82,8 @@ class Product extends REST_Controller
                     $product->id_supplier = (int)$product->id_supplier;
                     $product->id_shop_default = (int)$product->id_shop_default;
                     $product->price = (double)$product->price;
-                    $product->online_only = (int)$product->online_only;
-                    $product->on_sale = (boolean)$product->on_sale;
+                    $product->online_only = (boolean)$product->online_only; // changed to boolean
+                    $product->on_salegit = (boolean)$product->on_sale; // changed to boolean
                     $product->show_price = (int)$product->show_price;
                     $product->quantity = (int)$product->quantity;
                     $product->width = (double)$product->width;
