@@ -143,5 +143,3 @@ class Product extends REST_Controller
     }
 
 }
-
-?>
