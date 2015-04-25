@@ -8,8 +8,7 @@
 
 require_once 'cart_base.php';
 
-class Cart extends CartBase
-{
+class Cart extends CartBase{
 
     public function __construct()
     {
@@ -84,32 +83,23 @@ class Cart extends CartBase
      */
     public function insertProductToCartById_post()
     {
+        $id_cart = $this->addCart();
+        if($id_cart == null)
+            $id_cart = $this->cookie->customer->id_cart;
 
-        $this->addCart();
         $cart = $this->post();
-        $id_cart = null;
+
         if (!empty($cart)) {
-
             $this->load->model('Cart_Model');
-            $id_product = (int)$cart['cart_product']['id_product'];
-            $id_product_attribute = (int)$cart['cart_product']['id_product_attribute'];
-            $clientQty = (int)$cart['cart_product']['quantity'];
+            $id_product = (int)$cart['id_product'];
+            $id_product_attribute = (int)$cart['id_product_attribute'];
+            $clientQty = (int)$cart['quantity'];
 
-            //permet de récupérer la quantité du produit enregistré dans le panier
+            //Permet de récupérer la quantité du produit enregistré dans le panier
+            $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $id_cart);
 
-            $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $this->cookie->customer->id_cart);
-            dump($this->cookie->customer->id_cart);
-            exit;
-            //Load the number of aviable stock product
+            //Charge les produits qui sont disponible dans le stock
             $stock = $this->Cart_Model->getStockById(1, $id_product_attribute, $id_product);
-
-            //Recupération du paramètre
-            $cart = $this->input->get('cart');
-
-            if (empty($cart)) {
-                $this->response(array('cart' => 'Error', 'message' => 'no parameter'), 404);
-                exit;
-            }
 
             if ($cartProductQty == 0 && $this->input->get('cart') === 'up' && !empty($stock)) {
 
@@ -156,9 +146,11 @@ class Cart extends CartBase
         }
     }
 
+    /*@override*/
     protected function addCart()
     {
-        parent::addCart(true);
+        $auto_add = true;
+        return parent::addCart($auto_add);
     }
 
     /**

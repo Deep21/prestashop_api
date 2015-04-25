@@ -136,7 +136,14 @@ class Cart_Model extends CI_Model
 
     public function insertProductToCart($id_product, $id_product_attribute, $id_cart, $qty)
     {
-        $product = array('id_cart' => $id_cart, 'id_product' => $id_product, 'id_product_attribute' => $id_product_attribute, 'quantity' => $qty, 'date_add' => date('Y-m-d H:i:s'));
+        $product = array(
+            'id_cart' => $id_cart,
+            'id_product' => $id_product,
+            'id_product_attribute' => $id_product_attribute,
+            'quantity' => $qty,
+            'date_add' => date('Y-m-d H:i:s')
+        );
+
         return ($this->db->insert('cart_product', $product)) ? $this->updateDate($id_cart) : null;
     }
 
@@ -154,10 +161,16 @@ class Cart_Model extends CI_Model
 
     public function containsProduct($id_product, $id_product_attribute, $id_cart)
     {
-        $row = $this->db->select('IFNULL(cp.quantity, null) quantity', false)->from('cart_product cp')->where('cp.id_product', (int)$id_product)->where('cp.id_product_attribute', (int)$id_product_attribute)->where('cp.id_cart', (int)$id_cart)->limit(1)->get()->first_row();
-        if (empty($row)) {
+        $row = $this->db->select('IFNULL(cp.quantity, null) quantity', false)
+            ->from('cart_product cp')
+            ->where('cp.id_product', (int)$id_product)
+            ->where('cp.id_product_attribute', (int)$id_product_attribute)
+            ->where('cp.id_cart', (int)$id_cart)
+            ->limit(1)
+            ->get()
+            ->first_row();
+        if (empty($row))
             return 0;
-        }
         return (int)$row->quantity;
     }
 
