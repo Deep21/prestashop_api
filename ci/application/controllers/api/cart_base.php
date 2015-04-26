@@ -1,14 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-
 require_once APPPATH . '/libraries/REST_Controller.php';
-require_once APPPATH . '/helpers/tracy/vendor/autoload.php';
-use Tracy\Debugger;
-
-
-
-
 /**
  * Cart
  * Definition de la classe Cart
@@ -33,10 +26,6 @@ class CartBase extends REST_Controller
      */
     public function __construct()
     {
-
-        Debugger::enable(Debugger::DETECT, 'C:\re\wamp\www\prestashop_test\ci\application\logs');
-        Debugger::$strictMode = TRUE;
-        Debugger::DEVELOPMENT;
 
         parent::__construct();
         //check if the id_cart is already in the order table

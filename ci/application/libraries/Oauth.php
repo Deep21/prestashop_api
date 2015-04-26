@@ -5,12 +5,7 @@ require_once(dirname(__FILE__) . '/../../../config/settings.inc.php');
 
 OAuth2\Autoloader::register();
 
-/*use Tracy\Debugger;
-Debugger::enable(Debugger::DETECT, FCPATH.APPPATH.'logs');
-*/
-
 use Tracy\Debugger;
-
 Debugger::enable(Debugger::DETECT, FCPATH . APPPATH . 'logs');
 
 
