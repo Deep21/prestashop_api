@@ -118,23 +118,6 @@ class Cart extends CartBase{
                 exit;
             }
 
-            if ($clientQty <= $cartProductQty && $this->input->get('cart') === 'down') {
-
-                if (((int)$cartProductQty) - (int)$clientQty == 0) {
-                    $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, 0);
-                    $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => false, 'deleted' => true, 'message' => 'Product deleted'), 200);
-                }
-                else {
-                    $clientQtyDown = '- ' . (int)$clientQty;
-                    $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyDown);
-                    $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Qantity removed'), 200);
-                }
-            }
-            elseif ($clientQty > $cartProductQty && $this->input->get('cart') === 'down') {
-                $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
-                exit;
-            }
-
             if (($cartProductQty + $clientQty) > (int)$stock->quantity) {
                 $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                 exit;
@@ -144,6 +127,42 @@ class Cart extends CartBase{
             $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'message' => 'Empty'), 404);
             exit;
         }
+    }
+
+
+    /**
+     * @param int $id_cart
+     */
+    public function editCartQty_put($id_cart)
+    {
+        $this->load->model('Cart_Model');
+        $cart = $this->put();
+        $id_product = (int)$cart['id_product'];
+        $id_product_attribute = (int)$cart['id_product_attribute'];
+        $clientQty = (int)$cart['quantity'];
+
+        //Permet de récupérer la quantité du produit enregistré dans le panier
+        $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $id_cart);
+
+        $cart = (string)$this->input->get('cart');
+
+        if ($clientQty <= $cartProductQty && $cart === 'down') {
+
+            if (((int)$cartProductQty) - (int)$clientQty == 0) {
+                $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, 0);
+                $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => false, 'deleted' => true, 'message' => 'Product deleted'), 200);
+            }
+            else {
+                $clientQtyDown = '- ' . (int)$clientQty;
+                $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyDown);
+                $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Qantity updated'), 200);
+            }
+        }
+        elseif ($clientQty > $cartProductQty && $this->input->get('cart') === 'down') {
+            $this->response(array('http_code' => 404, 'error' => true), 404);
+
+        }
+
     }
 
     /*@override*/
@@ -156,14 +175,12 @@ class Cart extends CartBase{
     /**
      * @param $id_cart
      */
-    public function deleteCartProduct_delete($id_cart)
+    public function deleteCartProduct_delete($id_cart, $id_product, $id_product_attribute, $id_address_delivery)
     {
-        $this->response(array('cart' => $id_cart), 200);
-        exit;
         $this->load->model('Cart_Model');
-        if ($id_cart = $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery)) {
-            $this->response(array('cart' => $id_cart), 204);
-        }
+        $row_affected = $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery);
+        $this->response(array('deleted' => ($row_affected) ? true : false), 200);
+
     }
 
     /**
@@ -197,6 +214,7 @@ class Cart extends CartBase{
         $cart = $this->_getLastNoneOrderedCar($id_customer);
         $this->getProductByCartId_get(current($cart)->id_cart);
     }
+
 
     /**
      * Permet de récupérer les produits contenant dans le panier

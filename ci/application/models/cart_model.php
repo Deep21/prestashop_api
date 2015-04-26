@@ -53,6 +53,7 @@ class Cart_Model extends CI_Model
 
     public function getProductByCartId($id_cart)
     {
+
         return $this->db->select('
       pa.ecotax as pa_eco_tax,
       pa.price as pa_price,
@@ -156,7 +157,15 @@ class Cart_Model extends CI_Model
     public function deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery)
     {
         $this->updateDate($id_cart);
-        return $this->db->delete('cart_product', array('id_cart' => (int)$id_cart, 'id_product' => (int)$id_product, 'id_product_attribute' => (int)$id_product_attribute, 'id_address_delivery' => (int)$id_address_delivery));
+
+        $this->db->delete('cart_product', array(
+            'id_cart' => (int)$id_cart,
+            'id_product' => (int)$id_product,
+            'id_product_attribute' => (int)$id_product_attribute,
+            'id_address_delivery' => (int)$id_address_delivery)
+        );
+
+        return $this->db->affected_rows();
     }
 
     public function containsProduct($id_product, $id_product_attribute, $id_cart)
