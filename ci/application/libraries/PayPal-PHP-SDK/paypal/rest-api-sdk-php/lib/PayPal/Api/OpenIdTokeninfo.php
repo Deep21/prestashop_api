@@ -150,7 +150,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
      *
      * @path /v1/identity/openidconnect/tokenservice
      * @method POST
-     * @param array        $params     (allowed values are client_id, client_secret, grant_type, code and redirect_uri)
+     * @param array $params (allowed values are client_id, client_secret, grant_type, code and redirect_uri)
      *                                 (required) client_id from developer portal
      *                                 (required) client_secret from developer portal
      *                                 (required) code is Authorization code previously received from the authorization server
@@ -204,7 +204,7 @@ class OpenIdTokeninfo extends PayPalResourceModel
      *
      * @path /v1/identity/openidconnect/tokenservice
      * @method POST
-     * @param array      $params     (allowed values are grant_type and scope)
+     * @param array $params (allowed values are grant_type and scope)
      *                               (required) client_id from developer portal
      *                               (required) client_secret from developer portal
      *                               (optional) refresh_token refresh token. If one is not passed, refresh token from the current object is used.

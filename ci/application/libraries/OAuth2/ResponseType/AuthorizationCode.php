@@ -63,15 +63,6 @@ class AuthorizationCode implements AuthorizationCodeInterface
     }
 
     /**
-     * @return
-     * TRUE if the grant type requires a redirect_uri, FALSE if not
-     */
-    public function enforceRedirect()
-    {
-        return $this->config['enforce_redirect'];
-    }
-
-    /**
      * Generates an unique auth code.
      *
      * Implementing classes may want to override this function to implement
@@ -96,5 +87,14 @@ class AuthorizationCode implements AuthorizationCodeInterface
         }
 
         return substr(hash('sha512', $randomData), 0, $tokenLen);
+    }
+
+    /**
+     * @return
+     * TRUE if the grant type requires a redirect_uri, FALSE if not
+     */
+    public function enforceRedirect()
+    {
+        return $this->config['enforce_redirect'];
     }
 }

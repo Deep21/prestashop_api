@@ -5,7 +5,6 @@ namespace PayPal\Api;
 use PayPal\Common\PayPalModel;
 use PayPal\Rest\ApiContext;
 use PayPal\Rest\IResource;
-use PayPal\Api\Refund;
 use PayPal\Transport\PayPalRestCall;
 use PayPal\Validation\ArgumentValidator;
 
@@ -29,10 +28,10 @@ class Capture extends PayPalModel implements IResource
 {
     /**
      * Identifier of the Capture transaction.
-     * 
+     *
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -53,10 +52,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * Time the resource was created in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -77,10 +76,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * Time the resource was last updated in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)
@@ -101,10 +100,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * Amount being captured. If no amount is specified, amount is used from the authorization being captured. If amount is same as the amount that's authorized for, the state of the authorization changes to captured. If not, the state of the authorization changes to partially_captured. Alternatively, you could indicate a final capture by seting the is_final_capture flag to true.
-     * 
+     *
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -125,10 +124,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * whether this is a final capture for the given authorization or not. If it's final, all the remaining funds held by the authorization, will be released in the funding instrument.
-     * 
+     *
      *
      * @param bool $is_final_capture
-     * 
+     *
      * @return $this
      */
     public function setIsFinalCapture($is_final_capture)
@@ -149,10 +148,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * State of the capture transaction.
-     * Valid Values: ["pending", "completed", "refunded", "partially_refunded"] 
+     * Valid Values: ["pending", "completed", "refunded", "partially_refunded"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -173,10 +172,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * ID of the Payment resource that this transaction is based on.
-     * 
+     *
      *
      * @param string $parent_payment
-     * 
+     *
      * @return $this
      */
     public function setParentPayment($parent_payment)
@@ -197,10 +196,10 @@ class Capture extends PayPalModel implements IResource
 
     /**
      * Sets Links
-     * 
+     *
      *
      * @param \PayPal\Api\Links $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

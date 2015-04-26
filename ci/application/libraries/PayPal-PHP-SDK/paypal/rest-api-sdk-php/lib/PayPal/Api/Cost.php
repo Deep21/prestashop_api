@@ -3,8 +3,8 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Validation\NumericValidator;
 use PayPal\Converter\FormatConverter;
+use PayPal\Validation\NumericValidator;
 
 /**
  * Class Cost
@@ -22,7 +22,7 @@ class Cost extends PayPalModel
      * Cost in percent. Range of 0 to 100.
      *
      * @param string $percent
-     * 
+     *
      * @return $this
      */
     public function setPercent($percent)
@@ -47,7 +47,7 @@ class Cost extends PayPalModel
      * Cost in amount. Range of 0 to 999999.99.
      *
      * @param \PayPal\Api\Currency $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)

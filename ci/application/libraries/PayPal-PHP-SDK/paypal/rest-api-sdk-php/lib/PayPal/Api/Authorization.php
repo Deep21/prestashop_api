@@ -5,7 +5,6 @@ namespace PayPal\Api;
 use PayPal\Common\PayPalModel;
 use PayPal\Rest\ApiContext;
 use PayPal\Rest\IResource;
-use PayPal\Api\Capture;
 use PayPal\Transport\PayPalRestCall;
 use PayPal\Validation\ArgumentValidator;
 
@@ -33,10 +32,10 @@ class Authorization extends PayPalModel implements IResource
 {
     /**
      * Identifier of the authorization transaction.
-     * 
+     *
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -57,10 +56,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * Time the resource was created in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -81,10 +80,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * Time the resource was last updated in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)
@@ -105,10 +104,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * Amount being authorized for.
-     * 
+     *
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -129,10 +128,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * specifies payment mode of the transaction
-     * Valid Values: ["INSTANT_TRANSFER", "MANUAL_BANK_TRANSFER", "DELAYED_TRANSFER", "ECHECK"] 
+     * Valid Values: ["INSTANT_TRANSFER", "MANUAL_BANK_TRANSFER", "DELAYED_TRANSFER", "ECHECK"]
      *
      * @param string $payment_mode
-     * 
+     *
      * @return $this
      */
     public function setPaymentMode($payment_mode)
@@ -153,10 +152,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * State of the authorization transaction.
-     * Valid Values: ["pending", "authorized", "partially_captured", "captured", "expired", "voided"] 
+     * Valid Values: ["pending", "authorized", "partially_captured", "captured", "expired", "voided"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -176,11 +175,11 @@ class Authorization extends PayPalModel implements IResource
     }
 
     /**
-     * Protection Eligibility of the Payer 
-     * Valid Values: ["ELIGIBLE", "PARTIALLY_ELIGIBLE", "INELIGIBLE"] 
+     * Protection Eligibility of the Payer
+     * Valid Values: ["ELIGIBLE", "PARTIALLY_ELIGIBLE", "INELIGIBLE"]
      *
      * @param string $protection_eligibility
-     * 
+     *
      * @return $this
      */
     public function setProtectionEligibility($protection_eligibility)
@@ -190,7 +189,7 @@ class Authorization extends PayPalModel implements IResource
     }
 
     /**
-     * Protection Eligibility of the Payer 
+     * Protection Eligibility of the Payer
      *
      * @return string
      */
@@ -200,11 +199,11 @@ class Authorization extends PayPalModel implements IResource
     }
 
     /**
-     * Protection Eligibility Type of the Payer 
-     * Valid Values: ["ELIGIBLE", "ITEM_NOT_RECEIVED_ELIGIBLE", "INELIGIBLE", "UNAUTHORIZED_PAYMENT_ELIGIBLE"] 
+     * Protection Eligibility Type of the Payer
+     * Valid Values: ["ELIGIBLE", "ITEM_NOT_RECEIVED_ELIGIBLE", "INELIGIBLE", "UNAUTHORIZED_PAYMENT_ELIGIBLE"]
      *
      * @param string $protection_eligibility_type
-     * 
+     *
      * @return $this
      */
     public function setProtectionEligibilityType($protection_eligibility_type)
@@ -214,7 +213,7 @@ class Authorization extends PayPalModel implements IResource
     }
 
     /**
-     * Protection Eligibility Type of the Payer 
+     * Protection Eligibility Type of the Payer
      *
      * @return string
      */
@@ -225,10 +224,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * ID of the Payment resource that this transaction is based on.
-     * 
+     *
      *
      * @param string $parent_payment
-     * 
+     *
      * @return $this
      */
     public function setParentPayment($parent_payment)
@@ -249,10 +248,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * Expected clearing time for eCheck Transactions
-     * 
+     *
      *
      * @param string $clearing_time
-     * 
+     *
      * @return $this
      */
     public function setClearingTime($clearing_time)
@@ -273,10 +272,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * Date/Time until which funds may be captured against this resource.
-     * 
+     *
      *
      * @param string $valid_until
-     * 
+     *
      * @return $this
      */
     public function setValidUntil($valid_until)
@@ -297,10 +296,10 @@ class Authorization extends PayPalModel implements IResource
 
     /**
      * Sets Links
-     * 
+     *
      *
      * @param \PayPal\Api\Links $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

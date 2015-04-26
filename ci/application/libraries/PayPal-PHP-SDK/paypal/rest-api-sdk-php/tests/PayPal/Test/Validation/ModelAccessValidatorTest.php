@@ -19,12 +19,12 @@ class ModelAccessValidatorTest extends \PHPUnit_Framework_TestCase
     public static function invalidProvider()
     {
         return array(
-            array(null, null,'must be an instance of PayPal\Common\PayPalModel, null given'),
-            array(array(), array() ,'must be an instance of PayPal\Common\PayPalModel, array given'),
-            array(new SimpleClass(), null,'Error'),
-            array(new SimpleClass(), array(),'Error'),
-            array(null, 'name','must be an instance of PayPal\Common\PayPalModel, null given'),
-            array(new SimpleClass(),'notfound', 'Missing Accessor: PayPal\\Test\\Common\\SimpleClass:setnotfound')
+            array(null, null, 'must be an instance of PayPal\Common\PayPalModel, null given'),
+            array(array(), array(), 'must be an instance of PayPal\Common\PayPalModel, array given'),
+            array(new SimpleClass(), null, 'Error'),
+            array(new SimpleClass(), array(), 'Error'),
+            array(null, 'name', 'must be an instance of PayPal\Common\PayPalModel, null given'),
+            array(new SimpleClass(), 'notfound', 'Missing Accessor: PayPal\\Test\\Common\\SimpleClass:setnotfound')
         );
     }
 
@@ -52,9 +52,10 @@ class ModelAccessValidatorTest extends \PHPUnit_Framework_TestCase
      * @dataProvider invalidProvider
      */
     public function testInvalidValidate($class, $name, $exMessage)
-    {   try {
+    {
+        try {
             $this->assertFalse(ModelAccessorValidator::validate($class, $name));
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             $this->assertContains($exMessage, $ex->getMessage());
         }
     }

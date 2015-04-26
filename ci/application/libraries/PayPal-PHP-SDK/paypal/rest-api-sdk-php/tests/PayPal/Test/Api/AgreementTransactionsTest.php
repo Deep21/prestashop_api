@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\AgreementTransactions;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\AgreementTransactions;
 class AgreementTransactionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object AgreementTransactions
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"agreement_transaction_list":' .AgreementTransactionTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return AgreementTransactions
      */
@@ -30,6 +20,14 @@ class AgreementTransactionsTest extends \PHPUnit_Framework_TestCase
         return new AgreementTransactions(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object AgreementTransactions
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"agreement_transaction_list":' . AgreementTransactionTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

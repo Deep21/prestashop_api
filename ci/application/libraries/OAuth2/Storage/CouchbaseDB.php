@@ -48,75 +48,75 @@ class CouchbaseDB implements AuthorizationCodeInterface,
     }
 
     // Helper function to access couchbase item by type:
-    protected function getObjectByType($name,$id)
-    {
-        return json_decode($this->db->get($this->config[$name].'-'.$id),true);
-    }
 
-    // Helper function to set couchbase item by type:
-    protected function setObjectByType($name,$id,$array)
-    {
-        $array['type'] = $name;
-        return $this->db->set($this->config[$name].'-'.$id,json_encode($array));
-    }
-
-    // Helper function to delete couchbase item by type, wait for persist to at least 1 node
-    protected function deleteObjectByType($name,$id)
-    {
-        $this->db->delete($this->config[$name].'-'.$id,"",1);
-    }
-
-    /* ClientCredentialsInterface */
     public function checkClientCredentials($client_id, $client_secret = null)
     {
-        if ($result = $this->getObjectByType('client_table',$client_id)) {
+        if ($result = $this->getObjectByType('client_table', $client_id)) {
             return $result['client_secret'] == $client_secret;
         }
 
         return false;
     }
 
+    // Helper function to set couchbase item by type:
+
+    protected function getObjectByType($name, $id)
+    {
+        return json_decode($this->db->get($this->config[$name] . '-' . $id), true);
+    }
+
+    // Helper function to delete couchbase item by type, wait for persist to at least 1 node
+
     public function isPublicClient($client_id)
     {
-        if (!$result = $this->getObjectByType('client_table',$client_id)) {
+        if (!$result = $this->getObjectByType('client_table', $client_id)) {
             return false;
         }
 
         return empty($result['client_secret']);
     }
 
-    /* ClientInterface */
-    public function getClientDetails($client_id)
-    {
-        $result = $this->getObjectByType('client_table',$client_id);
-
-        return is_null($result) ? false : $result;
-    }
+    /* ClientCredentialsInterface */
 
     public function setClientDetails($client_id, $client_secret = null, $redirect_uri = null, $grant_types = null, $scope = null, $user_id = null)
     {
         if ($this->getClientDetails($client_id)) {
 
-            $this->setObjectByType('client_table',$client_id, array(
-                'client_id'     => $client_id,
+            $this->setObjectByType('client_table', $client_id, array(
+                'client_id' => $client_id,
                 'client_secret' => $client_secret,
-                'redirect_uri'  => $redirect_uri,
-                'grant_types'   => $grant_types,
-                'scope'         => $scope,
-                'user_id'       => $user_id,
+                'redirect_uri' => $redirect_uri,
+                'grant_types' => $grant_types,
+                'scope' => $scope,
+                'user_id' => $user_id,
             ));
         } else {
-            $this->setObjectByType('client_table',$client_id, array(
-                'client_id'     => $client_id,
+            $this->setObjectByType('client_table', $client_id, array(
+                'client_id' => $client_id,
                 'client_secret' => $client_secret,
-                'redirect_uri'  => $redirect_uri,
-                'grant_types'   => $grant_types,
-                'scope'         => $scope,
-                'user_id'       => $user_id,
+                'redirect_uri' => $redirect_uri,
+                'grant_types' => $grant_types,
+                'scope' => $scope,
+                'user_id' => $user_id,
             ));
         }
 
         return true;
+    }
+
+    public function getClientDetails($client_id)
+    {
+        $result = $this->getObjectByType('client_table', $client_id);
+
+        return is_null($result) ? false : $result;
+    }
+
+    /* ClientInterface */
+
+    protected function setObjectByType($name, $id, $array)
+    {
+        $array['type'] = $name;
+        return $this->db->set($this->config[$name] . '-' . $id, json_encode($array));
     }
 
     public function checkRestrictedGrantType($client_id, $grant_type)
@@ -132,19 +132,11 @@ class CouchbaseDB implements AuthorizationCodeInterface,
         return true;
     }
 
-    /* AccessTokenInterface */
-    public function getAccessToken($access_token)
-    {
-        $token = $this->getObjectByType('access_token_table',$access_token);
-
-        return is_null($token) ? false : $token;
-    }
-
     public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
     {
         // if it exists, update it.
         if ($this->getAccessToken($access_token)) {
-            $this->setObjectByType('access_token_table',$access_token, array(
+            $this->setObjectByType('access_token_table', $access_token, array(
                 'access_token' => $access_token,
                 'client_id' => $client_id,
                 'expires' => $expires,
@@ -152,12 +144,49 @@ class CouchbaseDB implements AuthorizationCodeInterface,
                 'scope' => $scope
             ));
         } else {
-            $this->setObjectByType('access_token_table',$access_token,  array(
+            $this->setObjectByType('access_token_table', $access_token, array(
                 'access_token' => $access_token,
                 'client_id' => $client_id,
                 'expires' => $expires,
                 'user_id' => $user_id,
                 'scope' => $scope
+            ));
+        }
+
+        return true;
+    }
+
+    /* AccessTokenInterface */
+
+    public function getAccessToken($access_token)
+    {
+        $token = $this->getObjectByType('access_token_table', $access_token);
+
+        return is_null($token) ? false : $token;
+    }
+
+    public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    {
+        // if it exists, update it.
+        if ($this->getAuthorizationCode($code)) {
+            $this->setObjectByType('code_table', $code, array(
+                'authorization_code' => $code,
+                'client_id' => $client_id,
+                'user_id' => $user_id,
+                'redirect_uri' => $redirect_uri,
+                'expires' => $expires,
+                'scope' => $scope,
+                'id_token' => $id_token,
+            ));
+        } else {
+            $this->setObjectByType('code_table', $code, array(
+                'authorization_code' => $code,
+                'client_id' => $client_id,
+                'user_id' => $user_id,
+                'redirect_uri' => $redirect_uri,
+                'expires' => $expires,
+                'scope' => $scope,
+                'id_token' => $id_token,
             ));
         }
 
@@ -166,50 +195,29 @@ class CouchbaseDB implements AuthorizationCodeInterface,
 
 
     /* AuthorizationCodeInterface */
+
     public function getAuthorizationCode($code)
     {
-        $code = $this->getObjectByType('code_table',$code);
+        $code = $this->getObjectByType('code_table', $code);
 
         return is_null($code) ? false : $code;
     }
 
-    public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    public function expireAuthorizationCode($code)
     {
-        // if it exists, update it.
-        if ($this->getAuthorizationCode($code)) {
-            $this->setObjectByType('code_table',$code, array(
-                'authorization_code' => $code,
-                'client_id' => $client_id,
-                'user_id' => $user_id,
-                'redirect_uri' => $redirect_uri,
-                'expires' => $expires,
-                'scope' => $scope,
-                'id_token' => $id_token,
-            ));
-        } else {
-            $this->setObjectByType('code_table',$code,array(
-                'authorization_code' => $code,
-                'client_id' => $client_id,
-                'user_id' => $user_id,
-                'redirect_uri' => $redirect_uri,
-                'expires' => $expires,
-                'scope' => $scope,
-                'id_token' => $id_token,
-            ));
-        }
+        $this->deleteObjectByType('code_table', $code);
 
         return true;
     }
 
-    public function expireAuthorizationCode($code)
+    protected function deleteObjectByType($name, $id)
     {
-        $this->deleteObjectByType('code_table',$code);
-
-        return true;
+        $this->db->delete($this->config[$name] . '-' . $id, "", 1);
     }
 
 
     /* UserCredentialsInterface */
+
     public function checkUserCredentials($username, $password)
     {
         if ($user = $this->getUser($username)) {
@@ -217,6 +225,20 @@ class CouchbaseDB implements AuthorizationCodeInterface,
         }
 
         return false;
+    }
+
+    public function getUser($username)
+    {
+        $result = $this->getObjectByType('user_table', $username);
+
+        return is_null($result) ? false : $result;
+    }
+
+    /* RefreshTokenInterface */
+
+    protected function checkPassword($user, $password)
+    {
+        return $user['password'] == $password;
     }
 
     public function getUserDetails($username)
@@ -228,17 +250,19 @@ class CouchbaseDB implements AuthorizationCodeInterface,
         return $user;
     }
 
-    /* RefreshTokenInterface */
     public function getRefreshToken($refresh_token)
     {
-        $token = $this->getObjectByType('refresh_token_table',$refresh_token);
+        $token = $this->getObjectByType('refresh_token_table', $refresh_token);
 
         return is_null($token) ? false : $token;
     }
 
+
+    // plaintext passwords are bad!  Override this for your application
+
     public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
     {
-        $this->setObjectByType('refresh_token_table',$refresh_token, array(
+        $this->setObjectByType('refresh_token_table', $refresh_token, array(
             'refresh_token' => $refresh_token,
             'client_id' => $client_id,
             'user_id' => $user_id,
@@ -251,29 +275,15 @@ class CouchbaseDB implements AuthorizationCodeInterface,
 
     public function unsetRefreshToken($refresh_token)
     {
-        $this->deleteObjectByType('refresh_token_table',$refresh_token);
+        $this->deleteObjectByType('refresh_token_table', $refresh_token);
 
         return true;
-    }
-
-
-    // plaintext passwords are bad!  Override this for your application
-    protected function checkPassword($user, $password)
-    {
-        return $user['password'] == $password;
-    }
-
-    public function getUser($username)
-    {
-        $result = $this->getObjectByType('user_table',$username);
-
-        return is_null($result) ? false : $result;
     }
 
     public function setUser($username, $password, $firstName = null, $lastName = null)
     {
         if ($this->getUser($username)) {
-            $this->setObjectByType('user_table',$username, array(
+            $this->setObjectByType('user_table', $username, array(
                 'username' => $username,
                 'password' => $password,
                 'first_name' => $firstName,
@@ -281,7 +291,7 @@ class CouchbaseDB implements AuthorizationCodeInterface,
             ));
 
         } else {
-            $this->setObjectByType('user_table',$username, array(
+            $this->setObjectByType('user_table', $username, array(
                 'username' => $username,
                 'password' => $password,
                 'first_name' => $firstName,
@@ -295,7 +305,7 @@ class CouchbaseDB implements AuthorizationCodeInterface,
 
     public function getClientKey($client_id, $subject)
     {
-        if (!$jwt = $this->getObjectByType('jwt_table',$client_id)) {
+        if (!$jwt = $this->getObjectByType('jwt_table', $client_id)) {
             return false;
         }
 

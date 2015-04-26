@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Metadata;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Metadata;
 class MetadataTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Metadata
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"created_date":"TestSample","created_by":"TestSample","cancelled_date":"TestSample","cancelled_by":"TestSample","last_updated_date":"TestSample","last_updated_by":"TestSample","first_sent_date":"TestSample","last_sent_date":"TestSample","last_sent_by":"TestSample","payer_view_url":"http://www.google.com"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Metadata
      */
@@ -30,6 +20,14 @@ class MetadataTest extends \PHPUnit_Framework_TestCase
         return new Metadata(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Metadata
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"created_date":"TestSample","created_by":"TestSample","cancelled_date":"TestSample","cancelled_by":"TestSample","last_updated_date":"TestSample","last_updated_by":"TestSample","first_sent_date":"TestSample","last_sent_date":"TestSample","last_sent_by":"TestSample","payer_view_url":"http://www.google.com"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

@@ -16,29 +16,6 @@ use PayPal\Common\PayPalModel;
 class WebhookEventTypeList extends PayPalModel
 {
     /**
-     * A list of Webhooks event-types
-     *
-     * @param \PayPal\Api\WebhookEventType[] $event_types
-     * 
-     * @return $this
-     */
-    public function setEventTypes($event_types)
-    {
-        $this->event_types = $event_types;
-        return $this;
-    }
-
-    /**
-     * A list of Webhooks event-types
-     *
-     * @return \PayPal\Api\WebhookEventType[]
-     */
-    public function getEventTypes()
-    {
-        return $this->event_types;
-    }
-
-    /**
      * Append EventTypes to the list.
      *
      * @param \PayPal\Api\WebhookEventType $webhookEventType
@@ -53,6 +30,29 @@ class WebhookEventTypeList extends PayPalModel
                 array_merge($this->getEventTypes(), array($webhookEventType))
             );
         }
+    }
+
+    /**
+     * A list of Webhooks event-types
+     *
+     * @return \PayPal\Api\WebhookEventType[]
+     */
+    public function getEventTypes()
+    {
+        return $this->event_types;
+    }
+
+    /**
+     * A list of Webhooks event-types
+     *
+     * @param \PayPal\Api\WebhookEventType[] $event_types
+     *
+     * @return $this
+     */
+    public function setEventTypes($event_types)
+    {
+        $this->event_types = $event_types;
+        return $this;
     }
 
     /**

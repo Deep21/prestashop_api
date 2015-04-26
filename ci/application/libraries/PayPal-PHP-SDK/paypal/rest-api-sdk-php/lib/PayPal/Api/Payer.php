@@ -24,7 +24,7 @@ class Payer extends PayPalModel
      * Valid Values: ["credit_card", "bank", "paypal"]
      *
      * @param string $payment_method
-     * 
+     *
      * @return $this
      */
     public function setPaymentMethod($payment_method)
@@ -48,7 +48,7 @@ class Payer extends PayPalModel
      * Valid Values: ["VERIFIED", "UNVERIFIED"]
      *
      * @param string $status
-     * 
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -65,29 +65,6 @@ class Payer extends PayPalModel
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * List of funding instruments from which the funds of the current payment come. Typically a credit card.
-     *
-     * @param \PayPal\Api\FundingInstrument[] $funding_instruments
-     * 
-     * @return $this
-     */
-    public function setFundingInstruments($funding_instruments)
-    {
-        $this->funding_instruments = $funding_instruments;
-        return $this;
-    }
-
-    /**
-     * List of funding instruments from which the funds of the current payment come. Typically a credit card.
-     *
-     * @return \PayPal\Api\FundingInstrument[]
-     */
-    public function getFundingInstruments()
-    {
-        return $this->funding_instruments;
     }
 
     /**
@@ -108,6 +85,29 @@ class Payer extends PayPalModel
     }
 
     /**
+     * List of funding instruments from which the funds of the current payment come. Typically a credit card.
+     *
+     * @return \PayPal\Api\FundingInstrument[]
+     */
+    public function getFundingInstruments()
+    {
+        return $this->funding_instruments;
+    }
+
+    /**
+     * List of funding instruments from which the funds of the current payment come. Typically a credit card.
+     *
+     * @param \PayPal\Api\FundingInstrument[] $funding_instruments
+     *
+     * @return $this
+     */
+    public function setFundingInstruments($funding_instruments)
+    {
+        $this->funding_instruments = $funding_instruments;
+        return $this;
+    }
+
+    /**
      * Remove FundingInstruments from the list.
      *
      * @param \PayPal\Api\FundingInstrument $fundingInstrument
@@ -124,7 +124,7 @@ class Payer extends PayPalModel
      * Id of user selected funding option for the payment. 'OneOf' funding_instruments or funding_option_id to be present.
      *
      * @param string $funding_option_id
-     * 
+     *
      * @return $this
      */
     public function setFundingOptionId($funding_option_id)
@@ -144,10 +144,10 @@ class Payer extends PayPalModel
     }
 
     /**
-     * Information related to the Payer. 
+     * Information related to the Payer.
      *
      * @param \PayPal\Api\PayerInfo $payer_info
-     * 
+     *
      * @return $this
      */
     public function setPayerInfo($payer_info)
@@ -157,7 +157,7 @@ class Payer extends PayPalModel
     }
 
     /**
-     * Information related to the Payer. 
+     * Information related to the Payer.
      *
      * @return \PayPal\Api\PayerInfo
      */

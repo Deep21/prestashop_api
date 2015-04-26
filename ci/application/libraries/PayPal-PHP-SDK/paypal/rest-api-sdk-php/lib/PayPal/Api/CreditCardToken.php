@@ -24,7 +24,7 @@ class CreditCardToken extends PayPalModel
      * ID of a previously saved Credit Card resource using /vault/credit-card API.
      *
      * @param string $credit_card_id
-     * 
+     *
      * @return $this
      */
     public function setCreditCardId($credit_card_id)
@@ -47,7 +47,7 @@ class CreditCardToken extends PayPalModel
      * The unique identifier of the payer used when saving this credit card using /vault/credit-card API.
      *
      * @param string $payer_id
-     * 
+     *
      * @return $this
      */
     public function setPayerId($payer_id)
@@ -70,7 +70,7 @@ class CreditCardToken extends PayPalModel
      * Last 4 digits of the card number from the saved card.
      *
      * @param string $last4
-     * 
+     *
      * @return $this
      */
     public function setLast4($last4)
@@ -93,7 +93,7 @@ class CreditCardToken extends PayPalModel
      * Type of the Card (eg. visa, mastercard, etc.) from the saved card. Please note that the values are always in lowercase and not meant to be used directly for display.
      *
      * @param string $type
-     * 
+     *
      * @return $this
      */
     public function setType($type)
@@ -116,7 +116,7 @@ class CreditCardToken extends PayPalModel
      * Expiry month from the saved card, represented as 1 - 12.
      *
      * @param int $expire_month
-     * 
+     *
      * @return $this
      */
     public function setExpireMonth($expire_month)
@@ -139,7 +139,7 @@ class CreditCardToken extends PayPalModel
      * Expiry year from the saved card, represented as YYYY format.
      *
      * @param int $expire_year
-     * 
+     *
      * @return $this
      */
     public function setExpireYear($expire_year)

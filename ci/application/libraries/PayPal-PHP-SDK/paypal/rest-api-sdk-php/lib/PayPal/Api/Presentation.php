@@ -19,10 +19,10 @@ class Presentation extends PayPalModel
 {
     /**
      * A label that overrides the business name in the PayPal account on the PayPal pages.
-     * 
+     *
      *
      * @param string $brand_name
-     * 
+     *
      * @return $this
      */
     public function setBrandName($brand_name)
@@ -43,10 +43,10 @@ class Presentation extends PayPalModel
 
     /**
      * A URL to logo image. Allowed vaues: `.gif`, `.jpg`, or `.png`.
-     * 
+     *
      *
      * @param string $logo_image
-     * 
+     *
      * @return $this
      */
     public function setLogoImage($logo_image)
@@ -67,10 +67,10 @@ class Presentation extends PayPalModel
 
     /**
      * Locale of pages displayed by PayPal payment experience.
-     * 
+     *
      *
      * @param string $locale_code
-     * 
+     *
      * @return $this
      */
     public function setLocaleCode($locale_code)

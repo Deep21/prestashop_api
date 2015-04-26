@@ -5,9 +5,9 @@ namespace OAuth2\ResponseType;
 use OAuth2\Encryption\EncryptionInterface;
 use OAuth2\Encryption\Jwt;
 use OAuth2\Storage\AccessTokenInterface as AccessTokenStorageInterface;
-use OAuth2\Storage\RefreshTokenInterface;
-use OAuth2\Storage\PublicKeyInterface;
 use OAuth2\Storage\Memory;
+use OAuth2\Storage\PublicKeyInterface;
+use OAuth2\Storage\RefreshTokenInterface;
 
 /**
  *
@@ -62,14 +62,14 @@ class JwtAccessToken extends AccessToken
         // token to encrypt
         $expires = time() + $this->config['access_lifetime'];
         $jwtAccessToken = array(
-            'id'         => $this->generateAccessToken(),
-            'iss'        => $this->config['issuer'],
-            'aud'        => $client_id,
-            'sub'        => $user_id,
-            'exp'        => $expires,
-            'iat'        => time(),
+            'id' => $this->generateAccessToken(),
+            'iss' => $this->config['issuer'],
+            'aud' => $client_id,
+            'sub' => $user_id,
+            'exp' => $expires,
+            'iat' => time(),
             'token_type' => $this->config['token_type'],
-            'scope'      => $scope
+            'scope' => $scope
         );
 
         /*
@@ -115,7 +115,7 @@ class JwtAccessToken extends AccessToken
     protected function encodeToken(array $token, $client_id = null)
     {
         $private_key = $this->publicKeyStorage->getPrivateKey($client_id);
-        $algorithm   = $this->publicKeyStorage->getEncryptionAlgorithm($client_id);
+        $algorithm = $this->publicKeyStorage->getEncryptionAlgorithm($client_id);
 
         return $this->encryptionUtil->encode($token, $private_key, $algorithm);
     }

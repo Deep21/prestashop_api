@@ -12,7 +12,7 @@ class ArgumentValidatorTest extends \PHPUnit_Framework_TestCase
             array("1"),
             array("something here"),
             array(1),
-            array(array(1,2,3)),
+            array(array(1, 2, 3)),
             array(0.123),
             array(true),
             array(false),

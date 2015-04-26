@@ -55,12 +55,7 @@ class Mongo implements AuthorizationCodeInterface,
     }
 
     // Helper function to access a MongoDB collection by `type`:
-    protected function collection($name)
-    {
-        return $this->db->{$this->config[$name]};
-    }
 
-    /* ClientCredentialsInterface */
     public function checkClientCredentials($client_id, $client_secret = null)
     {
         if ($result = $this->collection('client_table')->findOne(array('client_id' => $client_id))) {
@@ -68,6 +63,13 @@ class Mongo implements AuthorizationCodeInterface,
         }
 
         return false;
+    }
+
+    /* ClientCredentialsInterface */
+
+    protected function collection($name)
+    {
+        return $this->db->{$this->config[$name]};
     }
 
     public function isPublicClient($client_id)
@@ -80,12 +82,6 @@ class Mongo implements AuthorizationCodeInterface,
     }
 
     /* ClientInterface */
-    public function getClientDetails($client_id)
-    {
-        $result = $this->collection('client_table')->findOne(array('client_id' => $client_id));
-
-        return is_null($result) ? false : $result;
-    }
 
     public function setClientDetails($client_id, $client_secret = null, $redirect_uri = null, $grant_types = null, $scope = null, $user_id = null)
     {
@@ -94,26 +90,33 @@ class Mongo implements AuthorizationCodeInterface,
                 array('client_id' => $client_id),
                 array('$set' => array(
                     'client_secret' => $client_secret,
-                    'redirect_uri'  => $redirect_uri,
-                    'grant_types'   => $grant_types,
-                    'scope'         => $scope,
-                    'user_id'       => $user_id,
+                    'redirect_uri' => $redirect_uri,
+                    'grant_types' => $grant_types,
+                    'scope' => $scope,
+                    'user_id' => $user_id,
                 ))
             );
         } else {
             $this->collection('client_table')->insert(
                 array(
-                    'client_id'     => $client_id,
+                    'client_id' => $client_id,
                     'client_secret' => $client_secret,
-                    'redirect_uri'  => $redirect_uri,
-                    'grant_types'   => $grant_types,
-                    'scope'         => $scope,
-                    'user_id'       => $user_id,
+                    'redirect_uri' => $redirect_uri,
+                    'grant_types' => $grant_types,
+                    'scope' => $scope,
+                    'user_id' => $user_id,
                 )
             );
         }
 
         return true;
+    }
+
+    public function getClientDetails($client_id)
+    {
+        $result = $this->collection('client_table')->findOne(array('client_id' => $client_id));
+
+        return is_null($result) ? false : $result;
     }
 
     public function checkRestrictedGrantType($client_id, $grant_type)
@@ -130,12 +133,6 @@ class Mongo implements AuthorizationCodeInterface,
     }
 
     /* AccessTokenInterface */
-    public function getAccessToken($access_token)
-    {
-        $token = $this->collection('access_token_table')->findOne(array('access_token' => $access_token));
-
-        return is_null($token) ? false : $token;
-    }
 
     public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
     {
@@ -165,14 +162,15 @@ class Mongo implements AuthorizationCodeInterface,
         return true;
     }
 
+    public function getAccessToken($access_token)
+    {
+        $token = $this->collection('access_token_table')->findOne(array('access_token' => $access_token));
+
+        return is_null($token) ? false : $token;
+    }
+
 
     /* AuthorizationCodeInterface */
-    public function getAuthorizationCode($code)
-    {
-        $code = $this->collection('code_table')->findOne(array('authorization_code' => $code));
-
-        return is_null($code) ? false : $code;
-    }
 
     public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
     {
@@ -206,6 +204,13 @@ class Mongo implements AuthorizationCodeInterface,
         return true;
     }
 
+    public function getAuthorizationCode($code)
+    {
+        $code = $this->collection('code_table')->findOne(array('authorization_code' => $code));
+
+        return is_null($code) ? false : $code;
+    }
+
     public function expireAuthorizationCode($code)
     {
         $this->collection('code_table')->remove(array('authorization_code' => $code));
@@ -224,6 +229,20 @@ class Mongo implements AuthorizationCodeInterface,
         return false;
     }
 
+    public function getUser($username)
+    {
+        $result = $this->collection('user_table')->findOne(array('username' => $username));
+
+        return is_null($result) ? false : $result;
+    }
+
+    /* RefreshTokenInterface */
+
+    protected function checkPassword($user, $password)
+    {
+        return $user['password'] == $password;
+    }
+
     public function getUserDetails($username)
     {
         if ($user = $this->getUser($username)) {
@@ -233,13 +252,15 @@ class Mongo implements AuthorizationCodeInterface,
         return $user;
     }
 
-    /* RefreshTokenInterface */
     public function getRefreshToken($refresh_token)
     {
         $token = $this->collection('refresh_token_table')->findOne(array('refresh_token' => $refresh_token));
 
         return is_null($token) ? false : $token;
     }
+
+
+    // plaintext passwords are bad!  Override this for your application
 
     public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
     {
@@ -261,20 +282,6 @@ class Mongo implements AuthorizationCodeInterface,
         $this->collection('refresh_token_table')->remove(array('refresh_token' => $refresh_token));
 
         return true;
-    }
-
-
-    // plaintext passwords are bad!  Override this for your application
-    protected function checkPassword($user, $password)
-    {
-        return $user['password'] == $password;
-    }
-
-    public function getUser($username)
-    {
-        $result = $this->collection('user_table')->findOne(array('username' => $username));
-
-        return is_null($result) ? false : $result;
     }
 
     public function setUser($username, $password, $firstName = null, $lastName = null)

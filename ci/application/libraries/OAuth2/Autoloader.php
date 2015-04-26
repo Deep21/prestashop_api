@@ -15,10 +15,11 @@ class Autoloader
     public function __construct($dir = null)
     {
         if (is_null($dir)) {
-            $dir = dirname(__FILE__).'/..';
+            $dir = dirname(__FILE__) . '/..';
         }
         $this->dir = $dir;
     }
+
     /**
      * Registers OAuth2\Autoloader as an SPL autoloader.
      */
@@ -41,7 +42,7 @@ class Autoloader
             return;
         }
 
-        if (file_exists($file = $this->dir.'/'.str_replace('\\', '/', $class).'.php')) {
+        if (file_exists($file = $this->dir . '/' . str_replace('\\', '/', $class) . '.php')) {
             require $file;
         }
     }

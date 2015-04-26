@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PaymentDefinition;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PaymentDefinition;
 class PaymentDefinitionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PaymentDefinition
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","name":"TestSample","type":"TestSample","frequency_interval":"TestSample","frequency":"TestSample","cycles":"TestSample","amount":' .CurrencyTest::getJson() . ',"charge_models":' .ChargeModelTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PaymentDefinition
      */
@@ -30,6 +20,14 @@ class PaymentDefinitionTest extends \PHPUnit_Framework_TestCase
         return new PaymentDefinition(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PaymentDefinition
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","name":"TestSample","type":"TestSample","frequency_interval":"TestSample","frequency":"TestSample","cycles":"TestSample","amount":' . CurrencyTest::getJson() . ',"charge_models":' . ChargeModelTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

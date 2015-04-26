@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\AgreementTransaction;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\AgreementTransaction;
 class AgreementTransactionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object AgreementTransaction
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"transaction_id":"TestSample","status":"TestSample","transaction_type":"TestSample","amount":' .CurrencyTest::getJson() . ',"fee_amount":' .CurrencyTest::getJson() . ',"net_amount":' .CurrencyTest::getJson() . ',"payer_email":"TestSample","payer_name":"TestSample","time_stamp":"TestSample","time_zone":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return AgreementTransaction
      */
@@ -30,6 +20,14 @@ class AgreementTransactionTest extends \PHPUnit_Framework_TestCase
         return new AgreementTransaction(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object AgreementTransaction
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"transaction_id":"TestSample","status":"TestSample","transaction_type":"TestSample","amount":' . CurrencyTest::getJson() . ',"fee_amount":' . CurrencyTest::getJson() . ',"net_amount":' . CurrencyTest::getJson() . ',"payer_email":"TestSample","payer_name":"TestSample","time_stamp":"TestSample","time_zone":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

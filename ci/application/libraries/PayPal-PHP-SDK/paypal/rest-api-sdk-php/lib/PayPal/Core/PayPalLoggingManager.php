@@ -43,6 +43,30 @@ class PayPalLoggingManager
     private $loggerFile;
 
     /**
+     * Default Constructor
+     */
+    public function __construct()
+    {
+        // To suppress the warning during the date() invocation in logs, we would default the timezone to GMT.
+        if (!ini_get('date.timezone')) {
+            date_default_timezone_set('GMT');
+        }
+
+        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
+
+        $this->isLoggingEnabled = (array_key_exists('log.LogEnabled', $config) && $config['log.LogEnabled'] == '1');
+
+        if ($this->isLoggingEnabled) {
+            $this->loggerFile = ($config['log.FileName']) ? $config['log.FileName'] : ini_get('error_log');
+            $loggingLevel = strtoupper($config['log.LogLevel']);
+            $this->loggingLevel =
+                (isset($loggingLevel) && defined(__NAMESPACE__ . "\\PayPalLoggingLevel::$loggingLevel")) ?
+                    constant(__NAMESPACE__ . "\\PayPalLoggingLevel::$loggingLevel") :
+                    PayPalLoggingManager::DEFAULT_LOGGING_LEVEL;
+        }
+    }
+
+    /**
      * Returns the singleton object
      *
      * @param string $loggerName
@@ -66,27 +90,13 @@ class PayPalLoggingManager
     }
 
     /**
-     * Default Constructor
+     * Log Error
+     *
+     * @param string $message
      */
-    public function __construct()
+    public function error($message)
     {
-        // To suppress the warning during the date() invocation in logs, we would default the timezone to GMT.
-        if (!ini_get('date.timezone')) {
-            date_default_timezone_set('GMT');
-        }
-
-        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
-
-        $this->isLoggingEnabled = (array_key_exists('log.LogEnabled', $config) && $config['log.LogEnabled'] == '1');
-
-        if ($this->isLoggingEnabled) {
-            $this->loggerFile = ($config['log.FileName']) ? $config['log.FileName'] : ini_get('error_log');
-            $loggingLevel = strtoupper($config['log.LogLevel']);
-            $this->loggingLevel =
-                (isset($loggingLevel) && defined(__NAMESPACE__ . "\\PayPalLoggingLevel::$loggingLevel")) ?
-                constant(__NAMESPACE__ . "\\PayPalLoggingLevel::$loggingLevel") :
-                PayPalLoggingManager::DEFAULT_LOGGING_LEVEL;
-        }
+        $this->log("ERROR\t: " . $message, PayPalLoggingLevel::ERROR);
     }
 
     /**
@@ -116,16 +126,6 @@ class PayPalLoggingManager
                 error_log("[" . date('d-m-Y h:i:s') . "] " . $this->loggerName . ": $message\n", 3, $this->loggerFile);
             }
         }
-    }
-
-    /**
-     * Log Error
-     *
-     * @param string $message
-     */
-    public function error($message)
-    {
-        $this->log("ERROR\t: " . $message, PayPalLoggingLevel::ERROR);
     }
 
     /**

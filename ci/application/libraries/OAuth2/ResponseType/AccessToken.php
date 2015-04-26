@@ -16,9 +16,9 @@ class AccessToken implements AccessTokenInterface
     protected $config;
 
     /**
-     * @param OAuth2\Storage\AccessTokenInterface  $tokenStorage   REQUIRED Storage class for saving access token information
+     * @param OAuth2\Storage\AccessTokenInterface $tokenStorage REQUIRED Storage class for saving access token information
      * @param OAuth2\Storage\RefreshTokenInterface $refreshStorage OPTIONAL Storage class for saving refresh token information
-     * @param array                                $config         OPTIONAL Configuration options for the server
+     * @param array $config OPTIONAL Configuration options for the server
      *                                                             <code>
      *                                                             $config = array(
      *                                                             'token_type' => 'bearer',              // token type identifier
@@ -33,8 +33,8 @@ class AccessToken implements AccessTokenInterface
         $this->refreshStorage = $refreshStorage;
 
         $this->config = array_merge(array(
-            'token_type'             => 'bearer',
-            'access_lifetime'        => 3600,
+            'token_type' => 'bearer',
+            'access_lifetime' => 3600,
             'refresh_token_lifetime' => 1209600,
         ), $config);
     }
@@ -125,7 +125,7 @@ class AccessToken implements AccessTokenInterface
             if ($randomData !== false && strlen($randomData) === 20) {
                 return bin2hex($randomData);
             }
-        } 
+        }
         if (@file_exists('/dev/urandom')) { // Get 100 bytes of random data
             $randomData = file_get_contents('/dev/urandom', false, null, 0, 20);
             if ($randomData !== false && strlen($randomData) === 20) {

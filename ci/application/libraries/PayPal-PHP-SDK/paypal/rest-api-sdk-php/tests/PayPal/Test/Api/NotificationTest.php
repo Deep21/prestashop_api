@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Notification;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Notification;
 class NotificationTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Notification
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"subject":"TestSample","note":"TestSample","send_to_merchant":true}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Notification
      */
@@ -30,6 +20,14 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         return new Notification(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Notification
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"subject":"TestSample","note":"TestSample","send_to_merchant":true}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

@@ -4,19 +4,33 @@ require_once('OAuth2/Autoloader.php');
 require_once(dirname(__FILE__) . '/../../../config/settings.inc.php');
 
 OAuth2\Autoloader::register();
+
 /*use Tracy\Debugger;
 Debugger::enable(Debugger::DETECT, FCPATH.APPPATH.'logs');
 */
+
+use Tracy\Debugger;
+
+Debugger::enable(Debugger::DETECT, FCPATH . APPPATH . 'logs');
+
+
 class Oauth
 {
     private $server;
     private $ci_instance;
     private $storage;
+    private $cookie;
 
     public function __construct()
     {
 
         $this->ci_instance = &get_instance();
+        $this->ci_instance->load->model('Cart_Model');
+        $this->ci_instance->load->library('encrypt');
+        $this->ci_instance->encrypt->set_cipher(MCRYPT_BLOWFISH);
+        $this->ci_instance->load->helper('cookie');
+        $this->cookie = json_decode($this->ci_instance->encrypt->decode(get_cookie('my_prestashop_ci')));
+
         $session_expiration = $this->ci_instance->config->item('sess_expiration');
 
         //Custom PDO Class
@@ -32,12 +46,26 @@ class Oauth
         $this->server->addGrantType(new OAuth2\GrantType\RefreshToken($this->storage));
     }
 
+    /**
+     * @return \OAuth2\Server
+     */
+    public function getServer()
+    {
+        return $this->server;
+    }
+
     public function verifyResourceRequest()
     {
         if (!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
             $this->server->getResponse()->send();
             die;
         }
+    }
+
+    public function mergeIdCartWithCustomer($customer, $id_cart)
+    {
+        $this->ci_instance->load->model('Cart_Model');
+        $this->ci_instance->Cart_Model->mergeIdCartWithCustomer($customer, $id_cart);
     }
 
     public function getAccessToken()
@@ -59,61 +87,73 @@ class Oauth
         $this->ci_instance->load->library('encrypt');
         $this->ci_instance->load->helper('cookie');
         $this->ci_instance->encrypt->set_cipher(MCRYPT_BLOWFISH);
-
+        $this->cookie = json_decode($this->ci_instance->encrypt->decode(get_cookie('my_prestashop_ci')));
         try {
             //si un client existe on rentre dans la condition
             if (!empty($customer)) {
                 //on vérifie si le client possède un id_cart
                 //getLastNoneOrderedCart retourne un tableau contenant les informations du panier
-                $cart_array = $cart->getLastNoneOrderedCart((int)$customer->id_customer);
-
+                $cart = $cart->getLastNoneOrderedCart((int)$customer->id_customer);
                 //Si aucun panier existe pour ce client on lui créer un id_cart vide
-                if (empty($cart_array)) {
-                    $cart->id_cart = null;
-                    $cart->id_shop_group = 1;
-                    $cart->id_shop = 1;
-                    $cart->id_address_delivery = 0;
-                    $cart->id_address_invoice = 0;
-                    $cart->id_currency = 1;
-                    $cart->id_customer = (int)$customer->id_customer;
-                    $cart->id_guest = 0;
-                    $cart->id_lang = 1;
-                    $cart->gift_message = "";
-                    $cart->mobile_theme = 0;
-                    $cart->secure_key = $customer->secure_key;
-                    $cart->delivery_option = "";
-                    $cart->date_add = date('Y-m-d H:i:s');
-                    $cart->date_upd = date('Y-m-d H:i:s');
-                    $id_cart = $cart->addCart($cart);
-                //Si un id_cart existe on initialise la variable $id_cart
-                } else{
-                    $id_cart = (int)$cart_array['id_cart'];
+                if (empty($cart)) {
+                    $cart = array(
+                        'id_cart' => null,
+                        'id_shop_group' => 1,
+                        'id_shop' => 1,
+                        'id_address_delivery' => 0,
+                        'id_address_invoice' => 0,
+                        'id_currency' => 1,
+                        'id_customer' => (int)$customer->id_customer,
+                        'id_guest' => 0,
+                        'id_lang' => 2,
+                        'gift_message' => '',
+                        'mobile_theme' => 0,
+                        'secure_key' =>  $customer->secure_key,
+                        'delivery_option' => '',
+                        'date_add' => date('Y-m-d H:i:s'),
+                        'date_upd' => date('Y-m-d H:i:s'),
+                    );
+                    //on créer in id
+                    $id_cart = $this->ci_instance->Cart_Model->addCart($cart);
+                }
+                elseif (!empty($cart)) {
+                    $id_cart = (int)$cart['id_cart'];
                 }
 
-                $cookie_data = array(
-                    "prestashop_config" => array(
-                        'id_lang' => 1,
-                        'id_currency' => 1,
-                        'id_shop' => 1,
+                if ($this->cookie != null && !empty($this->cookie->customer->id_cart)) {
+                    $this->ci_instance->load->model('Cart_Product_Model');
+                    $this->ci_instance->Cart_Product_Model->updateCartProduct(array());
+                    exit;
+                    $this->mergeIdCartWithCustomer($customer, $this->cookie->customer->id_cart);
+                    die("e");
+                   // $this->mergeIdCartWithCustomer($customer, $this->cookie->customer->id_cart);
+                }
+
+                    $cookie_data = array(
+                        "prestashop_config" => array(
+                            'id_lang' => 1,
+                            'id_currency' => 1,
+                            'id_shop' => 1,
                         ),
-                    "customer" => array(
-                        'nom' => 'wick',
-                        'prenom' => 'deep',
-                        'id_customer' => (int)$customer->id_customer,
-                        "secure_key" => $customer->secure_key,
-                        'id_cart' => $id_cart,
+                        "customer" => array(
+                            'nom' => 'wick',
+                            'prenom' => 'deep',
+                            'id_customer' => (int)$customer->id_customer,
+                            "secure_key" => $customer->secure_key,
+                            'id_cart' => $id_cart,
                         )
-                );
-                $cookie_encoded = json_encode($cookie_data);
-                $encrypted_cookie = $this->ci_instance->encrypt->encode($cookie_encoded);
-                $cookie = array('name' => 'prestashop_ci', 'value' => $encrypted_cookie, 'path' => '/prestashop_test/', 'expire' => 3200, '', true);
-                set_cookie($cookie);
+                    );
+                    $cookie_encoded = json_encode($cookie_data);
+                    $encrypted_cookie = $this->ci_instance->encrypt->encode($cookie_encoded);
+                    $cookie = array('name' => 'prestashop_ci', 'value' => $encrypted_cookie, 'path' => '/prestashop_test/', 'expire' => 3200, '', true);
+                    set_cookie($cookie);
+
             } else {
                 throw new Exception('Identification échoué / Client non trouvé');
             }
         } catch (Exception $e) {
-            //Si une exception est attrapé on log l'erreur dans un fichier log
-            //Debugger::log($e->getMessage());
+
+
         }
 
 

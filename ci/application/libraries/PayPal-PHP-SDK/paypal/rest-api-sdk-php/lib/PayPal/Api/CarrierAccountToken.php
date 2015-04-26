@@ -3,7 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 
 
 /**
@@ -20,7 +19,7 @@ class CarrierAccountToken extends PayPalModel
 {
     /**
      * ID of a previously saved carrier account resource.
-     * 
+     *
      *
      * @param string $carrier_account_id
      * @return $this
@@ -43,7 +42,7 @@ class CarrierAccountToken extends PayPalModel
 
     /**
      * The unique identifier of the payer used when saving this carrier account instrument.
-     * 
+     *
      *
      * @param string $external_customer_id
      * @return $this

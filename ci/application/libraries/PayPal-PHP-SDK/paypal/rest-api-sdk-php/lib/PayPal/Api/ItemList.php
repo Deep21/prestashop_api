@@ -3,7 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 
 /**
  * Class ItemList
@@ -23,30 +22,6 @@ class ItemList extends PayPalModel
     public function isEmpty()
     {
         return empty($this->items);
-    }
-
-    /**
-     * List of items.
-     *
-     *
-     * @param \PayPal\Api\Item[] $items
-     *
-     * @return $this
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
-        return $this;
-    }
-
-    /**
-     * List of items.
-     *
-     * @return \PayPal\Api\Item[]
-     */
-    public function getItems()
-    {
-        return $this->items;
     }
 
     /**
@@ -80,6 +55,20 @@ class ItemList extends PayPalModel
     }
 
     /**
+     * List of items.
+     *
+     *
+     * @param \PayPal\Api\Item[] $items
+     *
+     * @return $this
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
+        return $this;
+    }
+
+    /**
      * Remove an item from the list.
      * Items are compared using === comparision (PHP.net)
      *
@@ -88,6 +77,16 @@ class ItemList extends PayPalModel
     public function removeItem($item)
     {
         return $this->setItems(array_diff($this->getItems(), array($item)));
+    }
+
+    /**
+     * List of items.
+     *
+     * @return \PayPal\Api\Item[]
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 
     /**

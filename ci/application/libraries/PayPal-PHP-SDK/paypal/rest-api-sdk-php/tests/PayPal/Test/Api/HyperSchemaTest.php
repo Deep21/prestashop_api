@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\HyperSchema;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\HyperSchema;
 class HyperSchemaTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object HyperSchema
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"fragmentResolution":"TestSample","readonly":true,"contentEncoding":"TestSample","pathStart":"TestSample","mediaType":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return HyperSchema
      */
@@ -30,6 +20,14 @@ class HyperSchemaTest extends \PHPUnit_Framework_TestCase
         return new HyperSchema(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object HyperSchema
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"fragmentResolution":"TestSample","readonly":true,"contentEncoding":"TestSample","pathStart":"TestSample","mediaType":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

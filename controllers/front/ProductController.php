@@ -81,6 +81,7 @@ class ProductControllerCore extends FrontController
 	 */
 	public function init()
 	{
+
 		parent::init();
 
 		if ($id_product = (int)Tools::getValue('id_product'))
@@ -198,7 +199,8 @@ class ProductControllerCore extends FrontController
 				// We check that the cookie exists first to avoid ghost carts
 				if (!$this->context->cart->id && isset($_COOKIE[$this->context->cookie->getName()]))
 				{
-					$this->context->cart->add();
+                    exit;
+					//$this->context->cart->add();
 					$this->context->cookie->id_cart = (int)$this->context->cart->id;
 				}
 				$this->pictureUpload();

@@ -29,7 +29,7 @@ class CryptoToken implements CryptoTokenInterface
      * - encryption_algorithm
      *  the algorithm to use for encryption. This is passed to the
      *  EncryptionInterface object.
-     *  @see OAuth2\Encryption\Jwt::verifySignature
+     * @see OAuth2\Encryption\Jwt::verifySignature
      *
      * @param OAuth2\Storage\AccessTokenInterface $tokenStorage
      * (optional) persist the access token to another storage. This is useful if
@@ -56,9 +56,9 @@ class CryptoToken implements CryptoTokenInterface
             return false;
         }
 
-        $client_id  = isset($tokenData['client_id']) ? $tokenData['client_id'] : null;
+        $client_id = isset($tokenData['client_id']) ? $tokenData['client_id'] : null;
         $public_key = $this->publicKeyStorage->getPublicKey($client_id);
-        $algorithm  = $this->publicKeyStorage->getEncryptionAlgorithm($client_id);
+        $algorithm = $this->publicKeyStorage->getEncryptionAlgorithm($client_id);
 
         // now that we have the client_id, verify the token
         if (false === $this->encryptionUtil->decode($oauth_token, $public_key, $algorithm)) {

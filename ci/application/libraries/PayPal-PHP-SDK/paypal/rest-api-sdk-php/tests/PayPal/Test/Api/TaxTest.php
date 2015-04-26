@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Tax;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Tax;
 class TaxTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Tax
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","name":"TestSample","percent":"12.34","amount":' .CurrencyTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Tax
      */
@@ -30,6 +20,14 @@ class TaxTest extends \PHPUnit_Framework_TestCase
         return new Tax(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Tax
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","name":"TestSample","percent":"12.34","amount":' . CurrencyTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

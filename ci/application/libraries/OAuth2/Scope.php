@@ -6,8 +6,8 @@ use OAuth2\Storage\Memory;
 use OAuth2\Storage\ScopeInterface as ScopeStorageInterface;
 
 /**
-* @see OAuth2\ScopeInterface
-*/
+ * @see OAuth2\ScopeInterface
+ */
 class Scope implements ScopeInterface
 {
     protected $storage;
@@ -19,7 +19,7 @@ class Scope implements ScopeInterface
     public function __construct($storage = null)
     {
         if (is_null($storage) || is_array($storage)) {
-            $storage = new Memory((array) $storage);
+            $storage = new Memory((array)$storage);
         }
 
         if (!$storage instanceof ScopeStorageInterface) {
@@ -76,17 +76,6 @@ class Scope implements ScopeInterface
         }
     }
 
-    public function getScopeFromRequest(RequestInterface $request)
-    {
-        // "scope" is valid if passed in either POST or QUERY
-        return $request->request('scope', $request->query('scope'));
-    }
-
-    public function getDefaultScope($client_id = null)
-    {
-        return $this->storage->getDefaultScope($client_id);
-    }
-
     /**
      * Get reserved scopes needed by the server.
      *
@@ -99,5 +88,16 @@ class Scope implements ScopeInterface
     public function getReservedScopes()
     {
         return array('openid', 'offline_access');
+    }
+
+    public function getScopeFromRequest(RequestInterface $request)
+    {
+        // "scope" is valid if passed in either POST or QUERY
+        return $request->request('scope', $request->query('scope'));
+    }
+
+    public function getDefaultScope($client_id = null)
+    {
+        return $this->storage->getDefaultScope($client_id);
     }
 }

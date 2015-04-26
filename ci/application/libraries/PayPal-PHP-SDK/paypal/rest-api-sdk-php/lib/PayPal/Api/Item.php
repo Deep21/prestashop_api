@@ -3,10 +3,9 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
-use PayPal\Validation\UrlValidator;
-use PayPal\Validation\NumericValidator;
 use PayPal\Converter\FormatConverter;
+use PayPal\Validation\NumericValidator;
+use PayPal\Validation\UrlValidator;
 
 /**
  * Class Item
@@ -31,10 +30,10 @@ class Item extends PayPalModel
 {
     /**
      * Number of items.
-     * 
+     *
      *
      * @param string $quantity
-     * 
+     *
      * @return $this
      */
     public function setQuantity($quantity)
@@ -55,10 +54,10 @@ class Item extends PayPalModel
 
     /**
      * Name of the item.
-     * 
+     *
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -79,10 +78,10 @@ class Item extends PayPalModel
 
     /**
      * Description of the item.
-     * 
+     *
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -103,10 +102,10 @@ class Item extends PayPalModel
 
     /**
      * Cost of the item.
-     * 
+     *
      *
      * @param double $price
-     * 
+     *
      * @return $this
      */
     public function setPrice($price)
@@ -130,10 +129,10 @@ class Item extends PayPalModel
 
     /**
      * tax of the item.
-     * 
+     *
      *
      * @param double $tax
-     * 
+     *
      * @return $this
      */
     public function setTax($tax)
@@ -156,10 +155,10 @@ class Item extends PayPalModel
 
     /**
      * 3-letter Currency Code
-     * 
+     *
      *
      * @param string $currency
-     * 
+     *
      * @return $this
      */
     public function setCurrency($currency)
@@ -180,10 +179,10 @@ class Item extends PayPalModel
 
     /**
      * Number or code to identify the item in your catalog/records.
-     * 
+     *
      *
      * @param string $sku
-     * 
+     *
      * @return $this
      */
     public function setSku($sku)
@@ -204,7 +203,7 @@ class Item extends PayPalModel
 
     /**
      * URL linking to item information. Available to payer in transaction history.
-     * 
+     *
      *
      * @param string $url
      * @throws \InvalidArgumentException
@@ -229,10 +228,10 @@ class Item extends PayPalModel
 
     /**
      * Category type of the item.  This can be either Digital or Physical.
-     * 
+     *
      *
      * @param string $category
-     * 
+     *
      * @return $this
      */
     public function setCategory($category)
@@ -253,10 +252,10 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal risk determination.
-     * 
+     *
      *
      * @param \PayPal\Api\NameValuePair $supplementary_data
-     * 
+     *
      * @return $this
      */
     public function setSupplementaryData($supplementary_data)
@@ -277,10 +276,10 @@ class Item extends PayPalModel
 
     /**
      * Set of optional data used for PayPal post-transaction notifications.
-     * 
+     *
      *
      * @param \PayPal\Api\NameValuePair $postback_data
-     * 
+     *
      * @return $this
      */
     public function setPostbackData($postback_data)

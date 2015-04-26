@@ -1,12 +1,11 @@
 <?php
 namespace PayPal\Test\Api;
 
+use PayPal\Api\Amount;
+use PayPal\Api\Authorization;
 use PayPal\Api\Capture;
 use PayPal\Api\Refund;
-use PayPal\Api\Authorization;
-use PayPal\Api\Amount;
 use PayPal\Exception\PayPalConnectionException;
-use PayPal\Test\Constants;
 
 class CaptureTest extends \PHPUnit_Framework_TestCase
 {

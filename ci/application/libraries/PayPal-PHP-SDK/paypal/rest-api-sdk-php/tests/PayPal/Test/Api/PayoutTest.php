@@ -12,25 +12,6 @@ use PayPal\Api\Payout;
 class PayoutTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Payout
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"sender_batch_header":' .PayoutSenderBatchHeaderTest::getJson() . ',"items":' .PayoutItemTest::getJson() . ',"links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return Payout
-     */
-    public static function getObject()
-    {
-        return new Payout(self::getJson());
-    }
-
-
-    /**
      * Tests for Serialization and Deserialization Issues
      * @return Payout
      */
@@ -43,6 +24,15 @@ class PayoutTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getLinks());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object Payout
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"sender_batch_header":' . PayoutSenderBatchHeaderTest::getJson() . ',"items":' . PayoutItemTest::getJson() . ',"links":' . LinksTest::getJson() . '}';
     }
 
     /**
@@ -69,13 +59,14 @@ class PayoutTest extends \PHPUnit_Framework_TestCase
         $mockPPRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    PayoutBatchTest::getJson()
+                PayoutBatchTest::getJson()
             ));
         $params = array();
 
         $result = $obj->create($params, $mockApiContext, $mockPPRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Payout $obj
@@ -89,7 +80,7 @@ class PayoutTest extends \PHPUnit_Framework_TestCase
         $mockPPRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    PayoutBatchTest::getJson()
+                PayoutBatchTest::getJson()
             ));
 
         $result = $obj->get("payoutBatchId", $mockApiContext, $mockPPRestCall);
@@ -100,11 +91,20 @@ class PayoutTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return Payout
+     */
+    public static function getObject()
+    {
+        return new Payout(self::getJson());
     }
 }

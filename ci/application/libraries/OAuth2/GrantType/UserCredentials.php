@@ -2,10 +2,10 @@
 
 namespace OAuth2\GrantType;
 
-use OAuth2\Storage\UserCredentialsInterface;
-use OAuth2\ResponseType\AccessTokenInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
+use OAuth2\ResponseType\AccessTokenInterface;
+use OAuth2\Storage\UserCredentialsInterface;
 
 /**
  *

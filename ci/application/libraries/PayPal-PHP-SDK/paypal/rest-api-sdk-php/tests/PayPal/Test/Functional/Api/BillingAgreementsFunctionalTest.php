@@ -8,13 +8,7 @@ use PayPal\Api\Currency;
 use PayPal\Api\Patch;
 use PayPal\Api\PatchRequest;
 use PayPal\Api\Plan;
-use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
-use PayPal\Rest\IResource;
-use PayPal\Api\CreateProfileResponse;
 use PayPal\Test\Functional\Setup;
-use PayPal\Transport\PayPalRestCall;
-use PayPal\Api\WebProfile;
 
 /**
  * Class Billing Agreements

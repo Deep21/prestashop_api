@@ -2,17 +2,20 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\Refund;
-use PayPal\Test\Constants;
 
 class RefundTest extends \PHPUnit_Framework_TestCase
 {
-
-    private $refund;
 
     public static $captureId = "CAP-123";
     public static $createTime = "2013-02-28T00:00:00Z";
     public static $id = "R-5678";
     public static $parentPayment = "PAY-123";
+    private $refund;
+
+    public function setup()
+    {
+        $this->refund = self::createRefund();
+    }
 
     public static function createRefund()
     {
@@ -25,11 +28,6 @@ class RefundTest extends \PHPUnit_Framework_TestCase
         $refund->setParentPayment(self::$parentPayment);
 
         return $refund;
-    }
-
-    public function setup()
-    {
-        $this->refund = self::createRefund();
     }
 
     public function testGetterSetter()

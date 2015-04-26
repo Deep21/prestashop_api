@@ -2,9 +2,9 @@
 
 namespace OAuth2\ClientAssertionType;
 
-use OAuth2\Storage\ClientCredentialsInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
+use OAuth2\Storage\ClientCredentialsInterface;
 
 /**
  * Validate a client via Http Basic authentication
@@ -20,7 +20,7 @@ class HttpBasic implements ClientAssertionTypeInterface
 
     /**
      * @param OAuth2\Storage\ClientCredentialsInterface $clientStorage REQUIRED Storage class for retrieving client credentials information
-     * @param array                                     $config        OPTIONAL Configuration options for the server
+     * @param array $config OPTIONAL Configuration options for the server
      *                                                                 <code>
      *                                                                 $config = array(
      *                                                                 'allow_credentials_in_request_body' => true, // whether to look for credentials in the POST body in addition to the Authorize HTTP Header
@@ -115,7 +115,7 @@ class HttpBasic implements ClientAssertionTypeInterface
 
         if ($response) {
             $message = $this->config['allow_credentials_in_request_body'] ? ' or body' : '';
-            $response->setError(400, 'invalid_client', 'Client credentials were not found in the headers'.$message);
+            $response->setError(400, 'invalid_client', 'Client credentials were not found in the headers' . $message);
         }
 
         return null;

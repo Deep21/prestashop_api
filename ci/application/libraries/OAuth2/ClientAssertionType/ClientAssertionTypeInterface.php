@@ -11,5 +11,6 @@ use OAuth2\ResponseInterface;
 interface ClientAssertionTypeInterface
 {
     public function validateRequest(RequestInterface $request, ResponseInterface $response);
+
     public function getClientId();
 }

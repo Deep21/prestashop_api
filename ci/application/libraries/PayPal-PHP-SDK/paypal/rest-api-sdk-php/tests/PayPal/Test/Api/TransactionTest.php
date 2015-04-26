@@ -7,14 +7,18 @@ use PayPal\Api\Transaction;
 class TransactionTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var  Transaction */
-    private $transaction;
-
     public static $description = "desc . . . ";
     public static $invoiceNumber = "#123";
     public static $custom = "custom";
     public static $softDescriptor = "descriptor";
     public static $total = "1.12";
+    /** @var  Transaction */
+    private $transaction;
+
+    public function setup()
+    {
+        $this->transaction = self::createTransaction();
+    }
 
     public static function createTransaction()
     {
@@ -28,11 +32,6 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         $transaction->setPayee(PayeeTest::createPayee());
         $transaction->setRelatedResources(array(RelatedResourcesTest::createRelatedResources()));
         return $transaction;
-    }
-
-    public function setup()
-    {
-        $this->transaction = self::createTransaction();
     }
 
     public function testGetterSetter()

@@ -2,12 +2,10 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\WebhookEventList;
 use PayPal\Rest\ApiContext;
 use PayPal\Transport\PayPalRestCall;
+use PayPal\Validation\ArgumentValidator;
 
 /**
  * Class WebhookEvent
@@ -29,7 +27,7 @@ class WebhookEvent extends PayPalResourceModel
      * Identifier of the Webhooks event resource.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -52,7 +50,7 @@ class WebhookEvent extends PayPalResourceModel
      * Time the resource was created.
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -75,7 +73,7 @@ class WebhookEvent extends PayPalResourceModel
      * Name of the resource contained in resource element.
      *
      * @param string $resource_type
-     * 
+     *
      * @return $this
      */
     public function setResourceType($resource_type)
@@ -98,7 +96,7 @@ class WebhookEvent extends PayPalResourceModel
      * Name of the event type that occurred on resource, identified by data_resource element, to trigger the Webhooks event.
      *
      * @param string $event_type
-     * 
+     *
      * @return $this
      */
     public function setEventType($event_type)
@@ -121,7 +119,7 @@ class WebhookEvent extends PayPalResourceModel
      * A summary description of the event. E.g. A successful payment authorization was created for $$
      *
      * @param string $summary
-     * 
+     *
      * @return $this
      */
     public function setSummary($summary)
@@ -144,7 +142,7 @@ class WebhookEvent extends PayPalResourceModel
      * This contains the resource that is identified by resource_type element.
      *
      * @param \PayPal\Common\PayPalModel $resource
-     * 
+     *
      * @return $this
      */
     public function setResource($resource)
@@ -224,10 +222,10 @@ class WebhookEvent extends PayPalResourceModel
         ArgumentValidator::validate($params, 'params');
         $payLoad = "";
         $allowedParams = array(
-          'page_size' => 1,
-          'start_time' => 1,
-          'end_time' => 1,
-      );
+            'page_size' => 1,
+            'start_time' => 1,
+            'end_time' => 1,
+        );
         $json = self::executeCall(
             "/v1/notifications/webhooks-events" . "?" . http_build_query(array_intersect_key($params, $allowedParams)),
             "GET",

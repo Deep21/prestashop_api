@@ -2,10 +2,10 @@
 
 namespace OAuth2\Storage;
 
+use OAuth2\OpenID\Storage\AuthorizationCodeInterface as OpenIDAuthorizationCodeInterface;
 use phpcassa\ColumnFamily;
 use phpcassa\ColumnSlice;
 use phpcassa\Connection\ConnectionPool;
-use OAuth2\OpenID\Storage\AuthorizationCodeInterface as OpenIDAuthorizationCodeInterface;
 
 /**
  * Cassandra storage for all storage types
@@ -50,7 +50,7 @@ class Cassandra implements AuthorizationCodeInterface,
      * Cassandra Storage! uses phpCassa
      *
      * @param \phpcassa\ConnectionPool $cassandra
-     * @param array                    $config
+     * @param array $config
      */
     public function __construct($connection = array(), array $config = array())
     {
@@ -62,7 +62,7 @@ class Cassandra implements AuthorizationCodeInterface,
             }
             $connection = array_merge(array(
                 'keyspace' => 'oauth2',
-                'servers'  => null,
+                'servers' => null,
             ), $connection);
 
             $this->cassandra = new ConnectionPool($connection['keyspace'], $connection['servers']);
@@ -206,7 +206,7 @@ class Cassandra implements AuthorizationCodeInterface,
         }
 
         return isset($client['client_secret'])
-            && $client['client_secret'] == $client_secret;
+        && $client['client_secret'] == $client_secret;
     }
 
     public function isPublicClient($client_id)
@@ -238,7 +238,7 @@ class Cassandra implements AuthorizationCodeInterface,
         if (isset($details['grant_types'])) {
             $grant_types = explode(' ', $details['grant_types']);
 
-            return in_array($grant_type, (array) $grant_types);
+            return in_array($grant_type, (array)$grant_types);
         }
 
         // if grant_types are not defined, then none are restricted
@@ -268,13 +268,13 @@ class Cassandra implements AuthorizationCodeInterface,
     /* AccessTokenInterface */
     public function getAccessToken($access_token)
     {
-        return $this->getValue($this->config['access_token_key'].$access_token);
+        return $this->getValue($this->config['access_token_key'] . $access_token);
     }
 
     public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
     {
         return $this->setValue(
-            $this->config['access_token_key'].$access_token,
+            $this->config['access_token_key'] . $access_token,
             compact('access_token', 'client_id', 'user_id', 'expires', 'scope'),
             $expires
         );
@@ -285,17 +285,17 @@ class Cassandra implements AuthorizationCodeInterface,
     {
         $scope = explode(' ', $scope);
 
-        $result = $this->getValue($this->config['scope_key'].'supported:global');
+        $result = $this->getValue($this->config['scope_key'] . 'supported:global');
 
-        $supportedScope = explode(' ', (string) $result);
+        $supportedScope = explode(' ', (string)$result);
 
         return (count(array_diff($scope, $supportedScope)) == 0);
     }
 
     public function getDefaultScope($client_id = null)
     {
-        if (is_null($client_id) || !$result = $this->getValue($this->config['scope_key'].'default:'.$client_id)) {
-            $result = $this->getValue($this->config['scope_key'].'default:global');
+        if (is_null($client_id) || !$result = $this->getValue($this->config['scope_key'] . 'default:' . $client_id)) {
+            $result = $this->getValue($this->config['scope_key'] . 'default:global');
         }
 
         return $result;
@@ -308,9 +308,9 @@ class Cassandra implements AuthorizationCodeInterface,
         }
 
         if (is_null($client_id)) {
-            $key = $this->config['scope_key'].$type.':global';
+            $key = $this->config['scope_key'] . $type . ':global';
         } else {
-            $key = $this->config['scope_key'].$type.':'.$client_id;
+            $key = $this->config['scope_key'] . $type . ':' . $client_id;
         }
 
         return $this->setValue($key, $scope);
@@ -323,7 +323,7 @@ class Cassandra implements AuthorizationCodeInterface,
             return false;
         }
 
-        if (isset($jwt['subject']) && $jwt['subject'] == $subject ) {
+        if (isset($jwt['subject']) && $jwt['subject'] == $subject) {
             return $jwt['key'];
         }
 

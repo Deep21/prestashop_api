@@ -2,11 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\WebhookList;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
 use PayPal\Api\Webhook;
 
 /**
@@ -16,25 +11,6 @@ use PayPal\Api\Webhook;
  */
 class WebhookTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Gets Json String of Object Webhook
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","url":"http://www.google.com","event_types":' .WebhookEventTypeTest::getJson() . ',"links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return Webhook
-     */
-    public static function getObject()
-    {
-        return new Webhook(self::getJson());
-    }
-
-
     /**
      * Tests for Serialization and Deserialization Issues
      * @return Webhook
@@ -49,6 +25,15 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getLinks());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object Webhook
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","url":"http://www.google.com","event_types":' . WebhookEventTypeTest::getJson() . ',"links":' . LinksTest::getJson() . '}';
     }
 
     /**
@@ -86,12 +71,13 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
 
         $result = $obj->create($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Webhook $obj
@@ -105,12 +91,13 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    WebhookTest::getJson()
+                WebhookTest::getJson()
             ));
 
         $result = $obj->get("webhookId", $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Webhook $obj
@@ -124,12 +111,13 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    WebhookListTest::getJson()
+                WebhookListTest::getJson()
             ));
 
         $result = $obj->getAll($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Webhook $obj
@@ -143,13 +131,14 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
         $patchRequest = PatchRequestTest::getObject();
 
         $result = $obj->update($patchRequest, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Webhook $obj
@@ -163,7 +152,7 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
 
         $result = $obj->delete($mockApiContext, $mockPayPalRestCall);
@@ -174,11 +163,20 @@ class WebhookTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return Webhook
+     */
+    public static function getObject()
+    {
+        return new Webhook(self::getJson());
     }
 }

@@ -50,7 +50,6 @@ img/*
 sitemap.xml
 modules/*/config.xml
 
-
 # Created by https://www.gitignore.io
 
 ### PhpStorm ###
@@ -100,4 +99,13 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
+
+
+*.md
+cache/*
+.idea/*
+ci/application/logs/*
+log/*.log
+img/tmp/*
+config/xml/*.xml
 

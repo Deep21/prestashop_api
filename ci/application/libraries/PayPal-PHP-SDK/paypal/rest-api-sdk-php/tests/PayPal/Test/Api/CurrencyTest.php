@@ -2,9 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
-use PayPal\Converter\FormatConverter;
-use PayPal\Validation\NumericValidator;
 use PayPal\Api\Currency;
 
 /**
@@ -15,15 +12,6 @@ use PayPal\Api\Currency;
 class CurrencyTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Currency
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"currency":"TestSample","value":"12.34"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Currency
      */
@@ -32,6 +20,14 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
         return new Currency(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Currency
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"currency":"TestSample","value":"12.34"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

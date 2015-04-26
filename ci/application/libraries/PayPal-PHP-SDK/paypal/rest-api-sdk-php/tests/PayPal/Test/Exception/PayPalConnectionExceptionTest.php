@@ -13,6 +13,22 @@ class PayPalConnectionExceptionTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @test
+     */
+    public function testGetUrl()
+    {
+        $this->assertEquals('http://testURL', $this->object->getUrl());
+    }
+
+    /**
+     * @test
+     */
+    public function testGetData()
+    {
+        $this->assertEquals('response payload for connection', $this->object->getData());
+    }
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -28,22 +44,6 @@ class PayPalConnectionExceptionTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @test
-     */
-    public function testGetUrl()
-    {
-        $this->assertEquals('http://testURL', $this->object->getUrl());
-    }
-
-    /**
-     * @test
-     */
-    public function testGetData()
-    {
-        $this->assertEquals('response payload for connection', $this->object->getData());
     }
 }
 

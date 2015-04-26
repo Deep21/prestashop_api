@@ -29,23 +29,6 @@ class PayPalCredentialManagerTest extends \PHPUnit_Framework_TestCase
     );
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = PayPalCredentialManager::getInstance($this->config);
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
-    /**
      * @test
      */
     public function testGetInstance()
@@ -111,7 +94,6 @@ class PayPalCredentialManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($this->object->getCredentialObject(), $authObject);
     }
 
-
     /**
      * @test
      */
@@ -144,5 +126,22 @@ class PayPalCredentialManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals($this->config['acct1.ClientId'], 'clientId', $cred);
 
         $this->assertAttributeEquals($this->config['acct1.ClientSecret'], 'clientSecret', $cred);
+    }
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->object = PayPalCredentialManager::getInstance($this->config);
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
     }
 }

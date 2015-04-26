@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\MerchantPreferences;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\MerchantPreferences;
 class MerchantPreferencesTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object MerchantPreferences
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","setup_fee":' .CurrencyTest::getJson() . ',"cancel_url":"http://www.google.com","return_url":"http://www.google.com","notify_url":"http://www.google.com","max_fail_attempts":"TestSample","auto_bill_amount":"TestSample","initial_fail_amount_action":"TestSample","accepted_payment_type":"TestSample","char_set":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return MerchantPreferences
      */
@@ -30,6 +20,14 @@ class MerchantPreferencesTest extends \PHPUnit_Framework_TestCase
         return new MerchantPreferences(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object MerchantPreferences
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","setup_fee":' . CurrencyTest::getJson() . ',"cancel_url":"http://www.google.com","return_url":"http://www.google.com","notify_url":"http://www.google.com","max_fail_attempts":"TestSample","auto_bill_amount":"TestSample","initial_fail_amount_action":"TestSample","accepted_payment_type":"TestSample","char_set":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues
@@ -80,6 +78,7 @@ class MerchantPreferencesTest extends \PHPUnit_Framework_TestCase
         $obj = new MerchantPreferences();
         $obj->setCancelUrl(null);
     }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage ReturnUrl is not a fully qualified URL
@@ -89,6 +88,7 @@ class MerchantPreferencesTest extends \PHPUnit_Framework_TestCase
         $obj = new MerchantPreferences();
         $obj->setReturnUrl(null);
     }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage NotifyUrl is not a fully qualified URL
@@ -105,12 +105,14 @@ class MerchantPreferencesTest extends \PHPUnit_Framework_TestCase
         $obj->setCancelUrl(null);
         $this->assertNull($obj->getCancelUrl());
     }
+
     public function testUrlValidationForReturnUrlDeprecated()
     {
         $obj = new MerchantPreferences();
         $obj->setReturnUrl(null);
         $this->assertNull($obj->getReturnUrl());
     }
+
     public function testUrlValidationForNotifyUrlDeprecated()
     {
         $obj = new MerchantPreferences();

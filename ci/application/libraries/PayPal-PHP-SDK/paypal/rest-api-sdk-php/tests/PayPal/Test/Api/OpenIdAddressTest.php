@@ -14,20 +14,23 @@ class OpenIdAddressTest extends \PHPUnit_Framework_TestCase
     private $addr;
 
     /**
+     * @test
+     */
+    public function testSerializationDeserialization()
+    {
+        $addrCopy = new OpenIdAddress();
+        $addrCopy->fromJson($this->addr->toJson());
+
+        $this->assertEquals($this->addr, $addrCopy);
+    }
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
         $this->addr = self::getTestData();
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
     }
 
     public static function getTestData()
@@ -40,13 +43,10 @@ class OpenIdAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @test
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
      */
-    public function testSerializationDeserialization()
+    protected function tearDown()
     {
-        $addrCopy = new OpenIdAddress();
-        $addrCopy->fromJson($this->addr->toJson());
-
-        $this->assertEquals($this->addr, $addrCopy);
     }
 }

@@ -2,11 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\WebhookEventList;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
 use PayPal\Api\WebhookEventType;
 
 /**
@@ -16,25 +11,6 @@ use PayPal\Api\WebhookEventType;
  */
 class WebhookEventTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Gets Json String of Object WebhookEventType
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"name":"TestSample","description":"TestSample"}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return WebhookEventType
-     */
-    public static function getObject()
-    {
-        return new WebhookEventType(self::getJson());
-    }
-
-
     /**
      * Tests for Serialization and Deserialization Issues
      * @return WebhookEventType
@@ -47,6 +23,15 @@ class WebhookEventTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getDescription());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object WebhookEventType
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"name":"TestSample","description":"TestSample"}';
     }
 
     /**
@@ -72,12 +57,13 @@ class WebhookEventTypeTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    WebhookEventTypeListTest::getJson()
+                WebhookEventTypeListTest::getJson()
             ));
 
         $result = $obj->subscribedEventTypes("webhookId", $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param WebhookEventType $obj
@@ -102,11 +88,20 @@ class WebhookEventTypeTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return WebhookEventType
+     */
+    public static function getObject()
+    {
+        return new WebhookEventType(self::getJson());
     }
 }

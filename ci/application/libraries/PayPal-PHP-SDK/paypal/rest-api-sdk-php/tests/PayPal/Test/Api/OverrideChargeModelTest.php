@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\OverrideChargeModel;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\OverrideChargeModel;
 class OverrideChargeModelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object OverrideChargeModel
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"charge_id":"TestSample","amount":' .CurrencyTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return OverrideChargeModel
      */
@@ -30,6 +20,14 @@ class OverrideChargeModelTest extends \PHPUnit_Framework_TestCase
         return new OverrideChargeModel(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object OverrideChargeModel
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"charge_id":"TestSample","amount":' . CurrencyTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

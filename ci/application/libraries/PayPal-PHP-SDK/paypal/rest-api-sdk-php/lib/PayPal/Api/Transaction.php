@@ -2,9 +2,6 @@
 
 namespace PayPal\Api;
 
-use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
-
 /**
  * Class Transaction
  *
@@ -14,7 +11,7 @@ use PayPal\Rest\ApiContext;
  *
  * @property Transaction transactions
  */
-class Transaction extends TransactionBase 
+class Transaction extends TransactionBase
 {
     /**
      * Additional transactions for complex payment scenarios.

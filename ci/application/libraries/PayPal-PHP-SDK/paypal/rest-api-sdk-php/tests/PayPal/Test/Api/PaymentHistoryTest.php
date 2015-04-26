@@ -3,16 +3,19 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\PaymentHistory;
-use PayPal\Test\Constants;
 
 class PaymentHistoryTest extends \PHPUnit_Framework_TestCase
 {
 
+    public static $count = 10;
+    public static $nextId = "11";
     /** @var  PaymentHistory */
     private $history;
 
-    public static $count = 10;
-    public static $nextId = "11";
+    public function setup()
+    {
+        $this->history = PaymentHistoryTest::createPaymentHistory();
+    }
 
     public static function createPaymentHistory()
     {
@@ -21,11 +24,6 @@ class PaymentHistoryTest extends \PHPUnit_Framework_TestCase
         $history->setNextId(self::$nextId);
         $history->setPayments(array(PaymentTest::createPayment()));
         return $history;
-    }
-
-    public function setup()
-    {
-        $this->history = PaymentHistoryTest::createPaymentHistory();
     }
 
     public function testGetterSetters()

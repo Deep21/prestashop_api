@@ -31,10 +31,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * Identifier of the refund transaction in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -55,10 +55,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * Time the resource was created in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $create_time
-     * 
+     *
      * @return $this
      */
     public function setCreateTime($create_time)
@@ -79,10 +79,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * Time the resource was last updated in UTC ISO8601 format.
-     * 
+     *
      *
      * @param string $update_time
-     * 
+     *
      * @return $this
      */
     public function setUpdateTime($update_time)
@@ -103,10 +103,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
-     * 
+     *
      *
      * @param \PayPal\Api\Amount $amount
-     * 
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -127,10 +127,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * State of the refund transaction.
-     * Valid Values: ["pending", "completed", "failed"] 
+     * Valid Values: ["pending", "completed", "failed"]
      *
      * @param string $state
-     * 
+     *
      * @return $this
      */
     public function setState($state)
@@ -150,11 +150,11 @@ class Refund extends PayPalModel implements IResource
     }
 
     /**
-     * ID of the Sale transaction being refunded. 
-     * 
+     * ID of the Sale transaction being refunded.
+     *
      *
      * @param string $sale_id
-     * 
+     *
      * @return $this
      */
     public function setSaleId($sale_id)
@@ -164,7 +164,7 @@ class Refund extends PayPalModel implements IResource
     }
 
     /**
-     * ID of the Sale transaction being refunded. 
+     * ID of the Sale transaction being refunded.
      *
      * @return string
      */
@@ -174,11 +174,11 @@ class Refund extends PayPalModel implements IResource
     }
 
     /**
-     * ID of the Capture transaction being refunded. 
-     * 
+     * ID of the Capture transaction being refunded.
+     *
      *
      * @param string $capture_id
-     * 
+     *
      * @return $this
      */
     public function setCaptureId($capture_id)
@@ -188,7 +188,7 @@ class Refund extends PayPalModel implements IResource
     }
 
     /**
-     * ID of the Capture transaction being refunded. 
+     * ID of the Capture transaction being refunded.
      *
      * @return string
      */
@@ -199,10 +199,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * ID of the Payment resource that this transaction is based on.
-     * 
+     *
      *
      * @param string $parent_payment
-     * 
+     *
      * @return $this
      */
     public function setParentPayment($parent_payment)
@@ -223,10 +223,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * Description of what is being refunded for.
-     * 
+     *
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -247,10 +247,10 @@ class Refund extends PayPalModel implements IResource
 
     /**
      * Sets Links
-     * 
+     *
      *
      * @param \PayPal\Api\Links $links
-     * 
+     *
      * @return $this
      */
     public function setLinks($links)

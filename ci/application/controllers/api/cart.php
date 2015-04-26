@@ -1,57 +1,46 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
-
-require APPPATH . '/libraries/REST_Controller.php';
-
 /**
- * Order
- * Definition de la classe Order
- *
- * @package    CodeIgniter
- * @subpackage REST_Controller
- * @category   Order
- * @author     Deeptha WICKREMA
- * @version    1.2
+ * Created by PhpStorm.
+ * User: Starlight
+ * Date: 28/03/2015
+ * Time: 23:12
  */
-class Cart extends REST_Controller
-{
+
+require_once 'cart_base.php';
+
+class Cart extends CartBase{
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('encrypt');
-        $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
-        $this->load->helper('cookie');
-        $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
-        $this->load->model('Cart_Model');
-        $this->load->library('oauth');
-
-        //$this->load->library('server');
-        //$this->server->verifyResourceRequest();
-
-
     }
 
+
     /**
-     * Retrieve Order by order id
-     * @param $id_order the id of order
-     * @return
+     * @param null $id_customer
      */
     public function getLastNoneOrderedCart_get($id_customer = null)
     {
-        $cart = $this->_getLastNoneOrderedCar($id_customer);
+        $cart = $this->_getLastNoneOrderedCart($id_customer);
         if ($cart == null) $this->response(array('id_cart' => null), 200);
 
         $this->response(array('id_cart' => (int)$cart->id_cart), 200);
     }
 
-    private function _getLastNoneOrderedCar($id_customer)
+    /**
+     * @param $id_customer
+     * @return mixed
+     */
+    private function _getLastNoneOrderedCart($id_customer)
     {
         $this->load->model('Cart_Model');
 
         if ($this->Cart_Model->getLastNoneOrderedCart($id_customer) != null) return $this->Cart_Model->getLastNoneOrderedCart($id_customer);
     }
 
+    /**
+     *
+     */
     public function addCartFirstTime_post()
     {
         $cart_new = array();
@@ -71,6 +60,9 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     *
+     */
     public function createCart_post()
     {
         $cart_new = array();
@@ -85,86 +77,44 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     *Fonction qui permet d'ajouter des produit dans le panier
+     *Récupère le BODY POST et traite les données
+     */
     public function insertProductToCartById_post()
     {
+        $id_cart = $this->addCart();
+        if($id_cart == null)
+            $id_cart = $this->cookie->customer->id_cart;
+
         $cart = $this->post();
-        $id_cart = null;
+
         if (!empty($cart)) {
-
-            if (isset($this->cookie) && !empty($this->cookie)) {
-                $cart_array = $this->Cart_Model->getLastNoneOrderedCart((int)$this->cookie->customer->id_customer);
-                if (empty($cart_array)) {
-                    $this->Cart_Model->id_cart = null;
-                    $this->Cart_Model->id_shop_group = 1;
-                    $this->Cart_Model->id_shop = 1;
-                    $this->Cart_Model->id_address_delivery = 0;
-                    $this->Cart_Model->id_address_invoice = 0;
-                    $this->Cart_Model->id_currency = 1;
-                    $this->Cart_Model->id_customer = (int)$this->cookie->customer->id_customer;
-                    $this->Cart_Model->id_guest = 0;
-                    $this->Cart_Model->id_lang = 1;
-                    $this->Cart_Model->gift_message = "";
-                    $this->Cart_Model->mobile_theme = 0;
-                    $this->Cart_Model->secure_key = $this->cookie->customer->secure_key;
-                    $this->Cart_Model->delivery_option = "";
-                    $this->Cart_Model->date_add = date('Y-m-d H:i:s');
-                    $this->Cart_Model->date_upd = date('Y-m-d H:i:s');
-                    $id_cart = $this->Cart_Model->addCart($this->Cart_Model);
-                    $this->cookie->customer->id_cart = $id_cart;
-                    $cookie_encoded = json_encode($this->cookie);
-                    $encrypted_cookie = $this->encrypt->encode($cookie_encoded);
-                    $cookie = array('name' => 'prestashop_ci', 'value' => $encrypted_cookie, 'path' => '/prestashop/', 'expire' => 3200, '', true);
-                    set_cookie($cookie);
-                }
-            }
-
-
             $this->load->model('Cart_Model');
             $id_product = (int)$cart['id_product'];
             $id_product_attribute = (int)$cart['id_product_attribute'];
             $clientQty = (int)$cart['quantity'];
 
-            //load quantity of the cart
-            //It may be empty or full
+            //Permet de récupérer la quantité du produit enregistré dans le panier
             $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $id_cart);
 
-            //Load the number of aviable stock product
+            //Charge les produits qui sont disponible dans le stock
             $stock = $this->Cart_Model->getStockById(1, $id_product_attribute, $id_product);
-
-            $cart = $this->input->get('cart');
-
-            if (empty($cart)) {
-                $this->response(array('cart' => 'Error', 'message' => 'no parameter'), 404);
-                exit;
-            }
 
             if ($cartProductQty == 0 && $this->input->get('cart') === 'up' && !empty($stock)) {
 
                 if ($clientQty > (int)$stock->quantity) {
                     $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                     exit;
-                } elseif ($response = $this->Cart_Model->insertProductToCart($id_product, $id_product_attribute, $id_cart, $clientQty)) {
+                }
+                elseif ($response = $this->Cart_Model->insertProductToCart($id_product, $id_product_attribute, $id_cart, $clientQty)) {
                     $this->response(array('http_code' => 202, 'error' => false, 'create' => true, 'updated' => false, 'deleted' => false, 'message' => 'Product added to the cart'), 202);
                 }
-            } elseif ($cartProductQty > 0 && ((int)$stock->quantity) >= ($cartProductQty + $clientQty) && $this->input->get('cart') === 'up') {
+            }
+            elseif ($cartProductQty > 0 && ((int)$stock->quantity) >= ($cartProductQty + $clientQty) && $this->input->get('cart') === 'up') {
                 $clientQtyUp = '+ ' . (int)$clientQty;
                 $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyUp);
                 $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Quantity updated'), 202);
-                exit;
-            }
-
-            if ($clientQty <= $cartProductQty && $this->input->get('cart') === 'down') {
-
-                if (((int)$cartProductQty) - (int)$clientQty == 0) {
-                    $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, 0);
-                    $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => false, 'deleted' => true, 'message' => 'Product deleted'), 200);
-                } else {
-                    $clientQtyDown = '- ' . (int)$clientQty;
-                    $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyDown);
-                    $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Qantity removed'), 200);
-                }
-            } elseif ($clientQty > $cartProductQty && $this->input->get('cart') === 'down') {
-                $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                 exit;
             }
 
@@ -172,20 +122,72 @@ class Cart extends REST_Controller
                 $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'out_of_stock' => true), 404);
                 exit;
             }
-        } else {
+        }
+        else {
             $this->response(array('http_code' => 404, 'error' => true, 'create' => false, 'updated' => false, 'deleted' => false, 'message' => 'Empty'), 404);
             exit;
         }
     }
 
+
+    /**
+     * @param int $id_cart
+     */
+    public function editCartQty_put($id_cart)
+    {
+        $this->load->model('Cart_Model');
+        $cart = $this->put();
+        $id_product = (int)$cart['id_product'];
+        $id_product_attribute = (int)$cart['id_product_attribute'];
+        $clientQty = (int)$cart['quantity'];
+
+        //Permet de récupérer la quantité du produit enregistré dans le panier
+        $cartProductQty = $this->Cart_Model->containsProduct($id_product, $id_product_attribute, $id_cart);
+
+        $cart = (string)$this->input->get('cart');
+
+        if ($clientQty <= $cartProductQty && $cart === 'down') {
+
+            if (((int)$cartProductQty) - (int)$clientQty == 0) {
+                $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, 0);
+                $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => false, 'deleted' => true, 'message' => 'Product deleted'), 200);
+            }
+            else {
+                $clientQtyDown = '- ' . (int)$clientQty;
+                $this->Cart_Model->updateQty($id_cart, $id_product_attribute, $id_product, $clientQtyDown);
+                $this->response(array('http_code' => 202, 'error' => false, 'create' => false, 'updated' => true, 'deleted' => false, 'message' => 'Qantity updated'), 200);
+            }
+        }
+        elseif ($clientQty > $cartProductQty && $this->input->get('cart') === 'down') {
+            $this->response(array('http_code' => 404, 'error' => true), 404);
+
+        }
+
+    }
+
+    /*@override*/
+    protected function addCart()
+    {
+        $auto_add = true;
+        return parent::addCart($auto_add);
+    }
+
+    /**
+     * @param $id_cart
+     */
     public function deleteCartProduct_delete($id_cart, $id_product, $id_product_attribute, $id_address_delivery)
     {
         $this->load->model('Cart_Model');
-        if ($id_cart = $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery)) {
-            $this->response(array('cart' => $id_cart), 204);
-        }
+        $row_affected = $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery);
+        $this->response(array('deleted' => ($row_affected) ? true : false), 200);
+
     }
 
+    /**
+     * @param $id_cart
+     * @param $id_product
+     * @param $id_product_attribute
+     */
     public function updateProductCartclientQty_post($id_cart, $id_product, $id_product_attribute)
     {
 
@@ -204,25 +206,45 @@ class Cart extends REST_Controller
         }
     }
 
+    /**
+     * @param null $id_customer
+     */
     public function getLastCartProductByCustomer_get($id_customer = null)
     {
         $cart = $this->_getLastNoneOrderedCar($id_customer);
         $this->getProductByCartId_get(current($cart)->id_cart);
     }
 
+
+    /**
+     * Permet de récupérer les produits contenant dans le panier
+     * @param int $id_cart l'id du cart
+     */
     public function getProductByCartId_get($id_cart = null)
     {
-        $this->load->library('server');
-        $this->server->verifyResourceRequest();
+
         $this->load->model('Product_Model');
         $products = $this->Product_Model->getProductByCartId($id_cart);
         $cart_array = array();
         $product_array = array();
         foreach ($products as $key => $product) {
-            $product_array[] = array('id_product' => (int)$product->id_product, 'id_cart' => (int)$product->id_cart, 'id_address_delivery' => (int)$product->id_address_delivery, 'quantity' => (int)$product->cart_quantity, 'id_shop' => (int)$product->id_shop, 'libelle_produit' => $product->name, 'id_product' => (int)$product->id_product, 'width' => (double)$product->width, 'height' => (double)$product->height, 'depth' => (double)$product->depth, 'id_supplier' => (int)$product->id_supplier, 'id_manufacturer' => (int)$product->id_manufacturer, 'is_virtual' => (int)$product->is_virtual, 'description_short' => $product->description_short, 'available_now' => $product->available_now, 'available_later' => $product->available_later);
+            $product_array[] = array(
+                'id_product' => (int)$product->id_product,
+                'id_cart' => (int)$product->id_cart,
+                'id_address_delivery' => (int)$product->id_address_delivery,
+                'quantity' => (int)$product->cart_quantity,
+                'id_shop' => (int)$product->id_shop,
+                'libelle_produit' => $product->name,
+                'id_product' => (int)$product->id_product,
+                'width' => (double)$product->width,
+                'height' => (double)$product->height,
+                'depth' => (double)$product->depth,
+                'id_supplier' => (int)$product->id_supplier,
+                'id_manufacturer' => (int)$product->id_manufacturer, 'is_virtual' => (int)$product->is_virtual, 'description_short' => $product->description_short, 'available_now' => $product->available_now, 'available_later' => $product->available_later);
         }
-        if ($products != null) $this->response($product_array, 200);
-    }
-}
+        if ($products != null)
+            $this->response($product_array, 200);
 
-?>
+    }
+
+}

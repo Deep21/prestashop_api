@@ -13,6 +13,15 @@ class PayPalMissingCredentialExceptionTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @test
+     */
+    public function testErrorMessage()
+    {
+        $msg = $this->object->errorMessage();
+        $this->assertContains('Error on line', $msg);
+    }
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -27,15 +36,6 @@ class PayPalMissingCredentialExceptionTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-    }
-
-    /**
-     * @test
-     */
-    public function testErrorMessage()
-    {
-        $msg = $this->object->errorMessage();
-        $this->assertContains('Error on line', $msg);
     }
 }
 

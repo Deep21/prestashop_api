@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\ChargeModel;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\ChargeModel;
 class ChargeModelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object ChargeModels
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","type":"TestSample","amount":' .CurrencyTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return ChargeModel
      */
@@ -30,6 +20,14 @@ class ChargeModelTest extends \PHPUnit_Framework_TestCase
         return new ChargeModel(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object ChargeModels
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","type":"TestSample","amount":' . CurrencyTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

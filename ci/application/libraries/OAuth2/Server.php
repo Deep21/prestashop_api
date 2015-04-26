@@ -2,44 +2,44 @@
 
 namespace OAuth2;
 
-use OAuth2\Controller\ResourceControllerInterface;
-use OAuth2\Controller\ResourceController;
-use OAuth2\OpenID\Controller\UserInfoControllerInterface;
-use OAuth2\OpenID\Controller\UserInfoController;
-use OAuth2\OpenID\Controller\AuthorizeController as OpenIDAuthorizeController;
-use OAuth2\OpenID\ResponseType\AuthorizationCode as OpenIDAuthorizationCodeResponseType;
-use OAuth2\OpenID\Storage\AuthorizationCodeInterface as OpenIDAuthorizationCodeInterface;
-use OAuth2\OpenID\GrantType\AuthorizationCode as OpenIDAuthorizationCodeGrantType;
-use OAuth2\Controller\AuthorizeControllerInterface;
-use OAuth2\Controller\AuthorizeController;
-use OAuth2\Controller\TokenControllerInterface;
-use OAuth2\Controller\TokenController;
 use OAuth2\ClientAssertionType\ClientAssertionTypeInterface;
 use OAuth2\ClientAssertionType\HttpBasic;
-use OAuth2\ResponseType\ResponseTypeInterface;
-use OAuth2\ResponseType\AuthorizationCode as AuthorizationCodeResponseType;
-use OAuth2\ResponseType\AccessToken;
-use OAuth2\ResponseType\JwtAccessToken;
+use OAuth2\Controller\AuthorizeController;
+use OAuth2\Controller\AuthorizeControllerInterface;
+use OAuth2\Controller\ResourceController;
+use OAuth2\Controller\ResourceControllerInterface;
+use OAuth2\Controller\TokenController;
+use OAuth2\Controller\TokenControllerInterface;
+use OAuth2\GrantType\AuthorizationCode;
+use OAuth2\GrantType\ClientCredentials;
+use OAuth2\GrantType\GrantTypeInterface;
+use OAuth2\GrantType\RefreshToken;
+use OAuth2\GrantType\UserCredentials;
+use OAuth2\OpenID\Controller\AuthorizeController as OpenIDAuthorizeController;
+use OAuth2\OpenID\Controller\UserInfoController;
+use OAuth2\OpenID\Controller\UserInfoControllerInterface;
+use OAuth2\OpenID\GrantType\AuthorizationCode as OpenIDAuthorizationCodeGrantType;
+use OAuth2\OpenID\ResponseType\AuthorizationCode as OpenIDAuthorizationCodeResponseType;
 use OAuth2\OpenID\ResponseType\IdToken;
 use OAuth2\OpenID\ResponseType\IdTokenToken;
-use OAuth2\TokenType\TokenTypeInterface;
-use OAuth2\TokenType\Bearer;
-use OAuth2\GrantType\GrantTypeInterface;
-use OAuth2\GrantType\UserCredentials;
-use OAuth2\GrantType\ClientCredentials;
-use OAuth2\GrantType\RefreshToken;
-use OAuth2\GrantType\AuthorizationCode;
+use OAuth2\OpenID\Storage\AuthorizationCodeInterface as OpenIDAuthorizationCodeInterface;
+use OAuth2\ResponseType\AccessToken;
+use OAuth2\ResponseType\AuthorizationCode as AuthorizationCodeResponseType;
+use OAuth2\ResponseType\JwtAccessToken;
+use OAuth2\ResponseType\ResponseTypeInterface;
 use OAuth2\Storage\JwtAccessToken as JwtAccessTokenStorage;
 use OAuth2\Storage\JwtAccessTokenInterface;
+use OAuth2\TokenType\Bearer;
+use OAuth2\TokenType\TokenTypeInterface;
 
 /**
-* Server class for OAuth2
-* This class serves as a convience class which wraps the other Controller classes
-*
-* @see OAuth2\Controller\ResourceController
-* @see OAuth2\Controller\AuthorizeController
-* @see OAuth2\Controller\TokenController
-*/
+ * Server class for OAuth2
+ * This class serves as a convience class which wraps the other Controller classes
+ *
+ * @see OAuth2\Controller\ResourceController
+ * @see OAuth2\Controller\AuthorizeController
+ * @see OAuth2\Controller\TokenController
+ */
 class Server implements ResourceControllerInterface,
     AuthorizeControllerInterface,
     TokenControllerInterface,
@@ -84,14 +84,14 @@ class Server implements ResourceControllerInterface,
     );
 
     /**
-     * @param mixed                                                   $storage             (array or OAuth2\Storage) - single object or array of objects implementing the
+     * @param mixed $storage (array or OAuth2\Storage) - single object or array of objects implementing the
      *                                                                                     required storage types (ClientCredentialsInterface and AccessTokenInterface as a minimum)
-     * @param array                                                   $config              specify a different token lifetime, token header name, etc
-     * @param array                                                   $grantTypes          An array of OAuth2\GrantType\GrantTypeInterface to use for granting access tokens
-     * @param array                                                   $responseTypes       Response types to use.  array keys should be "code" and and "token" for
+     * @param array $config specify a different token lifetime, token header name, etc
+     * @param array $grantTypes An array of OAuth2\GrantType\GrantTypeInterface to use for granting access tokens
+     * @param array $responseTypes Response types to use.  array keys should be "code" and and "token" for
      *                                                                                     Access Token and Authorization Code response types
-     * @param OAuth2\TokenType\TokenTypeInterface                     $tokenType           The token type object to use. Valid token types are "bearer" and "mac"
-     * @param OAuth2\ScopeInterface                                   $scopeUtil           The scope utility class to use to validate scope
+     * @param OAuth2\TokenType\TokenTypeInterface $tokenType The token type object to use. Valid token types are "bearer" and "mac"
+     * @param OAuth2\ScopeInterface $scopeUtil The scope utility class to use to validate scope
      * @param OAuth2\ClientAssertionType\ClientAssertionTypeInterface $clientAssertionType The method in which to verify the client identity.  Default is HttpBasic
      *
      * @ingroup oauth2_section_7
@@ -106,19 +106,19 @@ class Server implements ResourceControllerInterface,
 
         // merge all config values.  These get passed to our controller objects
         $this->config = array_merge(array(
-            'use_jwt_access_tokens'        => false,
+            'use_jwt_access_tokens' => false,
             'store_encrypted_token_string' => true,
-            'use_openid_connect'       => false,
-            'id_lifetime'              => 3600,
-            'access_lifetime'          => 3600,
-            'www_realm'                => 'Service',
-            'token_param_name'         => 'access_token',
+            'use_openid_connect' => false,
+            'id_lifetime' => 3600,
+            'access_lifetime' => 3600,
+            'www_realm' => 'Service',
+            'token_param_name' => 'access_token',
             'token_bearer_header_name' => 'Bearer',
-            'enforce_state'            => true,
+            'enforce_state' => true,
             'require_exact_redirect_uri' => true,
-            'allow_implicit'           => false,
+            'allow_implicit' => false,
             'allow_credentials_in_request_body' => true,
-            'allow_public_clients'     => true,
+            'allow_public_clients' => true,
             'always_issue_new_refresh_token' => false,
         ), $config);
 
@@ -702,7 +702,7 @@ class Server implements ResourceControllerInterface,
         }
 
         $config = array_intersect_key($this->config, array_flip(explode(' ', 'access_lifetime refresh_token_lifetime')));
-        $config['token_type'] = $this->tokenType ? $this->tokenType->getTokenType() :  $this->getDefaultTokenType()->getTokenType();
+        $config['token_type'] = $this->tokenType ? $this->tokenType->getTokenType() : $this->getDefaultTokenType()->getTokenType();
 
         return new AccessToken($this->storages['access_token'], $refreshStorage, $config);
     }

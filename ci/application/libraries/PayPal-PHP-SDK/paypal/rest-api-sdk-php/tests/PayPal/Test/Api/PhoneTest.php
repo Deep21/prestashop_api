@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Phone;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Phone;
 class PhoneTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Phone
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"country_code":"TestSample","national_number":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Phone
      */
@@ -30,6 +20,14 @@ class PhoneTest extends \PHPUnit_Framework_TestCase
         return new Phone(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Phone
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"country_code":"TestSample","national_number":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

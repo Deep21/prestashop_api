@@ -14,17 +14,15 @@ class PayPalHttpConnection
 {
 
     /**
-     * @var PayPalHttpConfig
-     */
-    private $httpConfig;
-
-    /**
      * HTTP status codes for which a retry must be attempted
      * retry is currently attempted for Request timeout, Bad Gateway,
      * Service Unavailable and Gateway timeout errors.
      */
     private static $retryCodes = array('408', '502', '503', '504',);
-
+    /**
+     * @var PayPalHttpConfig
+     */
+    private $httpConfig;
     /**
      * LoggingManager
      *
@@ -36,7 +34,7 @@ class PayPalHttpConnection
      * Default Constructor
      *
      * @param PayPalHttpConfig $httpConfig
-     * @param array            $config
+     * @param array $config
      * @throws PayPalConfigurationException
      */
     public function __construct(PayPalHttpConfig $httpConfig, array $config)
@@ -48,27 +46,6 @@ class PayPalHttpConnection
         $this->logger = PayPalLoggingManager::getInstance(__CLASS__);
     }
 
-    /**
-     * Gets all Http Headers
-     *
-     * @return array
-     */
-    private function getHttpHeaders()
-    {
-
-        $ret = array();
-        foreach ($this->httpConfig->getHeaders() as $k => $v) {
-            $ret[] = "$k: $v";
-        }
-        return $ret;
-    }
-
-    /**
-     * Executes an HTTP request
-     *
-     * @param string $data query string OR POST content as a string
-     * @throws PayPalConnectionException
-     */
     /**
      * Executes an HTTP request
      *
@@ -179,7 +156,7 @@ class PayPalHttpConnection
                 $httpStatus
             );
             $ex->setData($result);
-            $this->logger->error("Got Http response code $httpStatus when accessing {$this->httpConfig->getUrl()}. " . $result );
+            $this->logger->error("Got Http response code $httpStatus when accessing {$this->httpConfig->getUrl()}. " . $result);
             $this->logger->debug("\n\n" . str_repeat('=', 128) . "\n");
             throw $ex;
         }
@@ -188,6 +165,28 @@ class PayPalHttpConnection
 
         //Return result object
         return $result;
+    }
+
+    /**
+     * Executes an HTTP request
+     *
+     * @param string $data query string OR POST content as a string
+     * @throws PayPalConnectionException
+     */
+
+    /**
+     * Gets all Http Headers
+     *
+     * @return array
+     */
+    private function getHttpHeaders()
+    {
+
+        $ret = array();
+        foreach ($this->httpConfig->getHeaders() as $k => $v) {
+            $ret[] = "$k: $v";
+        }
+        return $ret;
     }
 
 }

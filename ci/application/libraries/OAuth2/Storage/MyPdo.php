@@ -14,20 +14,22 @@ namespace OAuth2\Storage;
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class MyPdo extends Pdo{
+class MyPdo extends Pdo
+{
 
-    public function __construct($connection, $config = array(), $prefix){
-      $table_config = array(
-            'client_table' => $prefix.'oauth_clients',
-            'access_token_table' => $prefix.'oauth_access_tokens',
-            'refresh_token_table' => $prefix.'oauth_refresh_tokens',
-            'code_table' => $prefix.'oauth_authorization_codes',
-            'user_table' => $prefix.'oauth_users',
-            'jwt_table'  => $prefix.'oauth_jwt',
-            'scope_table'  => $prefix.'oauth_scopes',
-            'public_key_table'  => $prefix.'oauth_public_keys',
+    public function __construct($connection, $config = array(), $prefix)
+    {
+        $table_config = array(
+            'client_table' => $prefix . 'oauth_clients',
+            'access_token_table' => $prefix . 'oauth_access_tokens',
+            'refresh_token_table' => $prefix . 'oauth_refresh_tokens',
+            'code_table' => $prefix . 'oauth_authorization_codes',
+            'user_table' => $prefix . 'oauth_users',
+            'jwt_table' => $prefix . 'oauth_jwt',
+            'scope_table' => $prefix . 'oauth_scopes',
+            'public_key_table' => $prefix . 'oauth_public_keys',
         );
         parent::__construct($connection, $table_config);
     }
-    
+
 }

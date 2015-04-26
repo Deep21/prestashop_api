@@ -3,7 +3,6 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
 
 /**
  * Class CreditCardHistory
@@ -20,10 +19,10 @@ class CreditCardHistory extends PayPalModel
 {
     /**
      * A list of credit card resources
-     * 
      *
-     * @param \PayPal\Api\CreditCard $credit-cards
-     * 
+     *
+     * @param \PayPal\Api\CreditCard $credit -cards
+     *
      * @return $this
      */
     public function setCreditCards($credit_cards)
@@ -44,10 +43,10 @@ class CreditCardHistory extends PayPalModel
 
     /**
      * Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
-     * 
+     *
      *
      * @param int $count
-     * 
+     *
      * @return $this
      */
     public function setCount($count)
@@ -68,10 +67,10 @@ class CreditCardHistory extends PayPalModel
 
     /**
      * Identifier of the next element to get the next range of results.
-     * 
+     *
      *
      * @param string $next_id
-     * 
+     *
      * @return $this
      */
     public function setNextId($next_id)

@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Error;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Error;
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Error
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"name":"TestSample","debug_id":"TestSample","message":"TestSample","information_link":"TestSample","details":' .ErrorDetailsTest::getJson() . ',"links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Error
      */
@@ -30,6 +20,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         return new Error(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Error
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"name":"TestSample","debug_id":"TestSample","message":"TestSample","information_link":"TestSample","details":' . ErrorDetailsTest::getJson() . ',"links":' . LinksTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

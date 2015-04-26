@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\FundingInstrument;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\FundingInstrument;
 class FundingInstrumentTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object FundingInstrument
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"credit_card":' .CreditCardTest::getJson() . ',"credit_card_token":' .CreditCardTokenTest::getJson() . ',"payment_card":' .PaymentCardTest::getJson() . ',"payment_card_token":' .PaymentCardTokenTest::getJson() . ',"bank_account":' .ExtendedBankAccountTest::getJson() . ',"bank_account_token":' .BankTokenTest::getJson() . ',"credit":' .CreditTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return FundingInstrument
      */
@@ -30,6 +20,14 @@ class FundingInstrumentTest extends \PHPUnit_Framework_TestCase
         return new FundingInstrument(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object FundingInstrument
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"credit_card":' . CreditCardTest::getJson() . ',"credit_card_token":' . CreditCardTokenTest::getJson() . ',"payment_card":' . PaymentCardTest::getJson() . ',"payment_card_token":' . PaymentCardTokenTest::getJson() . ',"bank_account":' . ExtendedBankAccountTest::getJson() . ',"bank_account_token":' . BankTokenTest::getJson() . ',"credit":' . CreditTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

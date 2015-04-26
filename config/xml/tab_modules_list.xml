@@ -23,8 +23,8 @@
 <module name="ebay" position="2"/>
 <module name="nqgatewayneteven" position="3"/>
 <module name="ecopresto" position="4"/>
-<module name="twenga" position="5"/>
-<module name="shoppingfluxexport" position="6"/>
+<module name="shoppingfluxexport" position="5"/>
+<module name="lengow" position="6"/>
 <module name="amazon" position="7"/>
 <module name="cdiscount" position="8"/>
 <module name="gmerchantcenter" position="9"/>
@@ -42,23 +42,25 @@
 <module name="ebay" position="1"/>
 <module name="gshopping" position="2"/>
 <module name="erpillicopresta" position="3"/>
-<module name="nqgatewayneteven" position="4"/>
-<module name="ecopresto" position="5"/>
-<module name="fianetfraud" position="6"/>
-<module name="twenga" position="7"/>
+<module name="kerawen" position="4"/>
+<module name="nqgatewayneteven" position="5"/>
+<module name="ecopresto" position="6"/>
+<module name="fianetfraud" position="7"/>
 <module name="shoppingfluxexport" position="8"/>
-<module name="cdiscount" position="9"/>
-<module name="orlique" position="10"/>
-<module name="printlabels" position="11"/>
-<module name="pushoncart" position="12"/>
-<module name="giveit" position="13"/>
-<module name="prestafraud" position="14"/>
-<module name="riskified" position="15"/>
+<module name="lengow" position="9"/>
+<module name="cdiscount" position="10"/>
+<module name="orlique" position="11"/>
+<module name="printlabels" position="12"/>
+<module name="pushoncart" position="13"/>
+<module name="giveit" position="14"/>
+<module name="prestafraud" position="15"/>
+<module name="riskified" position="16"/>
 </tab>
 <tab class_name="AdminInvoices" display_type="slider_list">
 <module name="erpillicopresta" position="1"/>
-<module name="neotaxesupdater" position="2"/>
-<module name="ordertaxprofitreport" position="3"/>
+<module name="kerawen" position="2"/>
+<module name="neotaxesupdater" position="3"/>
+<module name="ordertaxprofitreport" position="4"/>
 </tab>
 <tab class_name="AdminDeliverySlip" display_type="slider_list">
 <module name="seur" position="1"/>
@@ -78,15 +80,14 @@
 <module name="netreviews" position="1"/>
 <module name="trustpilot" position="2"/>
 <module name="fianetsceau" position="3"/>
-<module name="feedaty" position="4"/>
-<module name="loyaltylion" position="5"/>
-<module name="yotpo" position="6"/>
-<module name="riskified" position="7"/>
-<module name="yousticeresolutionsystem" position="8"/>
-<module name="emailverify" position="9"/>
-<module name="allinone_rewards" position="10"/>
-<module name="allexport" position="11"/>
-<module name="giveit" position="12"/>
+<module name="loyaltylion" position="4"/>
+<module name="yotpo" position="5"/>
+<module name="riskified" position="6"/>
+<module name="yousticeresolutionsystem" position="7"/>
+<module name="emailverify" position="8"/>
+<module name="allinone_rewards" position="9"/>
+<module name="allexport" position="10"/>
+<module name="giveit" position="11"/>
 </tab>
 <tab class_name="AdminGroups" display_type="slider_list">
 <module name="siret_customer_group" position="1"/>
@@ -109,6 +110,8 @@
 <module name="loyaltylion" position="6"/>
 <module name="yotpo" position="7"/>
 <module name="riskified" position="8"/>
+<module name="remarkety" position="9"/>
+<module name="veplatform" position="10"/>
 </tab>
 <tab class_name="AdminContacts" display_type="slider_list">
 <module name="sendinblue" position="1"/>
@@ -118,6 +121,8 @@
 <module name="iadvize" position="5"/>
 <module name="olark" position="6"/>
 <module name="webcallback" position="7"/>
+<module name="remarkety" position="8"/>
+<module name="veplatform" position="9"/>
 </tab>
 <tab class_name="AdminCartRules" display_type="slider_list">
 <module name="affinityitems" position="1"/>
@@ -140,24 +145,24 @@
 <module name="nqgatewayneteven" position="7"/>
 <module name="mapubfacile" position="8"/>
 <module name="shoppingfluxexport" position="9"/>
-<module name="fianetsceau" position="10"/>
-<module name="feedaty" position="11"/>
+<module name="lengow" position="10"/>
+<module name="fianetsceau" position="11"/>
 <module name="trustpilot" position="12"/>
-<module name="twenga" position="13"/>
-<module name="loyaltylion" position="14"/>
-<module name="yotpo" position="15"/>
-<module name="cdiscount" position="16"/>
-<module name="powatag" position="17"/>
-<module name="innovativemenu" position="18"/>
-<module name="pushoncart" position="19"/>
-<module name="prestanotify" position="20"/>
-<module name="pushslide" position="21"/>
-<module name="seohelping" position="22"/>
-<module name="vente_flash" position="23"/>
-<module name="privatesale" position="24"/>
-<module name="browsi" position="25"/>
-<module name="giveit" position="26"/>
-<module name="loyalty" position="27"/>
+<module name="loyaltylion" position="13"/>
+<module name="yotpo" position="14"/>
+<module name="cdiscount" position="15"/>
+<module name="powatag" position="16"/>
+<module name="innovativemenu" position="17"/>
+<module name="pushoncart" position="18"/>
+<module name="prestanotify" position="19"/>
+<module name="pushslide" position="20"/>
+<module name="seohelping" position="21"/>
+<module name="vente_flash" position="22"/>
+<module name="privatesale" position="23"/>
+<module name="browsi" position="24"/>
+<module name="giveit" position="25"/>
+<module name="loyalty" position="26"/>
+<module name="veplatform" position="27"/>
 <module name="referralprogram" position="28"/>
 </tab>
 <tab class_name="AdminPayment" display_type="default_list">
@@ -206,13 +211,14 @@
 <module name="kialasmall" position="7"/>
 <module name="kiala" position="8"/>
 <module name="envoimoinscher" position="9"/>
-<module name="clickline" position="10"/>
-<module name="boxdropshipment" position="11"/>
-<module name="purolator" position="12"/>
-<module name="expeditor" position="13"/>
-<module name="shipwire" position="14"/>
-<module name="upstracking" position="15"/>
-<module name="prestashippingeasy" position="16"/>
+<module name="zeleriscarrier" position="10"/>
+<module name="clickline" position="11"/>
+<module name="boxdropshipment" position="12"/>
+<module name="purolator" position="13"/>
+<module name="expeditor" position="14"/>
+<module name="shipwire" position="15"/>
+<module name="upstracking" position="16"/>
+<module name="prestashippingeasy" position="17"/>
 </tab>
 <tab class_name="AdminShipping" display_type="slider_list">
 <module name="seur" position="1"/>
@@ -225,16 +231,17 @@
 <module name="kiala" position="8"/>
 <module name="envoimoinscher" position="9"/>
 <module name="exapaq" position="10"/>
-<module name="clickline" position="11"/>
-<module name="sellstrom" position="12"/>
-<module name="gointerpay" position="13"/>
-<module name="printlabels" position="14"/>
-<module name="expeditor" position="15"/>
-<module name="orderpreparation" position="16"/>
-<module name="upstracking" position="17"/>
-<module name="prestashippingeasy" position="18"/>
-<module name="dateofdelivery" position="19"/>
-<module name="carriercompare" position="20"/>
+<module name="zeleriscarrier" position="11"/>
+<module name="clickline" position="12"/>
+<module name="sellstrom" position="13"/>
+<module name="gointerpay" position="14"/>
+<module name="printlabels" position="15"/>
+<module name="expeditor" position="16"/>
+<module name="orderpreparation" position="17"/>
+<module name="upstracking" position="18"/>
+<module name="prestashippingeasy" position="19"/>
+<module name="dateofdelivery" position="20"/>
+<module name="carriercompare" position="21"/>
 </tab>
 <tab class_name="AdminLocalization" display_type="slider_list">
 <module name="avalaratax" position="1"/>
@@ -266,11 +273,10 @@
 <tab class_name="AdminCustomerPreferences" display_type="slider_list">
 <module name="trustpilot" position="1"/>
 <module name="fianetsceau" position="2"/>
-<module name="feedaty" position="3"/>
-<module name="netreviews" position="4"/>
-<module name="loyaltylion" position="5"/>
-<module name="yotpo" position="6"/>
-<module name="yousticeresolutionsystem" position="7"/>
+<module name="netreviews" position="3"/>
+<module name="loyaltylion" position="4"/>
+<module name="yotpo" position="5"/>
+<module name="yousticeresolutionsystem" position="6"/>
 </tab>
 <tab class_name="AdminThemes" display_type="slider_list">
 <module name="shopgate" position="1"/>
@@ -299,6 +305,7 @@
 <module name="newsletter" position="5"/>
 <module name="mynewsletter" position="6"/>
 <module name="mailchimp" position="7"/>
+<module name="remarkety" position="8"/>
 </tab>
 <tab class_name="AdminAdminPreferences" display_type="slider_list">
 <module name="cgvhaas" position="1"/>

@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\ErrorDetails;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\ErrorDetails;
 class ErrorDetailsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object ErrorDetails
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"field":"TestSample","issue":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return ErrorDetails
      */
@@ -30,6 +20,14 @@ class ErrorDetailsTest extends \PHPUnit_Framework_TestCase
         return new ErrorDetails(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object ErrorDetails
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"field":"TestSample","issue":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

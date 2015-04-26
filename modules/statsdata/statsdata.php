@@ -99,8 +99,11 @@ class StatsData extends Module
 		$html = '';
 		if (!isset($params['cookie']->id_guest))
 		{
+
 			Guest::setNewGuest($params['cookie']);
-			
+
+
+            exit;
 			if (Configuration::get('PS_STATSDATA_PLUGINS'))
 			{
 				// Ajax request sending browser information

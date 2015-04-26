@@ -3,10 +3,9 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\CreateProfileResponse;
 use PayPal\Rest\ApiContext;
 use PayPal\Transport\PayPalRestCall;
+use PayPal\Validation\ArgumentValidator;
 
 /**
  * Class WebProfile
@@ -25,10 +24,10 @@ class WebProfile extends PayPalResourceModel
 {
     /**
      * ID of the web experience profile.
-     * 
+     *
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -49,10 +48,10 @@ class WebProfile extends PayPalResourceModel
 
     /**
      * Name of the web experience profile.
-     * 
+     *
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -73,10 +72,10 @@ class WebProfile extends PayPalResourceModel
 
     /**
      * Parameters for flow configuration.
-     * 
+     *
      *
      * @param \PayPal\Api\FlowConfig $flow_config
-     * 
+     *
      * @return $this
      */
     public function setFlowConfig($flow_config)
@@ -97,10 +96,10 @@ class WebProfile extends PayPalResourceModel
 
     /**
      * Parameters for input fields customization.
-     * 
+     *
      *
      * @param \PayPal\Api\InputFields $input_fields
-     * 
+     *
      * @return $this
      */
     public function setInputFields($input_fields)
@@ -121,10 +120,10 @@ class WebProfile extends PayPalResourceModel
 
     /**
      * Parameters for style and presentation.
-     * 
+     *
      *
      * @param \PayPal\Api\Presentation $presentation
-     * 
+     *
      * @return $this
      */
     public function setPresentation($presentation)

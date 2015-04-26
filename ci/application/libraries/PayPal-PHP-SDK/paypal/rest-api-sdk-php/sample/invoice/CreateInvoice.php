@@ -5,14 +5,14 @@
 // an invoice.
 
 require __DIR__ . '/../bootstrap.php';
-use PayPal\Api\Invoice;
-use PayPal\Api\MerchantInfo;
-use PayPal\Api\BillingInfo;
-use PayPal\Api\InvoiceItem;
-use PayPal\Api\Phone;
 use PayPal\Api\Address;
+use PayPal\Api\BillingInfo;
 use PayPal\Api\Currency;
+use PayPal\Api\Invoice;
+use PayPal\Api\InvoiceItem;
+use PayPal\Api\MerchantInfo;
 use PayPal\Api\PaymentTerm;
+use PayPal\Api\Phone;
 use PayPal\Api\ShippingInfo;
 
 $invoice = new Invoice();

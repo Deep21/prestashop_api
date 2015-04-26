@@ -2,12 +2,12 @@
 
 namespace OAuth2\Controller;
 
-use OAuth2\TokenType\TokenTypeInterface;
-use OAuth2\Storage\AccessTokenInterface;
-use OAuth2\ScopeInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
 use OAuth2\Scope;
+use OAuth2\ScopeInterface;
+use OAuth2\Storage\AccessTokenInterface;
+use OAuth2\TokenType\TokenTypeInterface;
 
 /**
  * @see OAuth2\Controller\ResourceControllerInterface
@@ -68,7 +68,7 @@ class ResourceController implements ResourceControllerInterface
         // allow retrieval of the token
         $this->token = $token;
 
-        return (bool) $token;
+        return (bool)$token;
     }
 
     public function getAccessTokenData(RequestInterface $request, ResponseInterface $response)

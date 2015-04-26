@@ -21,7 +21,7 @@ class PayoutBatch extends PayPalModel
      * A batch header that includes the generated batch status.
      *
      * @param \PayPal\Api\PayoutBatchHeader $batch_header
-     * 
+     *
      * @return $this
      */
     public function setBatchHeader($batch_header)
@@ -41,29 +41,6 @@ class PayoutBatch extends PayPalModel
     }
 
     /**
-     * Array of the items in a batch payout.
-     *
-     * @param \PayPal\Api\PayoutItemDetails[] $items
-     * 
-     * @return $this
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
-        return $this;
-    }
-
-    /**
-     * Array of the items in a batch payout.
-     *
-     * @return \PayPal\Api\PayoutItemDetails[]
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
      * Append Items to the list.
      *
      * @param \PayPal\Api\PayoutItemDetails $payoutItemDetails
@@ -78,6 +55,29 @@ class PayoutBatch extends PayPalModel
                 array_merge($this->getItems(), array($payoutItemDetails))
             );
         }
+    }
+
+    /**
+     * Array of the items in a batch payout.
+     *
+     * @return \PayPal\Api\PayoutItemDetails[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Array of the items in a batch payout.
+     *
+     * @param \PayPal\Api\PayoutItemDetails[] $items
+     *
+     * @return $this
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
+        return $this;
     }
 
     /**

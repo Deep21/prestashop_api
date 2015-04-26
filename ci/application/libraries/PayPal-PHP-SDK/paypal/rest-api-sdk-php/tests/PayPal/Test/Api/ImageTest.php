@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Image;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Image;
 class ImageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Patch
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"image":"TestSample"}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Image
      */
@@ -30,6 +20,14 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         return new Image(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Patch
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"image":"TestSample"}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

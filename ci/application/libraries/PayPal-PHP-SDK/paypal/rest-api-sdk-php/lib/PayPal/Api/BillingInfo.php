@@ -27,7 +27,7 @@ class BillingInfo extends PayPalModel
      * Email address of the invoice recipient. 260 characters max.
      *
      * @param string $email
-     * 
+     *
      * @return $this
      */
     public function setEmail($email)
@@ -50,7 +50,7 @@ class BillingInfo extends PayPalModel
      * First name of the invoice recipient. 30 characters max.
      *
      * @param string $first_name
-     * 
+     *
      * @return $this
      */
     public function setFirstName($first_name)
@@ -73,7 +73,7 @@ class BillingInfo extends PayPalModel
      * Last name of the invoice recipient. 30 characters max.
      *
      * @param string $last_name
-     * 
+     *
      * @return $this
      */
     public function setLastName($last_name)
@@ -96,7 +96,7 @@ class BillingInfo extends PayPalModel
      * Company business name of the invoice recipient. 100 characters max.
      *
      * @param string $business_name
-     * 
+     *
      * @return $this
      */
     public function setBusinessName($business_name)
@@ -119,7 +119,7 @@ class BillingInfo extends PayPalModel
      * Address of the invoice recipient.
      *
      * @param \PayPal\Api\InvoiceAddress $address
-     * 
+     *
      * @return $this
      */
     public function setAddress($address)
@@ -143,7 +143,7 @@ class BillingInfo extends PayPalModel
      * Valid Values: ["da_DK", "de_DE", "en_AU", "en_GB", "en_US", "es_ES", "es_XC", "fr_CA", "fr_FR", "fr_XC", "he_IL", "id_ID", "it_IT", "ja_JP", "nl_NL", "no_NO", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sv_SE", "th_TH", "tr_TR", "zh_CN", "zh_HK", "zh_TW", "zh_XC"]
      *
      * @param string $language
-     * 
+     *
      * @return $this
      */
     public function setLanguage($language)
@@ -166,7 +166,7 @@ class BillingInfo extends PayPalModel
      * Option to display additional information such as business hours. 40 characters max.
      *
      * @param string $additional_info
-     * 
+     *
      * @return $this
      */
     public function setAdditionalInfo($additional_info)
@@ -190,7 +190,7 @@ class BillingInfo extends PayPalModel
      * Valid Values: ["SMS", "EMAIL"]
      *
      * @param string $notification_channel
-     * 
+     *
      * @return $this
      */
     public function setNotificationChannel($notification_channel)
@@ -213,7 +213,7 @@ class BillingInfo extends PayPalModel
      * Mobile Phone number of the recipient to which SMS will be sent if notification_channel is SMS.
      *
      * @param \PayPal\Api\Phone $phone
-     * 
+     *
      * @return $this
      */
     public function setPhone($phone)

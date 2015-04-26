@@ -11,12 +11,11 @@ namespace PayPal\Security;
  */
 class Cipher
 {
-    private $secretKey;
-
     /**
      * Fixed IV Size
      */
     const IV_SIZE = 16;
+    private $secretKey;
 
     function __construct($secretKey)
     {

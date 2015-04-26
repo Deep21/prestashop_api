@@ -12,6 +12,11 @@ class PayPalConfigurationExceptionTest extends \PHPUnit_Framework_TestCase
      */
     protected $object;
 
+    public function testPPConfigurationException()
+    {
+        $this->assertEquals('Test PayPalConfigurationException', $this->object->getMessage());
+    }
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -27,11 +32,6 @@ class PayPalConfigurationExceptionTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-    }
-
-    public function testPPConfigurationException()
-    {
-        $this->assertEquals('Test PayPalConfigurationException', $this->object->getMessage());
     }
 }
 

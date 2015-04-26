@@ -14,19 +14,17 @@ class PayPalConfigManager
 {
 
     /**
-     * Configuration Options
-     *
-     * @var array
-     */
-    private $configs = array(
-    );
-
-    /**
      * Singleton Object
      *
      * @var $this
      */
     private static $instance;
+    /**
+     * Configuration Options
+     *
+     * @var array
+     */
+    private $configs = array();
 
     /**
      * Private Constructor
@@ -42,19 +40,6 @@ class PayPalConfigManager
         if (file_exists($configFile)) {
             $this->addConfigFromIni($configFile);
         }
-    }
-
-    /**
-     * Returns the singleton object
-     *
-     * @return $this
-     */
-    public static function getInstance()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
     }
 
     /**
@@ -83,6 +68,19 @@ class PayPalConfigManager
     {
         $this->configs = $configs + $this->configs;
         return $this;
+    }
+
+    /**
+     * Returns the singleton object
+     *
+     * @return $this
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
     /**

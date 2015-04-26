@@ -21,7 +21,7 @@ class PayoutSenderBatchHeader extends PayPalModel
      * Sender-created ID for tracking the batch payout in an accounting system. 30 characters max.
      *
      * @param string $sender_batch_id
-     * 
+     *
      * @return $this
      */
     public function setSenderBatchId($sender_batch_id)
@@ -44,7 +44,7 @@ class PayoutSenderBatchHeader extends PayPalModel
      * The subject line text for the email that PayPal sends when a payout item is completed. (The subject line is the same for all recipients.) Maximum of 255 single-byte alphanumeric characters.
      *
      * @param string $email_subject
-     * 
+     *
      * @return $this
      */
     public function setEmailSubject($email_subject)
@@ -64,10 +64,10 @@ class PayoutSenderBatchHeader extends PayPalModel
     }
 
     /**
-     * The type of ID for a payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`. 
+     * The type of ID for a payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`.
      *
      * @param string $recipient_type
-     * 
+     *
      * @return $this
      */
     public function setRecipientType($recipient_type)
@@ -77,7 +77,7 @@ class PayoutSenderBatchHeader extends PayPalModel
     }
 
     /**
-     * The type of ID for a payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`. 
+     * The type of ID for a payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`.
      *
      * @return string
      */

@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PayoutItemDetails;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PayoutItemDetails;
 class PayoutItemDetailsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PayoutItemDetails
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"payout_item_id":"TestSample","transaction_id":"TestSample","transaction_status":"TestSample","payout_item_fee":' .CurrencyTest::getJson() . ',"payout_batch_id":"TestSample","sender_batch_id":"TestSample","payout_item":' .PayoutItemTest::getJson() . ',"time_processed":"TestSample","errors":' .ErrorTest::getJson() . ',"links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PayoutItemDetails
      */
@@ -30,6 +20,14 @@ class PayoutItemDetailsTest extends \PHPUnit_Framework_TestCase
         return new PayoutItemDetails(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PayoutItemDetails
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"payout_item_id":"TestSample","transaction_id":"TestSample","transaction_status":"TestSample","payout_item_fee":' . CurrencyTest::getJson() . ',"payout_batch_id":"TestSample","sender_batch_id":"TestSample","payout_item":' . PayoutItemTest::getJson() . ',"time_processed":"TestSample","errors":' . ErrorTest::getJson() . ',"links":' . LinksTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

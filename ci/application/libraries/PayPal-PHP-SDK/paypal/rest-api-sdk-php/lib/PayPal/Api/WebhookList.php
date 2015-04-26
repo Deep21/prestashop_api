@@ -16,29 +16,6 @@ use PayPal\Common\PayPalModel;
 class WebhookList extends PayPalModel
 {
     /**
-     * A list of Webhooks
-     *
-     * @param \PayPal\Api\Webhook[] $webhooks
-     * 
-     * @return $this
-     */
-    public function setWebhooks($webhooks)
-    {
-        $this->webhooks = $webhooks;
-        return $this;
-    }
-
-    /**
-     * A list of Webhooks
-     *
-     * @return \PayPal\Api\Webhook[]
-     */
-    public function getWebhooks()
-    {
-        return $this->webhooks;
-    }
-
-    /**
      * Append Webhooks to the list.
      *
      * @param \PayPal\Api\Webhook $webhook
@@ -53,6 +30,29 @@ class WebhookList extends PayPalModel
                 array_merge($this->getWebhooks(), array($webhook))
             );
         }
+    }
+
+    /**
+     * A list of Webhooks
+     *
+     * @return \PayPal\Api\Webhook[]
+     */
+    public function getWebhooks()
+    {
+        return $this->webhooks;
+    }
+
+    /**
+     * A list of Webhooks
+     *
+     * @param \PayPal\Api\Webhook[] $webhooks
+     *
+     * @return $this
+     */
+    public function setWebhooks($webhooks)
+    {
+        $this->webhooks = $webhooks;
+        return $this;
     }
 
     /**

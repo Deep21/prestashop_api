@@ -4,14 +4,6 @@
 	Common functions used across samples
 */
 
-use PayPal\Api\Address;
-use PayPal\Api\CreditCard;
-use PayPal\Api\Amount;
-use PayPal\Api\Payer;
-use PayPal\Api\Payment;
-use PayPal\Api\Transaction;
-use PayPal\Api\FundingInstrument;
-
 /**
  * Helper Class for Printing Results
  *
@@ -23,13 +15,27 @@ class ResultPrinter
     private static $printResultCounter = 0;
 
     /**
+     * Prints success response HTML Output to web page.
+     *
+     * @param string $title
+     * @param string $objectName
+     * @param string $objectId
+     * @param mixed $request
+     * @param mixed $response
+     */
+    public static function printResult($title, $objectName, $objectId = null, $request = null, $response = null)
+    {
+        self::printOutput($title, $objectName, $objectId, $request, $response, false);
+    }
+
+    /**
      * Prints HTML Output to web page.
      *
-     * @param string     $title
-     * @param string    $objectName
-     * @param string    $objectId
-     * @param mixed     $request
-     * @param mixed     $response
+     * @param string $title
+     * @param string $objectName
+     * @param string $objectId
+     * @param mixed $request
+     * @param mixed $response
      * @param string $errorMessage
      */
     public static function printOutput($title, $objectName, $objectId = null, $request = null, $response = null, $errorMessage = null)
@@ -60,13 +66,13 @@ class ResultPrinter
             self::$printResultCounter++;
             echo '
         <div class="panel panel-default">
-            <div class="panel-heading '. ($errorMessage ? 'error' : '') .'" role="tab" id="heading-'.self::$printResultCounter.'">
+            <div class="panel-heading ' . ($errorMessage ? 'error' : '') . '" role="tab" id="heading-' . self::$printResultCounter . '">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#step-'. self::$printResultCounter .'" aria-expanded="false" aria-controls="step-'.self::$printResultCounter.'">
-            '. self::$printResultCounter .'. '. $title . ($errorMessage ? ' (Failed)' : '') . '</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#step-' . self::$printResultCounter . '" aria-expanded="false" aria-controls="step-' . self::$printResultCounter . '">
+            ' . self::$printResultCounter . '. ' . $title . ($errorMessage ? ' (Failed)' : '') . '</a>
                 </h4>
             </div>
-            <div id="step-'.self::$printResultCounter.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-'. self::$printResultCounter . '">
+            <div id="step-' . self::$printResultCounter . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' . self::$printResultCounter . '">
                 <div class="panel-body">
             ';
 
@@ -76,18 +82,18 @@ class ResultPrinter
 
             echo '<div class="row hidden-xs hidden-sm hidden-md"><div class="col-md-6"><h4>Request Object</h4>';
             self::printObject($request);
-            echo '</div><div class="col-md-6"><h4 class="'. ($errorMessage ? 'error' : '') .'">Response Object</h4>';
+            echo '</div><div class="col-md-6"><h4 class="' . ($errorMessage ? 'error' : '') . '">Response Object</h4>';
             self::printObject($response, $errorMessage);
             echo '</div></div>';
 
             echo '<div class="hidden-lg"><ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" ><a href="#step-'.self::$printResultCounter .'-request" role="tab" data-toggle="tab">Request</a></li>
-                        <li role="presentation" class="active"><a href="#step-'.self::$printResultCounter .'-response" role="tab" data-toggle="tab">Response</a></li>
+                        <li role="presentation" ><a href="#step-' . self::$printResultCounter . '-request" role="tab" data-toggle="tab">Request</a></li>
+                        <li role="presentation" class="active"><a href="#step-' . self::$printResultCounter . '-response" role="tab" data-toggle="tab">Response</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane" id="step-'.self::$printResultCounter .'-request"><h4>Request Object</h4>';
-            self::printObject($request) ;
-            echo '</div><div role="tabpanel" class="tab-pane active" id="step-'.self::$printResultCounter .'-response"><h4>Response Object</h4>';
+                        <div role="tabpanel" class="tab-pane" id="step-' . self::$printResultCounter . '-request"><h4>Request Object</h4>';
+            self::printObject($request);
+            echo '</div><div role="tabpanel" class="tab-pane active" id="step-' . self::$printResultCounter . '-response"><h4>Response Object</h4>';
             self::printObject($response, $errorMessage);
             echo '</div></div></div></div>
             </div>
@@ -96,42 +102,10 @@ class ResultPrinter
         flush();
     }
 
-    /**
-     * Prints success response HTML Output to web page.
-     *
-     * @param string     $title
-     * @param string    $objectName
-     * @param string    $objectId
-     * @param mixed     $request
-     * @param mixed     $response
-     */
-    public static function printResult($title, $objectName, $objectId = null, $request = null, $response = null)
-    {
-        self::printOutput($title, $objectName, $objectId, $request, $response, false);
-    }
-
-    /**
-     * Prints Error
-     *
-     * @param      $title
-     * @param      $objectName
-     * @param null $objectId
-     * @param null $request
-     * @param \Exception $exception
-     */
-    public static function printError($title, $objectName, $objectId = null, $request = null, $exception = null)
-    {
-        $data = null;
-        if ($exception instanceof \PayPal\Exception\PayPalConnectionException) {
-            $data = $exception->getData();
-        }
-        self::printOutput($title, $objectName, $objectId, $request, $data, $exception->getMessage());
-    }
-
     protected static function printConsoleObject($object, $error = null)
     {
         if ($error) {
-            echo 'ERROR:'. $error;
+            echo 'ERROR:' . $error;
         }
         if ($object) {
             if (is_a($object, 'PayPal\Common\PayPalModel')) {
@@ -152,18 +126,18 @@ class ResultPrinter
     protected static function printObject($object, $error = null)
     {
         if ($error) {
-            echo '<p class="error"><i class="fa fa-exclamation-triangle"></i> '.
-             $error.
-            '</p>';
+            echo '<p class="error"><i class="fa fa-exclamation-triangle"></i> ' .
+                $error .
+                '</p>';
         }
         if ($object) {
             if (is_a($object, 'PayPal\Common\PayPalModel')) {
                 /** @var $object \PayPal\Common\PayPalModel */
-                echo '<pre class="prettyprint '. ($error ? 'error' : '') .'">' . $object->toJSON(128) . "</pre>";
+                echo '<pre class="prettyprint ' . ($error ? 'error' : '') . '">' . $object->toJSON(128) . "</pre>";
             } elseif (is_string($object) && \PayPal\Validation\JsonValidator::validate($object, true)) {
-                echo '<pre class="prettyprint '. ($error ? 'error' : '') .'">'. str_replace('\\/', '/', json_encode(json_decode($object), 128)) . "</pre>";
+                echo '<pre class="prettyprint ' . ($error ? 'error' : '') . '">' . str_replace('\\/', '/', json_encode(json_decode($object), 128)) . "</pre>";
             } elseif (is_string($object)) {
-                echo '<pre class="prettyprint '. ($error ? 'error' : '') .'">' . $object . '</pre>';
+                echo '<pre class="prettyprint ' . ($error ? 'error' : '') . '">' . $object . '</pre>';
             } else {
                 echo "<pre>";
                 print_r($object);
@@ -172,6 +146,24 @@ class ResultPrinter
         } else {
             echo "<span>No Data</span>";
         }
+    }
+
+    /**
+     * Prints Error
+     *
+     * @param      $title
+     * @param      $objectName
+     * @param null $objectId
+     * @param null $request
+     * @param \Exception $exception
+     */
+    public static function printError($title, $objectName, $objectId = null, $request = null, $exception = null)
+    {
+        $data = null;
+        if ($exception instanceof \PayPal\Exception\PayPalConnectionException) {
+            $data = $exception->getData();
+        }
+        self::printOutput($title, $objectName, $objectId, $request, $data, $exception->getMessage());
     }
 }
 
@@ -185,7 +177,7 @@ class ResultPrinter
 function getBaseUrl()
 {
     if (PHP_SAPI == 'cli') {
-        $trace=debug_backtrace();
+        $trace = debug_backtrace();
         $relativePath = substr(dirname($trace[0]['file']), strlen(dirname(dirname(__FILE__))));
         echo "Warning: This sample may require a server to handle return URL. Cannot execute in command line. Defaulting URL to http://localhost$relativePath \n";
         return "http://localhost" . $relativePath;

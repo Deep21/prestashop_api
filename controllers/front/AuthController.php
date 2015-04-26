@@ -40,6 +40,7 @@ class AuthControllerCore extends FrontController
 	 */
 	public function init()
 	{
+
 		parent::init();
 
 		if (!Tools::getIsset('step') && $this->context->customer->isLogged() && !$this->ajax)
@@ -273,9 +274,11 @@ class AuthControllerCore extends FrontController
 	 */
 	protected function processSubmitLogin()
 	{
+
 		Hook::exec('actionBeforeAuthentication');
 		$passwd = trim(Tools::getValue('passwd'));
 		$email = trim(Tools::getValue('email'));
+
 		if (empty($email))
 			$this->errors[] = Tools::displayError('An email address required.');
 		elseif (!Validate::isEmail($email))
@@ -287,11 +290,13 @@ class AuthControllerCore extends FrontController
 		else
 		{
 			$customer = new Customer();
+
 			$authentication = $customer->getByEmail(trim($email), trim($passwd));
 			if (!$authentication || !$customer->id)
 				$this->errors[] = Tools::displayError('Authentication failed.');
 			else
 			{
+
 				$this->context->cookie->id_compare = isset($this->context->cookie->id_compare) ? $this->context->cookie->id_compare: CompareProduct::getIdCompareByIdCustomer($customer->id);
 				$this->context->cookie->id_customer = (int)($customer->id);
 				$this->context->cookie->customer_lastname = $customer->lastname;
@@ -312,12 +317,16 @@ class AuthControllerCore extends FrontController
 					$this->context->cart->id_carrier = 0;
 					$this->context->cart->setDeliveryOption(null);
 					$this->context->cart->id_address_delivery = Address::getFirstCustomerAddressId((int)($customer->id));
-					$this->context->cart->id_address_invoice = Address::getFirstCustomerAddressId((int)($customer->id));
+					$this->context->cart->id_address_invoice  = Address::getFirstCustomerAddressId((int)($customer->id));
 				}
 				$this->context->cart->id_customer = (int)$customer->id;
 				$this->context->cart->secure_key = $customer->secure_key;
+
+
+                // on sauvegarde le panier
 				$this->context->cart->save();
 				$this->context->cookie->id_cart = (int)$this->context->cart->id;
+
 				$this->context->cookie->write();
 				$this->context->cart->autosetProductAddress();
 
@@ -373,6 +382,7 @@ class AuthControllerCore extends FrontController
 	 */
 	protected function processSubmitAccount()
 	{
+
 		Hook::exec('actionBeforeSubmitAccount');
 		$this->create_account = true;
 		if (Tools::isSubmit('submitAccount'))

@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PaymentCard;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PaymentCard;
 class PaymentCardTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PaymentCard
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","number":"TestSample","type":"TestSample","expire_month":123,"expire_year":123,"start_month":123,"start_year":123,"cvv2":123,"first_name":"TestSample","last_name":"TestSample","billing_address":' .AddressTest::getJson() . ',"external_customer_id":"TestSample","status":"TestSample","valid_until":"TestSample","links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PaymentCard
      */
@@ -30,6 +20,14 @@ class PaymentCardTest extends \PHPUnit_Framework_TestCase
         return new PaymentCard(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PaymentCard
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","number":"TestSample","type":"TestSample","expire_month":123,"expire_year":123,"start_month":123,"start_year":123,"cvv2":123,"first_name":"TestSample","last_name":"TestSample","billing_address":' . AddressTest::getJson() . ',"external_customer_id":"TestSample","status":"TestSample","valid_until":"TestSample","links":' . LinksTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

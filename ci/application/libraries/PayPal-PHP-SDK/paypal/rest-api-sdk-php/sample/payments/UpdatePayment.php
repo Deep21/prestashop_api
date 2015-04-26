@@ -99,14 +99,14 @@ if ($result == true) {
 // The API response provides the url that you must redirect
 // the buyer to. Retrieve the url from the $payment->getLinks()
 // method
-foreach ($result->getLinks() as $link) {
-    if ($link->getRel() == 'approval_url') {
-        $approvalUrl = $link->getHref();
-        break;
+    foreach ($result->getLinks() as $link) {
+        if ($link->getRel() == 'approval_url') {
+            $approvalUrl = $link->getHref();
+            break;
+        }
     }
-}
 
-ResultPrinter::printResult("Created Payment Using PayPal. Please visit the URL to Approve.", "Payment", "<a href='$approvalUrl' >$approvalUrl</a>", $request, $result);
+    ResultPrinter::printResult("Created Payment Using PayPal. Please visit the URL to Approve.", "Payment", "<a href='$approvalUrl' >$approvalUrl</a>", $request, $result);
 }
 
 return $result;

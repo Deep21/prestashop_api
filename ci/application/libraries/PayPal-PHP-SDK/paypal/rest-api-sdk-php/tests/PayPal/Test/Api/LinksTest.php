@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\Links;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\Links;
 class LinksTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Links
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"href":"TestSample","rel":"TestSample","targetSchema":' .HyperSchemaTest::getJson() . ',"method":"TestSample","enctype":"TestSample","schema":' .HyperSchemaTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return Links
      */
@@ -30,6 +20,14 @@ class LinksTest extends \PHPUnit_Framework_TestCase
         return new Links(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Links
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"href":"TestSample","rel":"TestSample","targetSchema":' . HyperSchemaTest::getJson() . ',"method":"TestSample","enctype":"TestSample","schema":' . HyperSchemaTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

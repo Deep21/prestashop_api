@@ -3,10 +3,9 @@
 namespace PayPal\Api;
 
 use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\WebhookList;
 use PayPal\Rest\ApiContext;
 use PayPal\Transport\PayPalRestCall;
+use PayPal\Validation\ArgumentValidator;
 use PayPal\Validation\UrlValidator;
 
 /**
@@ -26,7 +25,7 @@ class Webhook extends PayPalResourceModel
      * Identifier of the webhook resource.
      *
      * @param string $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -73,7 +72,7 @@ class Webhook extends PayPalResourceModel
      * List of Webhooks event-types.
      *
      * @param \PayPal\Api\WebhookEventType[] $event_types
-     * 
+     *
      * @return $this
      */
     public function setEventTypes($event_types)

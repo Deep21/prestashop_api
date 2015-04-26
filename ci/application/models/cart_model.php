@@ -53,6 +53,7 @@ class Cart_Model extends CI_Model
 
     public function getProductByCartId($id_cart)
     {
+
         return $this->db->select('
       pa.ecotax as pa_eco_tax,
       pa.price as pa_price,
@@ -116,6 +117,12 @@ class Cart_Model extends CI_Model
             ->result('Cart_Model');
     }
 
+    public function mergeIdCartWithCustomer($customer, $id_cart){
+        $this->db->where('id_cart', $id_cart);
+        return $this->db->update('cart', array('id_customer' => $customer->id_customer));
+
+    }
+
     public function addCart($cart)
     {
         $this->db->insert(self::$table, $cart);
@@ -130,7 +137,14 @@ class Cart_Model extends CI_Model
 
     public function insertProductToCart($id_product, $id_product_attribute, $id_cart, $qty)
     {
-        $product = array('id_cart' => $id_cart, 'id_product' => $id_product, 'id_product_attribute' => $id_product_attribute, 'quantity' => $qty, 'date_add' => date('Y-m-d H:i:s'));
+        $product = array(
+            'id_cart' => $id_cart,
+            'id_product' => $id_product,
+            'id_product_attribute' => $id_product_attribute,
+            'quantity' => $qty,
+            'date_add' => date('Y-m-d H:i:s')
+        );
+
         return ($this->db->insert('cart_product', $product)) ? $this->updateDate($id_cart) : null;
     }
 
@@ -143,15 +157,29 @@ class Cart_Model extends CI_Model
     public function deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery)
     {
         $this->updateDate($id_cart);
-        return $this->db->delete('cart_product', array('id_cart' => (int)$id_cart, 'id_product' => (int)$id_product, 'id_product_attribute' => (int)$id_product_attribute, 'id_address_delivery' => (int)$id_address_delivery));
+
+        $this->db->delete('cart_product', array(
+            'id_cart' => (int)$id_cart,
+            'id_product' => (int)$id_product,
+            'id_product_attribute' => (int)$id_product_attribute,
+            'id_address_delivery' => (int)$id_address_delivery)
+        );
+
+        return $this->db->affected_rows();
     }
 
     public function containsProduct($id_product, $id_product_attribute, $id_cart)
     {
-        $row = $this->db->select('IFNULL(cp.quantity, null) quantity', false)->from('cart_product cp')->where('cp.id_product', (int)$id_product)->where('cp.id_product_attribute', (int)$id_product_attribute)->where('cp.id_cart', (int)$id_cart)->limit(1)->get()->first_row();
-        if (empty($row)) {
+        $row = $this->db->select('IFNULL(cp.quantity, null) quantity', false)
+            ->from('cart_product cp')
+            ->where('cp.id_product', (int)$id_product)
+            ->where('cp.id_product_attribute', (int)$id_product_attribute)
+            ->where('cp.id_cart', (int)$id_cart)
+            ->limit(1)
+            ->get()
+            ->first_row();
+        if (empty($row))
             return 0;
-        }
         return (int)$row->quantity;
     }
 
@@ -197,10 +225,13 @@ class Cart_Model extends CI_Model
         return $this->db->update('cart_product', $product);
     }
 
+    /**
+     * @param $id_customer
+     * @return mixed
+     */
     public function getLastNoneOrderedCart($id_customer)
     {
         $ids = array(0);
-
         $id_cart = $this->getIdCartFromOrders($id_customer);
         if ($this->is_array_empty($id_cart)) {
             foreach ($id_cart as $key => $row) {
@@ -271,5 +302,3 @@ class Cart_Model extends CI_Model
 
 
 }
-
-?>

@@ -256,11 +256,18 @@ class Order extends REST_Controller
             
         }
     }
-    
+
+    /**
+     * @param int $id_cart
+     * @return null
+     */
     private function _getCartProductList(int $id_cart) {
         $this->load->model('Cart_Product_Model');
-        if (!empty($id_cart)) if ($p = $this->Cart_Product_Model->getCartProductById($id_cart)) return $p;
-        
+
+        if (!empty($id_cart))
+            if ($p = $this->Cart_Product_Model->getCartProductById($id_cart))
+                return $p;
+
         return null;
     }
     

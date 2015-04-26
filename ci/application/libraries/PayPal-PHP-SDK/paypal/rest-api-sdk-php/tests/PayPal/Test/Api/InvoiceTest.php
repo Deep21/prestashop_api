@@ -2,11 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\InvoiceSearchResponse;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
 use PayPal\Api\Invoice;
 
 /**
@@ -16,25 +11,6 @@ use PayPal\Api\Invoice;
  */
 class InvoiceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Gets Json String of Object Invoice
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","number":"TestSample","uri":"TestSample","status":"TestSample","merchant_info":' .MerchantInfoTest::getJson() . ',"billing_info":' .BillingInfoTest::getJson() . ',"shipping_info":' .ShippingInfoTest::getJson() . ',"items":' .InvoiceItemTest::getJson() . ',"invoice_date":"TestSample","payment_term":' .PaymentTermTest::getJson() . ',"discount":' .CostTest::getJson() . ',"shipping_cost":' .ShippingCostTest::getJson() . ',"custom":' .CustomAmountTest::getJson() . ',"tax_calculated_after_discount":true,"tax_inclusive":true,"terms":"TestSample","note":"TestSample","merchant_memo":"TestSample","logo_url":"http://www.google.com","total_amount":' .CurrencyTest::getJson() . ',"payments":' .PaymentDetailTest::getJson() . ',"refunds":' .RefundDetailTest::getJson() . ',"metadata":' .MetadataTest::getJson() . ',"additional_data":"TestSample"}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return Invoice
-     */
-    public static function getObject()
-    {
-        return new Invoice(self::getJson());
-    }
-
-
     /**
      * Tests for Serialization and Deserialization Issues
      * @return Invoice
@@ -69,6 +45,15 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getAdditionalData());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object Invoice
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","number":"TestSample","uri":"TestSample","status":"TestSample","merchant_info":' . MerchantInfoTest::getJson() . ',"billing_info":' . BillingInfoTest::getJson() . ',"shipping_info":' . ShippingInfoTest::getJson() . ',"items":' . InvoiceItemTest::getJson() . ',"invoice_date":"TestSample","payment_term":' . PaymentTermTest::getJson() . ',"discount":' . CostTest::getJson() . ',"shipping_cost":' . ShippingCostTest::getJson() . ',"custom":' . CustomAmountTest::getJson() . ',"tax_calculated_after_discount":true,"tax_inclusive":true,"terms":"TestSample","note":"TestSample","merchant_memo":"TestSample","logo_url":"http://www.google.com","total_amount":' . CurrencyTest::getJson() . ',"payments":' . PaymentDetailTest::getJson() . ',"refunds":' . RefundDetailTest::getJson() . ',"metadata":' . MetadataTest::getJson() . ',"additional_data":"TestSample"}';
     }
 
     /**
@@ -126,12 +111,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
 
         $result = $obj->create($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -145,13 +131,14 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    InvoiceSearchResponseTest::getJson()
+                InvoiceSearchResponseTest::getJson()
             ));
         $search = SearchTest::getObject();
 
         $result = $obj->search($search, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -165,12 +152,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
 
         $result = $obj->send($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -184,13 +172,14 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
         $notification = NotificationTest::getObject();
 
         $result = $obj->remind($notification, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -204,13 +193,14 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
         $cancelNotification = CancelNotificationTest::getObject();
 
         $result = $obj->cancel($cancelNotification, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -224,13 +214,14 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
         $paymentDetail = PaymentDetailTest::getObject();
 
         $result = $obj->recordPayment($paymentDetail, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -244,13 +235,14 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
         $refundDetail = RefundDetailTest::getObject();
 
         $result = $obj->recordRefund($refundDetail, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -264,12 +256,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    InvoiceTest::getJson()
+                InvoiceTest::getJson()
             ));
 
         $result = $obj->get("invoiceId", $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -283,12 +276,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    InvoiceSearchResponseTest::getJson()
+                InvoiceSearchResponseTest::getJson()
             ));
 
         $result = $obj->getAll(array(), $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -302,12 +296,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
 
         $result = $obj->update($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -321,12 +316,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
 
         $result = $obj->delete($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Invoice $obj
@@ -340,7 +336,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    ImageTest::getJson()
+                ImageTest::getJson()
             ));
 
         $result = $obj->qrCode("invoiceId", array(), $mockApiContext, $mockPayPalRestCall);
@@ -351,11 +347,20 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return Invoice
+     */
+    public static function getObject()
+    {
+        return new Invoice(self::getJson());
     }
 }

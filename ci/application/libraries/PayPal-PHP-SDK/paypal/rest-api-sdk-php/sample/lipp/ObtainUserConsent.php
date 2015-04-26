@@ -20,4 +20,4 @@ $redirectUrl = OpenIdSession::getAuthorizationUrl(
     $apiContext
 );
 
-ResultPrinter::printResult("Generated the User Consent URL", "URL", '<a href="'. $redirectUrl . '" >Click Here to Obtain User Consent</a>', $baseUrl, $redirectUrl);
+ResultPrinter::printResult("Generated the User Consent URL", "URL", '<a href="' . $redirectUrl . '" >Click Here to Obtain User Consent</a>', $baseUrl, $redirectUrl);

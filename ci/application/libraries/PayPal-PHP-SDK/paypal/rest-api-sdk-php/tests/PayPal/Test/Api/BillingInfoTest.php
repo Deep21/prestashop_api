@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\BillingInfo;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\BillingInfo;
 class BillingInfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object BillingInfo
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"email":"TestSample","first_name":"TestSample","last_name":"TestSample","business_name":"TestSample","address":' .InvoiceAddressTest::getJson() . ',"language":"TestSample","additional_info":"TestSample","notification_channel":"TestSample","phone":' .PhoneTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return BillingInfo
      */
@@ -30,6 +20,14 @@ class BillingInfoTest extends \PHPUnit_Framework_TestCase
         return new BillingInfo(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object BillingInfo
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"email":"TestSample","first_name":"TestSample","last_name":"TestSample","business_name":"TestSample","address":' . InvoiceAddressTest::getJson() . ',"language":"TestSample","additional_info":"TestSample","notification_channel":"TestSample","phone":' . PhoneTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

@@ -24,7 +24,7 @@ class Error extends PayPalModel
      * Human readable, unique name of the error.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -47,7 +47,7 @@ class Error extends PayPalModel
      * PayPal internal identifier used for correlation purposes.
      *
      * @param string $debug_id
-     * 
+     *
      * @return $this
      */
     public function setDebugId($debug_id)
@@ -70,7 +70,7 @@ class Error extends PayPalModel
      * Message describing the error.
      *
      * @param string $message
-     * 
+     *
      * @return $this
      */
     public function setMessage($message)
@@ -93,7 +93,7 @@ class Error extends PayPalModel
      * URI for detailed information related to this error for the developer.
      *
      * @param string $information_link
-     * 
+     *
      * @return $this
      */
     public function setInformationLink($information_link)
@@ -110,29 +110,6 @@ class Error extends PayPalModel
     public function getInformationLink()
     {
         return $this->information_link;
-    }
-
-    /**
-     * Additional details of the error
-     *
-     * @param \PayPal\Api\ErrorDetails[] $details
-     * 
-     * @return $this
-     */
-    public function setDetails($details)
-    {
-        $this->details = $details;
-        return $this;
-    }
-
-    /**
-     * Additional details of the error
-     *
-     * @return \PayPal\Api\ErrorDetails[]
-     */
-    public function getDetails()
-    {
-        return $this->details;
     }
 
     /**
@@ -153,6 +130,29 @@ class Error extends PayPalModel
     }
 
     /**
+     * Additional details of the error
+     *
+     * @return \PayPal\Api\ErrorDetails[]
+     */
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    /**
+     * Additional details of the error
+     *
+     * @param \PayPal\Api\ErrorDetails[] $details
+     *
+     * @return $this
+     */
+    public function setDetails($details)
+    {
+        $this->details = $details;
+        return $this;
+    }
+
+    /**
      * Remove Details from the list.
      *
      * @param \PayPal\Api\ErrorDetails $errorDetails
@@ -163,29 +163,6 @@ class Error extends PayPalModel
         return $this->setDetails(
             array_diff($this->getDetails(), array($errorDetails))
         );
-    }
-
-    /**
-     * Sets Links
-     *
-     * @param \PayPal\Api\Links[] $links
-     * 
-     * @return $this
-     */
-    public function setLinks($links)
-    {
-        $this->links = $links;
-        return $this;
-    }
-
-    /**
-     * Gets Links
-     *
-     * @return \PayPal\Api\Links[]
-     */
-    public function getLinks()
-    {
-        return $this->links;
     }
 
     /**
@@ -203,6 +180,29 @@ class Error extends PayPalModel
                 array_merge($this->getLinks(), array($links))
             );
         }
+    }
+
+    /**
+     * Gets Links
+     *
+     * @return \PayPal\Api\Links[]
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
+     * Sets Links
+     *
+     * @param \PayPal\Api\Links[] $links
+     *
+     * @return $this
+     */
+    public function setLinks($links)
+    {
+        $this->links = $links;
+        return $this;
     }
 
     /**

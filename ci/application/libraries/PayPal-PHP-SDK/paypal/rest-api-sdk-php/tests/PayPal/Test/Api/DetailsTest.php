@@ -2,17 +2,20 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\Details;
-use PayPal\Test\Constants;
 
 class DetailsTest extends \PHPUnit_Framework_TestCase
 {
-
-    private $amountDetails;
 
     public static $subtotal = "2.00";
     public static $tax = "1.12";
     public static $shipping = "3.15";
     public static $fee = "4.99";
+    private $amountDetails;
+
+    public function setup()
+    {
+        $this->amountDetails = self::createAmountDetails();
+    }
 
     public static function createAmountDetails()
     {
@@ -23,11 +26,6 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
         $amountDetails->setFee(self::$fee);
 
         return $amountDetails;
-    }
-
-    public function setup()
-    {
-        $this->amountDetails = self::createAmountDetails();
     }
 
     public function testGetterSetters()

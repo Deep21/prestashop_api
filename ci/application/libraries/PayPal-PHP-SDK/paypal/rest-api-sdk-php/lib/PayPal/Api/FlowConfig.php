@@ -19,10 +19,10 @@ class FlowConfig extends PayPalModel
 {
     /**
      * Type of PayPal page to be displayed when a user lands on the PayPal site for checkout. Allowed values: `Billing` or `Login`. When set to `Billing`, the Non-PayPal account landing page is used. When set to `Login`, the PayPal account login landing page is used.
-     * 
+     *
      *
      * @param string $landing_page_type
-     * 
+     *
      * @return $this
      */
     public function setLandingPageType($landing_page_type)
@@ -43,7 +43,7 @@ class FlowConfig extends PayPalModel
 
     /**
      * The URL on the merchant site for transferring to after a bank transfer payment.
-     * 
+     *
      *
      * @param string $bank_txn_pending_url
      * @throws \InvalidArgumentException

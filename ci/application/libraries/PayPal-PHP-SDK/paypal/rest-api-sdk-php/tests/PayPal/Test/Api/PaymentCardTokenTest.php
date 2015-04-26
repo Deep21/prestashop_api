@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PaymentCardToken;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PaymentCardToken;
 class PaymentCardTokenTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PaymentCardToken
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"payment_card_id":"TestSample","external_customer_id":"TestSample","last4":"TestSample","type":"TestSample","expire_month":123,"expire_year":123}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PaymentCardToken
      */
@@ -30,6 +20,14 @@ class PaymentCardTokenTest extends \PHPUnit_Framework_TestCase
         return new PaymentCardToken(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PaymentCardToken
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"payment_card_id":"TestSample","external_customer_id":"TestSample","last4":"TestSample","type":"TestSample","expire_month":123,"expire_year":123}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

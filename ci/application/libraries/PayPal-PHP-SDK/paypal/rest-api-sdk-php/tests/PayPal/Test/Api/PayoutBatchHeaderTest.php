@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\PayoutBatchHeader;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\PayoutBatchHeader;
 class PayoutBatchHeaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object PayoutBatchHeader
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"payout_batch_id":"TestSample","batch_status":"TestSample","time_created":"TestSample","time_completed":"TestSample","sender_batch_header":' .PayoutSenderBatchHeaderTest::getJson() . ',"amount":' .CurrencyTest::getJson() . ',"fees":' .CurrencyTest::getJson() . ',"errors":' .ErrorTest::getJson() . ',"links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return PayoutBatchHeader
      */
@@ -30,6 +20,14 @@ class PayoutBatchHeaderTest extends \PHPUnit_Framework_TestCase
         return new PayoutBatchHeader(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object PayoutBatchHeader
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"payout_batch_id":"TestSample","batch_status":"TestSample","time_created":"TestSample","time_completed":"TestSample","sender_batch_header":' . PayoutSenderBatchHeaderTest::getJson() . ',"amount":' . CurrencyTest::getJson() . ',"fees":' . CurrencyTest::getJson() . ',"errors":' . ErrorTest::getJson() . ',"links":' . LinksTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

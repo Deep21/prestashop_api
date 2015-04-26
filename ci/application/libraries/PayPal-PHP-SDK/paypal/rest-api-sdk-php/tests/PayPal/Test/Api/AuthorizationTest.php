@@ -1,18 +1,14 @@
 <?php
 namespace PayPal\Test\Api;
 
+use PayPal\Api\Address;
 use PayPal\Api\Amount;
 use PayPal\Api\Authorization;
-use PayPal\Api\Links;
-use PayPal\Api\PayerInfo;
-use PayPal\Test\Constants;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\Address;
-use PayPal\Api\Payer;
 use PayPal\Api\Capture;
 use PayPal\Api\CreditCard;
-use PayPal\Api\Payment;
 use PayPal\Api\FundingInstrument;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
 use PayPal\Api\Transaction;
 use PayPal\Exception\PayPalConnectionException;
 

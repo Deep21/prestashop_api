@@ -2,10 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
 use PayPal\Api\CreditCard;
 
 /**
@@ -15,25 +11,6 @@ use PayPal\Api\CreditCard;
  */
 class CreditCardTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Gets Json String of Object CreditCard
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","number":"TestSample","type":"TestSample","expire_month":123,"expire_year":123,"cvv2":123,"first_name":"TestSample","last_name":"TestSample","billing_address":' .AddressTest::getJson() . ',"external_customer_id":"TestSample","state":"TestSample","valid_until":"TestSample","create_time":"TestSample","update_time":"TestSample"}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return CreditCard
-     */
-    public static function getObject()
-    {
-        return new CreditCard(self::getJson());
-    }
-
-
     /**
      * Tests for Serialization and Deserialization Issues
      * @return CreditCard
@@ -59,6 +36,15 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getLinks());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object CreditCard
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","number":"TestSample","type":"TestSample","expire_month":123,"expire_year":123,"cvv2":123,"first_name":"TestSample","last_name":"TestSample","billing_address":' . AddressTest::getJson() . ',"external_customer_id":"TestSample","state":"TestSample","valid_until":"TestSample","create_time":"TestSample","update_time":"TestSample"}';
     }
 
     /**
@@ -97,12 +83,13 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
 
         $result = $obj->create($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param CreditCard $obj
@@ -116,12 +103,13 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    CreditCardTest::getJson()
+                CreditCardTest::getJson()
             ));
 
         $result = $obj->get("creditCardId", $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param CreditCard $obj
@@ -135,12 +123,13 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
 
         $result = $obj->delete($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param CreditCard $obj
@@ -154,7 +143,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
 
         $result = $obj->update($mockApiContext, $mockPayPalRestCall);
@@ -165,11 +154,20 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return CreditCard
+     */
+    public static function getObject()
+    {
+        return new CreditCard(self::getJson());
     }
 }

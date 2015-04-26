@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\InvoiceSearchResponse;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\InvoiceSearchResponse;
 class InvoiceSearchResponseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object InvoiceSearchResponse
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"total_count":123,"invoices":' .InvoiceTest::getJson() . '}';
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return InvoiceSearchResponse
      */
@@ -30,6 +20,14 @@ class InvoiceSearchResponseTest extends \PHPUnit_Framework_TestCase
         return new InvoiceSearchResponse(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object InvoiceSearchResponse
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"total_count":123,"invoices":' . InvoiceTest::getJson() . '}';
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

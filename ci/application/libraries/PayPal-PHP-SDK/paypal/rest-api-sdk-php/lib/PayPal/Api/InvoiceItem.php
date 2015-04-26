@@ -25,7 +25,7 @@ class InvoiceItem extends PayPalModel
      * Name of the item. 60 characters max.
      *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -48,7 +48,7 @@ class InvoiceItem extends PayPalModel
      * Description of the item. 1000 characters max.
      *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -71,7 +71,7 @@ class InvoiceItem extends PayPalModel
      * Quantity of the item. Range of 0 to 9999.999.
      *
      * @param \PayPal\Api\number $quantity
-     * 
+     *
      * @return $this
      */
     public function setQuantity($quantity)
@@ -94,7 +94,7 @@ class InvoiceItem extends PayPalModel
      * Unit price of the item. Range of -999999.99 to 999999.99.
      *
      * @param \PayPal\Api\Currency $unit_price
-     * 
+     *
      * @return $this
      */
     public function setUnitPrice($unit_price)
@@ -117,7 +117,7 @@ class InvoiceItem extends PayPalModel
      * Tax associated with the item.
      *
      * @param \PayPal\Api\Tax $tax
-     * 
+     *
      * @return $this
      */
     public function setTax($tax)
@@ -140,7 +140,7 @@ class InvoiceItem extends PayPalModel
      * Date on which the item or service was provided. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
      *
      * @param string $date
-     * 
+     *
      * @return $this
      */
     public function setDate($date)
@@ -163,7 +163,7 @@ class InvoiceItem extends PayPalModel
      * Item discount in percent or amount.
      *
      * @param \PayPal\Api\Cost $discount
-     * 
+     *
      * @return $this
      */
     public function setDiscount($discount)

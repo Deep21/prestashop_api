@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\InvoiceAddress;
 
 /**
@@ -13,15 +12,6 @@ use PayPal\Api\InvoiceAddress;
 class InvoiceAddressTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Gets Json String of Object Address
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"line1":"TestSample","line2":"TestSample","city":"TestSample","country_code":"TestSample","postal_code":"TestSample","state":"TestSample","phone":'. PhoneTest::getJson() . "}";
-    }
-
-    /**
      * Gets Object Instance with Json data filled in
      * @return InvoiceAddress
      */
@@ -30,6 +20,14 @@ class InvoiceAddressTest extends \PHPUnit_Framework_TestCase
         return new InvoiceAddress(self::getJson());
     }
 
+    /**
+     * Gets Json String of Object Address
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"line1":"TestSample","line2":"TestSample","city":"TestSample","country_code":"TestSample","postal_code":"TestSample","state":"TestSample","phone":' . PhoneTest::getJson() . "}";
+    }
 
     /**
      * Tests for Serialization and Deserialization Issues

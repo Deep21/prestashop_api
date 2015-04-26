@@ -2,11 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalResourceModel;
-use PayPal\Validation\ArgumentValidator;
-use PayPal\Api\PlanList;
-use PayPal\Rest\ApiContext;
-use PayPal\Transport\PayPalRestCall;
 use PayPal\Api\Plan;
 
 /**
@@ -16,25 +11,6 @@ use PayPal\Api\Plan;
  */
 class PlanTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Gets Json String of Object Plan
-     * @return string
-     */
-    public static function getJson()
-    {
-        return '{"id":"TestSample","name":"TestSample","description":"TestSample","type":"TestSample","state":"TestSample","create_time":"TestSample","update_time":"TestSample","payment_definitions":' .PaymentDefinitionTest::getJson() . ',"terms":' .TermsTest::getJson() . ',"merchant_preferences":' .MerchantPreferencesTest::getJson() . ',"links":' .LinksTest::getJson() . '}';
-    }
-
-    /**
-     * Gets Object Instance with Json data filled in
-     * @return Plan
-     */
-    public static function getObject()
-    {
-        return new Plan(self::getJson());
-    }
-
-
     /**
      * Tests for Serialization and Deserialization Issues
      * @return Plan
@@ -56,6 +32,15 @@ class PlanTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getLinks());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
+    }
+
+    /**
+     * Gets Json String of Object Plan
+     * @return string
+     */
+    public static function getJson()
+    {
+        return '{"id":"TestSample","name":"TestSample","description":"TestSample","type":"TestSample","state":"TestSample","create_time":"TestSample","update_time":"TestSample","payment_definitions":' . PaymentDefinitionTest::getJson() . ',"terms":' . TermsTest::getJson() . ',"merchant_preferences":' . MerchantPreferencesTest::getJson() . ',"links":' . LinksTest::getJson() . '}';
     }
 
     /**
@@ -90,12 +75,13 @@ class PlanTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    PlanTest::getJson()
+                PlanTest::getJson()
             ));
 
         $result = $obj->get("planId", $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Plan $obj
@@ -109,12 +95,13 @@ class PlanTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    self::getJson()
+                self::getJson()
             ));
 
         $result = $obj->create($mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Plan $obj
@@ -128,13 +115,14 @@ class PlanTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    true
+                true
             ));
         $patchRequest = PatchRequestTest::getObject();
 
         $result = $obj->update($patchRequest, $mockApiContext, $mockPayPalRestCall);
         $this->assertNotNull($result);
     }
+
     /**
      * @dataProvider mockProvider
      * @param Plan $obj
@@ -148,7 +136,7 @@ class PlanTest extends \PHPUnit_Framework_TestCase
         $mockPayPalRestCall->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(
-                    PlanListTest::getJson()
+                PlanListTest::getJson()
             ));
         $params = ParamsTest::getObject();
 
@@ -160,11 +148,20 @@ class PlanTest extends \PHPUnit_Framework_TestCase
     {
         $obj = self::getObject();
         $mockApiContext = $this->getMockBuilder('ApiContext')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         return array(
             array($obj, $mockApiContext),
             array($obj, null)
         );
+    }
+
+    /**
+     * Gets Object Instance with Json data filled in
+     * @return Plan
+     */
+    public static function getObject()
+    {
+        return new Plan(self::getJson());
     }
 }

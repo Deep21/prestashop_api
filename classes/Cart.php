@@ -152,6 +152,7 @@ class CartCore extends ObjectModel
 
 	public function __construct($id = null, $id_lang = null)
 	{
+        //var_dump(debug_backtrace());
 		parent::__construct($id, $id_lang);
 		if ($this->id_customer)
 		{
@@ -169,7 +170,7 @@ class CartCore extends ObjectModel
 		$this->_taxCalculationMethod = Group::getPriceDisplayMethod(Group::getCurrent()->id);
 
 	}
-
+//Ajout d'un produit dans le panier
 	public function add($autodate = true, $null_values = false)
 	{
 		if (!$this->id_lang)
@@ -3549,6 +3550,7 @@ class CartCore extends ObjectModel
 	 */
 	public static function isGuestCartByCartId($id_cart)
 	{
+
 		if (!(int)$id_cart)
 			return false;
 		return (bool)Db::getInstance()->getValue('

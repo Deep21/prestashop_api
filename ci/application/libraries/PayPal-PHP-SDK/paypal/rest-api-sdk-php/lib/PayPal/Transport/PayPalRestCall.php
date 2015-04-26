@@ -1,9 +1,9 @@
 <?php
 namespace PayPal\Transport;
 
-use PayPal\Core\PayPalLoggingManager;
 use PayPal\Core\PayPalHttpConfig;
 use PayPal\Core\PayPalHttpConnection;
+use PayPal\Core\PayPalLoggingManager;
 use PayPal\Rest\ApiContext;
 
 /**
@@ -42,11 +42,11 @@ class PayPalRestCall
     }
 
     /**
-     * @param array  $handlers Array of handlers
-     * @param string $path     Resource path relative to base service endpoint
-     * @param string $method   HTTP method - one of GET, POST, PUT, DELETE, PATCH etc
-     * @param string $data     Request payload
-     * @param array  $headers  HTTP headers
+     * @param array $handlers Array of handlers
+     * @param string $path Resource path relative to base service endpoint
+     * @param string $method HTTP method - one of GET, POST, PUT, DELETE, PATCH etc
+     * @param string $data Request payload
+     * @param array $headers HTTP headers
      * @return mixed
      * @throws \PayPal\Exception\PayPalConnectionException
      */

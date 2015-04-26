@@ -27,23 +27,13 @@ class PayPalConnectionException extends \Exception
      * Default Constructor
      *
      * @param string $url
-     * @param string    $message
-     * @param int    $code
+     * @param string $message
+     * @param int $code
      */
     public function __construct($url, $message, $code = 0)
     {
         parent::__construct($message, $code);
         $this->url = $url;
-    }
-
-    /**
-     * Sets Data
-     *
-     * @param $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
     }
 
     /**
@@ -54,6 +44,16 @@ class PayPalConnectionException extends \Exception
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * Sets Data
+     *
+     * @param $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
     }
 
     /**

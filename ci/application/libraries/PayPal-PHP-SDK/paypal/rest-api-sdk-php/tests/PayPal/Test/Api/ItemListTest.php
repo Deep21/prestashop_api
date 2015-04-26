@@ -3,18 +3,21 @@ namespace PayPal\Test\Api;
 
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
-use PayPal\Test\Constants;
 
 class ItemListTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ItemList */
-    private $items;
-
     private static $name = "item name";
     private static $price = "1.12";
     private static $quantity = "10";
     private static $sku = "AXVTY123";
     private static $currency = "USD";
+    /** @var ItemList */
+    private $items;
+
+    public function setup()
+    {
+        $this->items = self::createItemList();
+    }
 
     public static function createItemList()
     {
@@ -27,11 +30,6 @@ class ItemListTest extends \PHPUnit_Framework_TestCase
         $itemList->setShippingAddress(ShippingAddressTest::getObject());
 
         return $itemList;
-    }
-
-    public function setup()
-    {
-        $this->items = self::createItemList();
     }
 
     public function testGetterSetters()

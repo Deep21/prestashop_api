@@ -2,14 +2,14 @@
 
 namespace OAuth2\Controller;
 
-use OAuth2\ResponseType\AccessTokenInterface;
 use OAuth2\ClientAssertionType\ClientAssertionTypeInterface;
 use OAuth2\GrantType\GrantTypeInterface;
-use OAuth2\ScopeInterface;
-use OAuth2\Scope;
-use OAuth2\Storage\ClientInterface;
 use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
+use OAuth2\ResponseType\AccessTokenInterface;
+use OAuth2\Scope;
+use OAuth2\ScopeInterface;
+use OAuth2\Storage\ClientInterface;
 
 /**
  * @see OAuth2\Controller\TokenControllerInterface

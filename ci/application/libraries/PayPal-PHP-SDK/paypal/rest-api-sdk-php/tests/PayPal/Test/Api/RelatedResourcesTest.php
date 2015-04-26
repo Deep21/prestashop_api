@@ -2,12 +2,16 @@
 namespace PayPal\Test\Api;
 
 use PayPal\Api\RelatedResources;
-use PayPal\Test\Constants;
 
 class RelatedResourcesTest extends \PHPUnit_Framework_TestCase
 {
 
     private $RelatedResources;
+
+    public function setup()
+    {
+        $this->relatedResources = self::createRelatedResources();
+    }
 
     public static function createRelatedResources()
     {
@@ -16,11 +20,6 @@ class RelatedResourcesTest extends \PHPUnit_Framework_TestCase
         $relatedResources->setCapture(CaptureTest::createCapture());
         $relatedResources->setOrder(OrderTest::createOrder());
         return $relatedResources;
-    }
-
-    public function setup()
-    {
-        $this->relatedResources = self::createRelatedResources();
     }
 
     public function testGetterSetter()
