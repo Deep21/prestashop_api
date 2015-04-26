@@ -144,6 +144,8 @@ $route['api/cart/customer/(:num)/get'] = 'api/cart/getLastNoneOrderedCart/$1';
 $route['api/cart/(:num)/product/get'] = 'api/cart/getProductByCartId/$1';
 $route['api/cart/customer/cart/product/get'] = 'api/cart/getLastCartProductByCustomer/$1';
 $route['api/cart/add'] = 'api/cart/addCartFirstTime';
+
+$route['api/cart/(:num)/delete'] = 'api/cart/deleteCartProduct/$1';
 $route['api/cart/create'] = 'api/cart/createCart';
 $route['api/cart/(:num)/product/(:num)/attribute/(:num)/address/(:num)/delete'] = 'api/cart/deleteCartProduct/$1/$2/$3/$4';
 $route['api/cart/product/add'] = 'api/cart/insertProductToCartById';

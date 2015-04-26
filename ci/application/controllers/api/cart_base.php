@@ -39,6 +39,7 @@ class CartBase extends REST_Controller
         Debugger::DEVELOPMENT;
 
         parent::__construct();
+        //check if the id_cart is already in the order table
         $this->load->model('Cart_Model');
         $this->cart_model = $this->Cart_Model;
         $this->load->library('encrypt');
@@ -46,13 +47,7 @@ class CartBase extends REST_Controller
         $this->load->helper('cookie');
         $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
 
-        //Recupération du paramètre
-        $cart = $this->input->get('cart');
 
-        if (empty($cart)) {
-            $this->response(array('cart' => 'Error', 'message' => 'no parameter'), 404);
-
-        }
     }
 
     protected function addCart($auto_add = true)

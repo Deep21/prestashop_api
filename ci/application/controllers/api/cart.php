@@ -155,12 +155,11 @@ class Cart extends CartBase{
 
     /**
      * @param $id_cart
-     * @param $id_product
-     * @param $id_product_attribute
-     * @param $id_address_delivery
      */
-    public function deleteCartProduct_delete($id_cart, $id_product, $id_product_attribute, $id_address_delivery)
+    public function deleteCartProduct_delete($id_cart)
     {
+        $this->response(array('cart' => $id_cart), 200);
+        exit;
         $this->load->model('Cart_Model');
         if ($id_cart = $this->Cart_Model->deleteCartProduct($id_cart, $id_product, $id_product_attribute, $id_address_delivery)) {
             $this->response(array('cart' => $id_cart), 204);
