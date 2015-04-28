@@ -82,15 +82,22 @@ class Oauth
         $this->ci_instance->load->library('encrypt');
         $this->ci_instance->load->helper('cookie');
         $this->ci_instance->encrypt->set_cipher(MCRYPT_BLOWFISH);
-        $this->cookie = json_decode($this->ci_instance->encrypt->decode(get_cookie('my_prestashop_ci')));
+
         try {
             //si un client existe on rentre dans la condition
             if (!empty($customer)) {
                 //on vérifie si le client possède un id_cart
                 //getLastNoneOrderedCart retourne un tableau contenant les informations du panier
                 $cart = $cart->getLastNoneOrderedCart((int)$customer->id_customer);
-                //Si aucun panier existe pour ce client on lui créer un id_cart vide
-                if (empty($cart)) {
+
+                if (empty($cart) && !empty($this->cookie->customer->id_cart)){
+                    $id_cart =  (int)$this->cookie->customer->id_cart;
+                    $affected_row = $this->ci_instance->Cart_Model->mergeIdCartWithCustomer($customer, $id_cart);
+
+                }
+
+                //Si panier et cookie id_cart existe pour ce client on lui créer un id_cart vide
+                if (empty($cart) && empty($this->cookie->customer->id_cart)) {
                     $cart = array(
                         'id_cart' => null,
                         'id_shop_group' => 1,
@@ -108,20 +115,18 @@ class Oauth
                         'date_add' => date('Y-m-d H:i:s'),
                         'date_upd' => date('Y-m-d H:i:s'),
                     );
-                    //on créer in id
+                    //on créer in id_cart et on insere dans la base de donnée
                     $id_cart = $this->ci_instance->Cart_Model->addCart($cart);
                 }
-                elseif (!empty($cart)) {
+                elseif (!empty($cart))
                     $id_cart = (int)$cart['id_cart'];
-                }
 
+                //si un id_cart est enregistré dans un cookie
                 if ($this->cookie != null && !empty($this->cookie->customer->id_cart)) {
-                    $this->ci_instance->load->model('Cart_Product_Model');
-                    $this->ci_instance->Cart_Product_Model->updateCartProduct(array());
-                    exit;
-                    $this->mergeIdCartWithCustomer($customer, $this->cookie->customer->id_cart);
-                    die("e");
-                   // $this->mergeIdCartWithCustomer($customer, $this->cookie->customer->id_cart);
+                    /*$this->ci_instance->load->model('Cart_Product_Model');
+                    $id_cart = $this->cookie->customer->id_cart;
+                    $cart_product = $this->ci_instance->Cart_Product_Model->getCartProductById($id_cart);
+                    $this->ci_instance->Cart_Product_Model->updateCartProduct($cart_product);*/
                 }
 
                     $cookie_data = array(

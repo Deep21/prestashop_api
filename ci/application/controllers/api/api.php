@@ -27,12 +27,11 @@ class Api extends REST_Controller
     {
         parent::__construct();
 
-
     }
 
     public function boot_get($id = null)
     {
-        $this->response('welcome');
+        $this->response('boot');
 
     }
 

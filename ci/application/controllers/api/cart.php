@@ -78,6 +78,16 @@ class Cart extends CartBase{
     }
 
     /**
+     * @param bool $auto_add
+     * @return int
+     */
+    /*@override*/
+    protected function addCart($auto_add = true)
+    {
+        return (int)parent::addCart($auto_add);
+    }
+
+    /**
      *Fonction qui permet d'ajouter des produit dans le panier
      *Récupère le BODY POST et traite les données
      */
@@ -163,13 +173,6 @@ class Cart extends CartBase{
 
         }
 
-    }
-
-    /*@override*/
-    protected function addCart()
-    {
-        $auto_add = true;
-        return parent::addCart($auto_add);
     }
 
     /**

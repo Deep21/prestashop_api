@@ -12,6 +12,9 @@ require_once APPPATH . '/libraries/REST_Controller.php';
  * @author     Deeptha WICKREMA
  * @version    1.2
  */
+use Tracy\Debugger;
+
+
 class CartBase extends REST_Controller
 {
 
@@ -26,7 +29,6 @@ class CartBase extends REST_Controller
      */
     public function __construct()
     {
-
         parent::__construct();
         //check if the id_cart is already in the order table
         $this->load->model('Cart_Model');
@@ -35,13 +37,10 @@ class CartBase extends REST_Controller
         $this->encrypt->set_cipher(MCRYPT_BLOWFISH);
         $this->load->helper('cookie');
         $this->cookie = json_decode($this->encrypt->decode(get_cookie('my_prestashop_ci')));
-
-
     }
 
     protected function addCart($auto_add = true)
     {
-
         $this->load->model('Guest_Model');
         //Si auto load vaut true
         if ($auto_add) {

@@ -118,9 +118,14 @@ class Cart_Model extends CI_Model
     }
 
     public function mergeIdCartWithCustomer($customer, $id_cart){
-        $this->db->where('id_cart', $id_cart);
-        return $this->db->update('cart', array('id_customer' => $customer->id_customer));
-
+        $this->db->where('id_cart', (int)$id_cart);
+        $this->db->update('cart', array(
+            'id_customer' =>(int) $customer->id_customer,
+                'secure_key' =>(string) $customer->secure_key,
+                'date_upd' => date('Y-m-d H:i:s'),
+            )
+        );
+        return $this->db->affected_rows();
     }
 
     public function addCart($cart)
@@ -220,8 +225,6 @@ class Cart_Model extends CI_Model
         $this->db->where('id_product', $product['id_product']);
         $product = array_merge($product, array('date_add' => date('Y-m-d H:i:s')));
         $this->db->update('cart_product', $product);
-        var_dump($this->db->last_query());
-        exit;
         return $this->db->update('cart_product', $product);
     }
 

@@ -23,12 +23,28 @@ class Cart_Product_Model extends CI_Model
 
     public function getCartProductById($id_cart)
     {
-        return $this->db->get_where(self::$table, array('id_cart' => $id_cart))->result('Cart_Product_Model');
+        return $this->db->select('cp.*')
+            ->from('cart_product cp')
+            ->where('cp.id_cart', $id_cart)
+            ->get()
+            ->result('Cart_Product_Model');
+
+    }
+
+
+    public function getCartProductByIdAndId_Attribute($id_cart, $id_carts)
+    {
+        return $this->db->select('cp.*')
+            ->from('cart_product cp')
+            ->where('cp.id_cart', $id_cart)
+            ->get()
+            ->result('Cart_Product_Model');
+
     }
 
     public function updateCartProduct($cart_product)
     {
-        exit;
+        $this->db->insert(self::$table, $cart_product[0]);
         $this->db->where('id_cart', $cart_product['$id_cart']);
         $this->db->update(self::$table, array(
                 'id_product' => $cart_product['id_product'],
